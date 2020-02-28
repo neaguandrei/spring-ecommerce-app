@@ -1,5 +1,6 @@
 package aneagu.proj.models.domain;
 
+import aneagu.proj.models.enums.PaymentMethod;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,7 +26,8 @@ public class Payment {
     private Long amount;
 
     @Column(nullable = false)
-    private String method;
+    @Enumerated(value = EnumType.STRING)
+    private PaymentMethod paymentMethod;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
