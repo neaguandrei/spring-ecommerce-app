@@ -1,4 +1,4 @@
-package aneagu.proj.domain;
+package aneagu.proj.models.domain;
 
 import lombok.*;
 

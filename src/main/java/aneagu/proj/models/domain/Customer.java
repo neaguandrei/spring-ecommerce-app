@@ -1,4 +1,4 @@
-package aneagu.proj.domain;
+package aneagu.proj.models.domain;
 
 import lombok.*;
 
@@ -15,7 +15,7 @@ import java.util.Set;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long customerNumber;
+    private Long id;
 
     @Column(nullable = false)
     private String firstName;

@@ -1,4 +1,4 @@
-package aneagu.proj.domain;
+package aneagu.proj.models.domain;
 
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -38,5 +38,5 @@ public class Order {
             orphanRemoval = true,
             mappedBy = "order"
     )
-    private Set<OrderProduct> products;
+    private Set<OrderDetails> products;
 }

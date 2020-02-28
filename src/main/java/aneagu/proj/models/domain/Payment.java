@@ -1,4 +1,4 @@
-package aneagu.proj.domain;
+package aneagu.proj.models.domain;
 
 import lombok.*;
 
@@ -23,6 +23,9 @@ public class Payment {
 
     @Column(nullable = false)
     private Long amount;
+
+    @Column(nullable = false)
+    private String method;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;

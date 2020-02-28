@@ -1,4 +1,4 @@
-package aneagu.proj.domain;
+package aneagu.proj.models.domain;
 
 import lombok.*;
 
@@ -47,5 +47,5 @@ public class Product {
             orphanRemoval = true,
             mappedBy = "product"
     )
-    private Set<OrderProduct> orders;
+    private Set<OrderDetails> orders;
 }

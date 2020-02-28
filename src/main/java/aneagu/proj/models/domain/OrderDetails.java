@@ -1,4 +1,4 @@
-package aneagu.proj.domain;
+package aneagu.proj.models.domain;
 
 import lombok.*;
 
@@ -9,9 +9,9 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Builder
-@Entity
+@Entity(name = "OrderDetails")
 @Table(name = "order_product")
-public class OrderProduct {
+public class OrderDetails {
 
     @EmbeddedId
     private OrderProductId id;
