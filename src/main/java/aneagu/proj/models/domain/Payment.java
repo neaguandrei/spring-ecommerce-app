@@ -28,6 +28,7 @@ public class Payment {
     private String method;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
 }

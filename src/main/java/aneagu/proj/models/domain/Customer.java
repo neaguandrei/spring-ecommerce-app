@@ -27,12 +27,13 @@ public class Customer {
     private String phone;
 
     @OneToOne
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @OneToMany(
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            mappedBy = "customer"
     )
-    @JoinColumn(name = "customer")
     private Set<Payment> payments;
 }

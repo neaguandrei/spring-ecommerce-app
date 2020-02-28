@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Blob;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,15 +17,18 @@ public class ProductLine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String productLine;
+    private String name;
 
     @Column(nullable = false)
     private String textDescription;
 
-    @Column(nullable = false)
     @Lob
     private Blob image;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Product product;
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "productLine",
+            orphanRemoval = true
+    )
+    private Set<Product> product;
 }

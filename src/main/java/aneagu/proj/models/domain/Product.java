@@ -1,5 +1,6 @@
 package aneagu.proj.models.domain;
 
+import aneagu.proj.models.enums.ProductCategory;
 import lombok.*;
 
 import javax.persistence.*;
@@ -35,12 +36,10 @@ public class Product {
     @Enumerated(value = EnumType.STRING)
     private ProductCategory category;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    @JoinColumn(name = "productLine")
-    private Set<ProductLine> products;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_line_id")
+    private ProductLine productLine;
 
     @OneToMany(
             cascade = CascadeType.ALL,

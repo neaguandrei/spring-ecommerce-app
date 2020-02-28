@@ -1,6 +1,6 @@
 package aneagu.proj.models.dto;
 
-import aneagu.proj.models.domain.ProductCategory;
+import aneagu.proj.models.enums.ProductCategory;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
