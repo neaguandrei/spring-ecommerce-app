@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Builder
 @Entity(name = "OrderDetails")
 @Table(name = "order_product")
-public class OrderDetails {
+public class OrderProduct {
 
     @EmbeddedId
     private OrderProductId id;

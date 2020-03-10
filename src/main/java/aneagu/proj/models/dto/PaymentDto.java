@@ -9,6 +9,7 @@ import lombok.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -28,6 +29,6 @@ public class PaymentDto {
     @NotNull(message = "Payment method can't be empty.")
     private PaymentMethod paymentMethod;
 
-    private CustomerDto customerDto;
+    private CustomerDto customer;
 
 }

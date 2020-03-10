@@ -12,13 +12,13 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
-public class OrderDetailsDto {
+public class OrderProductDto {
 
     private OrderProductIdDto id;
 
-    private ProductDto productDto;
+    private ProductDto product;
 
-    private OrderDto orderDto;
+    private OrderDto order;
 
     @NotNull(message = "Quantity can't be empty.")
     @Size(min = 1)

@@ -1,7 +1,8 @@
-package aneagu.proj.service;
+package aneagu.proj.service.impl;
 
 import aneagu.proj.models.domain.*;
 import aneagu.proj.models.dto.*;
+import aneagu.proj.service.MapperService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,6 @@ public class MapperServiceImpl implements MapperService {
         this.modelMapper = modelMapper;
         this.modelMapper.getConfiguration().setAmbiguityIgnored(true);
         this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
-
     }
 
     @Override
@@ -40,13 +40,15 @@ public class MapperServiceImpl implements MapperService {
     }
 
     @Override
-    public OrderDetails convertOrderDetailsDtoToOrderDetails(OrderDetailsDto orderDetailsDto) {
-        return modelMapper.map(orderDetailsDto, OrderDetails.class);
+    public OrderProduct convertOrderProductDtoToOrderProduct(OrderProductDto orderProductDto) {
+        return modelMapper.map(orderProductDto, OrderProduct.class);
+
     }
 
     @Override
-    public OrderDetailsDto convertOrderDetailsToOrderDetailsDto(OrderDetails orderDetails) {
-        return modelMapper.map(orderDetails, OrderDetailsDto.class);
+    public OrderProductDto convertOrderProductToOrderProductDto(OrderProduct orderProduct) {
+        return modelMapper.map(orderProduct, OrderProductDto.class);
+
     }
 
     @Override

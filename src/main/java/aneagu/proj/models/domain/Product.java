@@ -46,5 +46,5 @@ public class Product {
             orphanRemoval = true,
             mappedBy = "product"
     )
-    private Set<OrderDetails> orders;
+    private Set<OrderProduct> orders;
 }

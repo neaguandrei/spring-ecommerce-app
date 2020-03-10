@@ -13,12 +13,14 @@ import javax.validation.constraints.NotNull;
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="productLine")
 public class ProductLineDto {
 
-    private String productLine;
+    private Long id;
+
+    private String name;
 
     @NotNull(message = "Description can't be empty.")
     private String textDescription;
 
     private byte[] image;
 
-    private ProductDto productDto;
+    private ProductDto product;
 }

@@ -32,7 +32,7 @@ public class CustomerDto {
     @Size(min = 3, max = 15)
     private String phone;
 
-    private AddressDto addressDto;
+    private AddressDto address;
 
-    private Set<PaymentDto> paymentDtos;
+    private Set<PaymentDto> payments;
 }

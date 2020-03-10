@@ -1,6 +1,7 @@
 package aneagu.proj.models.domain;
 
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.sql.Blob;
@@ -12,18 +13,21 @@ import java.util.Set;
 @Setter
 @Builder
 @Entity
-@Table(name = "productLines")
+@Table(name = "product_lines")
 public class ProductLine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false)
     private String textDescription;
 
-    @Lob
-    private Blob image;
+    @Column
+    private byte[] image;
 
     @OneToMany(
             cascade = CascadeType.ALL,

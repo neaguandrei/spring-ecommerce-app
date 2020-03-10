@@ -33,5 +33,5 @@ public class ProductDto {
 
     private Set<ProductLineDto> products;
 
-    private Set<OrderDetailsDto> orders;
+    private Set<OrderDto> orders;
 }
