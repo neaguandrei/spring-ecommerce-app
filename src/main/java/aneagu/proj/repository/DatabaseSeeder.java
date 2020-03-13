@@ -102,8 +102,8 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
                     generateLong(5L, 25), ProductCategory.MONITORS, productLines.get(1), Collections.emptySet())));
             products.add(productRepository.save(new Product(id++, "GPU 1080v" + id, "GPU with 8gb DVM", generateLong(5L, 25),
                     generateLong(5L, 25), ProductCategory.HARDWARE, productLines.get(2), Collections.emptySet())));
-            products.add(productRepository.save(new Product(id++, "Motherboard G80v" + id, "Best motherboard on the market",
-                    generateLong(5L, 25), generateLong(5L, 25), ProductCategory.HARDWARE, productLines.get(3), Collections.emptySet())));
+            products.add(productRepository.save(new Product(id++, "Mouse G905" + id, "Best mouse on the market",
+                    generateLong(5L, 25), generateLong(5L, 25), ProductCategory.PERIPHERALS, productLines.get(3), Collections.emptySet())));
         }
 
         return products;
@@ -118,9 +118,9 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
         orders.add(orderRepository.save(new Order(3L, new Date(), "Call before delivery!",
                 customers.get(2), Collections.emptySet())));
 
-        List<OrderProduct> orderDetailsList = new ArrayList<>();
+        List<OrderDetails> orderDetailsList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            orderDetailsList.add(new OrderProduct(new OrderProductId(orders.get(i).getId(), products.get(i).getId()), products.get(i), orders.get(i),
+            orderDetailsList.add(new OrderDetails(new OrderProductId(orders.get(i).getId(), products.get(i).getId()), products.get(i), orders.get(i),
                     generateLong(1L, 6), generateLong(20L, 45)));
         }
         orderDetailsRepository.saveAll(orderDetailsList);

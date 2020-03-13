@@ -24,7 +24,7 @@ public class OrderDto {
 
     private String comment;
 
-    private CustomerDto customer;
+    private Long customerId;
 
-    private Set<OrderProductDto> products;
+    private Set<OrderDetailsDto> products;
 }

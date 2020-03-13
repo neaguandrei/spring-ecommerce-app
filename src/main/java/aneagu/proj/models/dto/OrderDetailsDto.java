@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
-public class OrderProductDto {
+public class OrderDetailsDto {
 
     private OrderProductIdDto id;
 

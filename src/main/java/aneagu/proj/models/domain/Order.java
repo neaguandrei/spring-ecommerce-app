@@ -33,7 +33,8 @@ public class Order {
     @Column(nullable = false)
     private String comment;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @OneToMany(
@@ -41,5 +42,5 @@ public class Order {
             orphanRemoval = true,
             mappedBy = "order"
     )
-    private Set<OrderProduct> products;
+    private Set<OrderDetails> products;
 }

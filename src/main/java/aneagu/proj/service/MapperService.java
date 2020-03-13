@@ -14,17 +14,21 @@ public interface MapperService {
 
     CustomerDto convertCustomerToCustomerDto(Customer customer);
 
-    OrderProduct convertOrderProductDtoToOrderProduct(OrderProductDto orderProductDto);
+    OrderDetails convertOrderDetailsDtoToOrderDetails(OrderDetailsDto orderDetailsDto);
 
-    OrderProductDto convertOrderProductToOrderProductDto(OrderProduct orderProduct);
+    OrderDetailsDto convertOrderDetailsToOrderDetailsDto(OrderDetails orderDetails);
+
+    OrderProductId convertOrderProductIdDtoToOrderProductId(OrderProductIdDto orderDetailsDto);
+
+    OrderProductIdDto convertOrderProductIdToOrderProductIdDto(OrderProductId orderDetailsDto);
 
     Order convertOrderDtoToOrder(OrderDto orderDto);
 
     OrderDto convertOrderToOrderDto(Order order);
 
-    Payment convertOrderDtoToOrder(PaymentDto paymentDto);
+    Payment convertPaymentDtoToPayment(PaymentDto paymentDto);
 
-    PaymentDto convertOrderToOrderDto(Payment payment);
+    PaymentDto convertPaymentToPaymentDto(Payment payment);
 
     Product convertProductDtoToProduct(ProductDto productDto);
 

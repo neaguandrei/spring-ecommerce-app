@@ -1,6 +1,14 @@
 package aneagu.proj.service;
 
 import aneagu.proj.models.dto.OrderDto;
+import aneagu.proj.models.exception.NotFoundException;
 
-public interface OrderService extends CrudService<OrderDto> {
+import java.util.List;
+
+public interface OrderService {
+    void save(OrderDto object);
+
+    OrderDto get(Long id) throws NotFoundException;
+
+    List<OrderDto> getOrdersByUserId(Long userId) throws NotFoundException;
 }

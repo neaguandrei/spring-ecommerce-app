@@ -31,7 +31,7 @@ public class ProductDto {
 
     private ProductCategory category;
 
-    private Set<ProductLineDto> products;
+    private Long productLineId;
 
     private Set<OrderDto> orders;
 }

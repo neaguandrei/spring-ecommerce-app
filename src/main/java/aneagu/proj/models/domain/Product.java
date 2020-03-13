@@ -36,7 +36,6 @@ public class Product {
     @Enumerated(value = EnumType.STRING)
     private ProductCategory category;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_line_id")
     private ProductLine productLine;
@@ -46,5 +45,5 @@ public class Product {
             orphanRemoval = true,
             mappedBy = "product"
     )
-    private Set<OrderProduct> orders;
+    private Set<OrderDetails> orders;
 }

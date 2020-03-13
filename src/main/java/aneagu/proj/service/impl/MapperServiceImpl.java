@@ -40,15 +40,25 @@ public class MapperServiceImpl implements MapperService {
     }
 
     @Override
-    public OrderProduct convertOrderProductDtoToOrderProduct(OrderProductDto orderProductDto) {
-        return modelMapper.map(orderProductDto, OrderProduct.class);
+    public OrderDetails convertOrderDetailsDtoToOrderDetails(OrderDetailsDto orderDetailsDto) {
+        return modelMapper.map(orderDetailsDto, OrderDetails.class);
 
     }
 
     @Override
-    public OrderProductDto convertOrderProductToOrderProductDto(OrderProduct orderProduct) {
-        return modelMapper.map(orderProduct, OrderProductDto.class);
+    public OrderDetailsDto convertOrderDetailsToOrderDetailsDto(OrderDetails orderDetails) {
+        return modelMapper.map(orderDetails, OrderDetailsDto.class);
 
+    }
+
+    @Override
+    public OrderProductId convertOrderProductIdDtoToOrderProductId(OrderProductIdDto orderDetailsDto) {
+        return modelMapper.map(orderDetailsDto, OrderProductId.class);
+    }
+
+    @Override
+    public OrderProductIdDto convertOrderProductIdToOrderProductIdDto(OrderProductId orderDetailsDto) {
+        return modelMapper.map(orderDetailsDto, OrderProductIdDto.class);
     }
 
     @Override
@@ -62,12 +72,12 @@ public class MapperServiceImpl implements MapperService {
     }
 
     @Override
-    public Payment convertOrderDtoToOrder(PaymentDto paymentDto) {
+    public Payment convertPaymentDtoToPayment(PaymentDto paymentDto) {
         return modelMapper.map(paymentDto, Payment.class);
     }
 
     @Override
-    public PaymentDto convertOrderToOrderDto(Payment payment) {
+    public PaymentDto convertPaymentToPaymentDto(Payment payment) {
         return modelMapper.map(payment, PaymentDto.class);
     }
 

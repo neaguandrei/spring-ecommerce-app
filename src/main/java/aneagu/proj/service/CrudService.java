@@ -1,13 +1,14 @@
 package aneagu.proj.service;
 
-import java.util.Optional;
+import aneagu.proj.models.exception.NotFoundException;
 
 public interface CrudService<T> {
-    void delete(T object);
+
+    void delete(T object) throws NotFoundException;
 
     void save(T object);
 
-    void update(T object);
+    void update(Long id, T object) throws NotFoundException;
 
-    Optional<T> get();
+    T get(Long id) throws NotFoundException;
 }

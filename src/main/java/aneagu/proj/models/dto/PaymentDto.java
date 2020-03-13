@@ -29,6 +29,6 @@ public class PaymentDto {
     @NotNull(message = "Payment method can't be empty.")
     private PaymentMethod paymentMethod;
 
-    private CustomerDto customer;
+    private Long customerId;
 
 }
