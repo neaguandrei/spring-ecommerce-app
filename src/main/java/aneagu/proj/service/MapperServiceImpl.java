@@ -1,11 +1,12 @@
-package aneagu.proj.service.impl;
+package aneagu.proj.service;
 
 import aneagu.proj.models.domain.*;
 import aneagu.proj.models.dto.*;
-import aneagu.proj.service.MapperService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 @Service
 public class MapperServiceImpl implements MapperService {
@@ -16,6 +17,36 @@ public class MapperServiceImpl implements MapperService {
         this.modelMapper = modelMapper;
         this.modelMapper.getConfiguration().setAmbiguityIgnored(true);
         this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
+    }
+
+    @Override
+    public OrderDetailsWrapperDto fromOrderDetailsToFullDetailsDto(List<OrderDetails> list) {
+        OrderDetailsWrapperDto orderDetailsWrapperDto = new OrderDetailsWrapperDto();
+        orderDetailsWrapperDto.setProducts(new ArrayList<>());
+        Map<Long, OrderDetailsSpecificsDto> specificsMap = new HashMap<>();
+
+        OrderDetails firstOrderDetails = list.get(0);
+        Optional.of(firstOrderDetails.getId())
+                .ifPresent(orderProductId -> {
+                    orderDetailsWrapperDto.setId(convertOrderProductIdToOrderProductIdDto(orderProductId));
+                });
+        Optional.of(firstOrderDetails.getOrder())
+                .ifPresent(order -> {
+                    orderDetailsWrapperDto.setOrder(convertOrderToOrderDto(order));
+                });
+
+        for (OrderDetails orderDetails : list) {
+            OrderDetailsSpecificsDto orderDetailsSpecificsDto = new OrderDetailsSpecificsDto();
+            Optional.of(firstOrderDetails.getPriceEach())
+                    .ifPresent(orderDetailsSpecificsDto::setPriceEach);
+            Optional.of(firstOrderDetails.getQuantity())
+                    .ifPresent(orderDetailsSpecificsDto::setQuantity);
+            specificsMap.put(orderDetails.getProduct().getId(), orderDetailsSpecificsDto);
+            orderDetailsWrapperDto.getProducts().add(convertProductToProductDto(orderDetails.getProduct()));
+        }
+        orderDetailsWrapperDto.setSpecifics(specificsMap);
+
+        return orderDetailsWrapperDto;
     }
 
     @Override
@@ -52,13 +83,13 @@ public class MapperServiceImpl implements MapperService {
     }
 
     @Override
-    public OrderProductId convertOrderProductIdDtoToOrderProductId(OrderProductIdDto orderDetailsDto) {
-        return modelMapper.map(orderDetailsDto, OrderProductId.class);
+    public OrderDetailsId convertOrderProductIdDtoToOrderProductId(OrderDetailsIdDto orderDetailsDto) {
+        return modelMapper.map(orderDetailsDto, OrderDetailsId.class);
     }
 
     @Override
-    public OrderProductIdDto convertOrderProductIdToOrderProductIdDto(OrderProductId orderDetailsDto) {
-        return modelMapper.map(orderDetailsDto, OrderProductIdDto.class);
+    public OrderDetailsIdDto convertOrderProductIdToOrderProductIdDto(OrderDetailsId orderDetailsDto) {
+        return modelMapper.map(orderDetailsDto, OrderDetailsIdDto.class);
     }
 
     @Override
@@ -100,4 +131,6 @@ public class MapperServiceImpl implements MapperService {
     public ProductLineDto convertProductLineToProductLineDto(ProductLine productLine) {
         return modelMapper.map(productLine, ProductLineDto.class);
     }
+
+
 }

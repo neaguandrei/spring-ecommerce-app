@@ -3,13 +3,10 @@ package aneagu.proj.service;
 import aneagu.proj.models.dto.ProductDto;
 import aneagu.proj.models.enums.ProductCategory;
 import aneagu.proj.models.exception.NotFoundException;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
-    List<ProductDto> getProductsBySearchKey(String searchKey) throws NotFoundException;
-
-    List<ProductDto> getProductsByCategory(ProductCategory productCategory) throws NotFoundException;
-
-    List<ProductDto> getProductsByProductLine(Long productLineId) throws NotFoundException;
+    Page<ProductDto> getProducts(String searchKey, ProductCategory productCategory,  Pageable pageable)
+            throws NotFoundException;
 }

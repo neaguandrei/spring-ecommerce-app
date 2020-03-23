@@ -5,13 +5,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="productLine")
+@Data
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class ProductLineDto {
 
     private Long id;
@@ -22,6 +18,4 @@ public class ProductLineDto {
     private String textDescription;
 
     private byte[] image;
-
-    private Set<ProductDto> products;
 }

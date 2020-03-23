@@ -6,13 +6,10 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+import javax.validation.constraints.Size;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class)
+@Data
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ProductDto {
 
     private Long id;
@@ -24,14 +21,14 @@ public class ProductDto {
     private String description;
 
     @NotNull(message = "Quantity can't be empty.")
+    @Size(max = 30)
     private Long quantityInStock;
 
     @NotNull(message = "Buy price can't be empty.")
+    @Size(min = 1)
     private Long buyPrice;
 
     private ProductCategory category;
 
-    private Long productLineId;
-
-    private Set<OrderDto> orders;
+    private ProductLineDto productLine;
 }

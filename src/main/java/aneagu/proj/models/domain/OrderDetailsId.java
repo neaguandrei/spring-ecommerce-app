@@ -15,7 +15,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @Getter
 @Embeddable
-public class OrderProductId implements Serializable {
+public class OrderDetailsId implements Serializable {
 
     @Column(name = "order_id")
     private Long orderId;

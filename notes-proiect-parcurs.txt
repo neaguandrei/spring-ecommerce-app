@@ -13,3 +13,8 @@ overload la Hibernate.
 
 4) @ManyToMany cu @Embeddable pe ID, astfel incat am o tabela de legatura si cu alte detalii in ea.
     @EmbeddedId pe OrderProductId si folosesc @MapsId ca sa mapez ID-urile respective.
+
+
+
+- order details.
+- customer.

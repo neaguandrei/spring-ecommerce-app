@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
-@Entity
+@Entity(name = "Payment")
 @Table(name = "payments")
 public class Payment {
     @Id

@@ -6,13 +6,11 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class OrderDto {
 
@@ -22,9 +20,8 @@ public class OrderDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date date;
 
+    @Size(max = 450)
     private String comment;
 
     private Long customerId;
-
-    private Set<OrderDetailsDto> products;
 }

@@ -1,5 +1,6 @@
-package aneagu.proj.aop;
+package aneagu.proj.utils.logging;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -9,25 +10,24 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Aspect
+@Slf4j
 @Component
 public class LoggingAspect {
 
-    private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
-
     private long start;
-    private long end;
 
-    @Before("@annotation(aneagu.proj.aop.EnteringExitingLog)")
+    @Before("@annotation(aneagu.proj.utils.logging.EnteringExitingLog)")
     public void enteringMethod(JoinPoint joinPoint) {
-        logger.info("Entering method {} in {}", joinPoint.getSignature().getName(), joinPoint.getSourceLocation().getWithinType().getName());
+        log.info("Entering method {} in {}", joinPoint.getSignature().getName(),
+                joinPoint.getSourceLocation().getWithinType().getName());
         start = System.currentTimeMillis();
     }
 
 
-    @After("@annotation(aneagu.proj.aop.EnteringExitingLog)")
+    @After("@annotation(aneagu.proj.utils.logging.EnteringExitingLog)")
     public void exitingMethod(JoinPoint joinPoint) {
-        end = System.currentTimeMillis();
-        logger.info("Exiting method {} in {} with duration {} milliseconds.",
+        long end = System.currentTimeMillis();
+        log.info("Exiting method {} in {} with duration {} milliseconds.",
                 joinPoint.getSignature().getName(), joinPoint.getSourceLocation().getWithinType().getName(), (end - start));
     }
 

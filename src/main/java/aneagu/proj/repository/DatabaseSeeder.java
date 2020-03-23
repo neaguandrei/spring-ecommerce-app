@@ -3,7 +3,7 @@ package aneagu.proj.repository;
 import aneagu.proj.models.domain.*;
 import aneagu.proj.models.enums.PaymentMethod;
 import aneagu.proj.models.enums.ProductCategory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -11,29 +11,22 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
+@RequiredArgsConstructor
 public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent> {
 
     private final AddressRepository addressRepository;
-    private final CustomerRepository customerRepository;
-    private final OrderRepository orderRepository;
-    private final OrderDetailsRepository orderDetailsRepository;
-    private final PaymentRepository paymentRepository;
-    private final ProductRepository productRepository;
-    private final ProductLineRepository productLineRepository;
 
-    @Autowired
-    private DatabaseSeeder(AddressRepository addressRepository, CustomerRepository customerRepository,
-                           OrderRepository orderRepository,
-                           OrderDetailsRepository orderDetailsRepository, PaymentRepository paymentRepository, ProductRepository productRepository,
-                           ProductLineRepository productLineRepository) {
-        this.addressRepository = addressRepository;
-        this.customerRepository = customerRepository;
-        this.orderRepository = orderRepository;
-        this.orderDetailsRepository = orderDetailsRepository;
-        this.paymentRepository = paymentRepository;
-        this.productRepository = productRepository;
-        this.productLineRepository = productLineRepository;
-    }
+    private final CustomerRepository customerRepository;
+
+    private final OrderRepository orderRepository;
+
+    private final OrderDetailsRepository orderDetailsRepository;
+
+    private final PaymentRepository paymentRepository;
+
+    private final ProductRepository productRepository;
+
+    private final ProductLineRepository productLineRepository;
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
@@ -120,7 +113,7 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
 
         List<OrderDetails> orderDetailsList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            orderDetailsList.add(new OrderDetails(new OrderProductId(orders.get(i).getId(), products.get(i).getId()), products.get(i), orders.get(i),
+            orderDetailsList.add(new OrderDetails(new OrderDetailsId(orders.get(i).getId(), products.get(i).getId()), products.get(i), orders.get(i),
                     generateLong(1L, 6), generateLong(20L, 45)));
         }
         orderDetailsRepository.saveAll(orderDetailsList);

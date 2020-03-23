@@ -1,4 +1,4 @@
-package aneagu.proj.aop;
+package aneagu.proj.utils.logging;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -4,7 +4,11 @@ package aneagu.proj.service;
 import aneagu.proj.models.domain.*;
 import aneagu.proj.models.dto.*;
 
+import java.util.List;
+
 public interface MapperService {
+
+    OrderDetailsWrapperDto fromOrderDetailsToFullDetailsDto(List<OrderDetails> list);
 
     Address convertAddressDtoToAddress(AddressDto addressDto);
 
@@ -18,9 +22,9 @@ public interface MapperService {
 
     OrderDetailsDto convertOrderDetailsToOrderDetailsDto(OrderDetails orderDetails);
 
-    OrderProductId convertOrderProductIdDtoToOrderProductId(OrderProductIdDto orderDetailsDto);
+    OrderDetailsId convertOrderProductIdDtoToOrderProductId(OrderDetailsIdDto orderDetailsDto);
 
-    OrderProductIdDto convertOrderProductIdToOrderProductIdDto(OrderProductId orderDetailsDto);
+    OrderDetailsIdDto convertOrderProductIdToOrderProductIdDto(OrderDetailsId orderDetailsDto);
 
     Order convertOrderDtoToOrder(OrderDto orderDto);
 
@@ -37,4 +41,5 @@ public interface MapperService {
     ProductLine convertProductLineDtoToProductLine(ProductLineDto productLineDto);
 
     ProductLineDto convertProductLineToProductLineDto(ProductLine productLine);
+
 }

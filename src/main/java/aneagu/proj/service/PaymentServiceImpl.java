@@ -1,4 +1,4 @@
-package aneagu.proj.service.impl;
+package aneagu.proj.service;
 
 import aneagu.proj.models.domain.Payment;
 import aneagu.proj.models.dto.PaymentDto;
@@ -7,6 +7,7 @@ import aneagu.proj.repository.CustomerRepository;
 import aneagu.proj.repository.PaymentRepository;
 import aneagu.proj.service.MapperService;
 import aneagu.proj.service.PaymentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,18 +15,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
-    private final PaymentRepository paymentRepository;
 
-    private final MapperService mapperService;
+    private final PaymentRepository paymentRepository;
 
     private final CustomerRepository customerRepository;
 
-    public PaymentServiceImpl(PaymentRepository paymentRepository, MapperService mapperService, CustomerRepository customerRepository) {
-        this.paymentRepository = paymentRepository;
-        this.mapperService = mapperService;
-        this.customerRepository = customerRepository;
-    }
+    private final MapperService mapperService;
 
     @Override
     public void save(PaymentDto object) {
@@ -48,7 +45,7 @@ public class PaymentServiceImpl implements PaymentService {
             throw new NotFoundException("Customer doesn't exist");
         }
         List<PaymentDto> paymentDtos = new ArrayList<>();
-        paymentRepository.findAllByCustomer_Id(userId)
+        paymentRepository.findAllByCustomerId(userId)
                 .forEach(payment -> paymentDtos.add(mapperService.convertPaymentToPaymentDto(payment)));
 
         return paymentDtos;

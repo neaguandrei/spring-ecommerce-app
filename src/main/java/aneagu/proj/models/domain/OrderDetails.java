@@ -4,17 +4,17 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "OrderDetails")
 @Table(name = "order_product")
 public class OrderDetails {
 
     @EmbeddedId
-    private OrderProductId id;
+    private OrderDetailsId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("productId")

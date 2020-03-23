@@ -1,4 +1,4 @@
-package aneagu.proj.service.impl;
+package aneagu.proj.service;
 
 //TODO: De pus Pageable pentru Order List, Payment List si Product List
 
@@ -8,6 +8,7 @@ import aneagu.proj.models.exception.NotFoundException;
 import aneagu.proj.repository.OrderRepository;
 import aneagu.proj.service.MapperService;
 import aneagu.proj.service.OrderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,21 +16,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
 
     private final MapperService mapperService;
-
-    public OrderServiceImpl(OrderRepository orderRepository, MapperService mapperService) {
-        this.orderRepository = orderRepository;
-        this.mapperService = mapperService;
-    }
-
-    @Override
-    public void save(OrderDto object) {
-        orderRepository.save(mapperService.convertOrderDtoToOrder(object));
-    }
 
     @Override
     public OrderDto get(Long id) throws NotFoundException {
@@ -47,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
             throw new NotFoundException("Customer doesn't exist");
         }
         List<OrderDto> orderDtos = new ArrayList<>();
-        orderRepository.findAllByCustomer_Id(userId)
+        orderRepository.findAllByCustomerId(userId)
                 .forEach(order -> orderDtos.add(mapperService.convertOrderToOrderDto(order)));
 
         return orderDtos;

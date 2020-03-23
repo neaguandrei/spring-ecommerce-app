@@ -7,14 +7,12 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class)
+@Data
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class PaymentDto {
 
     private Long id;
@@ -24,6 +22,7 @@ public class PaymentDto {
     private Date date;
 
     @NotNull(message = "Amount can't be empty.")
+    @Size(min = 1, max = 1000)
     private Long amount;
 
     @NotNull(message = "Payment method can't be empty.")

@@ -7,14 +7,11 @@ import lombok.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class OrderDetailsDto {
 
-    private OrderProductIdDto id;
+    private OrderDetailsIdDto id;
 
     private ProductDto product;
 
