@@ -18,7 +18,7 @@ public class PaymentDto {
     private Long id;
 
     @NotNull(message = "Date can't be empty.")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date date;
 
     @NotNull(message = "Amount can't be empty.")

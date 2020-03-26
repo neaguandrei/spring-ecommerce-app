@@ -4,11 +4,11 @@ import aneagu.proj.models.dto.OrderDto;
 import aneagu.proj.models.exception.NotFoundException;
 import aneagu.proj.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,7 +25,11 @@ public class OrderController {
     }
 
     @GetMapping(value = "/users/{userId}")
-    public ResponseEntity<List<OrderDto>> getOrdersForUserId(@PathVariable Long userId) throws NotFoundException {
-        return ResponseEntity.ok(orderService.getOrdersByUserId(userId));
+    public ResponseEntity<Page<OrderDto>> getOrdersForUserId(@PathVariable Long userId,
+                                                             @RequestParam(name = "page", defaultValue = "0") int page,
+                                                             @RequestParam(name = "size", defaultValue = "10") int size,
+                                                             @RequestParam(name = "sort", defaultValue = "DESC") String sort,
+                                                             @RequestParam(name = "sortedParam", defaultValue = "date") String sortedParam) throws NotFoundException {
+        return ResponseEntity.ok(orderService.getOrdersByUserId(userId, PageRequest.of(page, size, Sort.Direction.valueOf(sort), sortedParam)));
     }
 }
