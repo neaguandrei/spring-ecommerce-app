@@ -1,10 +1,8 @@
 package aneagu.proj.models.domain;
 
 import lombok.*;
-import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
-import java.sql.Blob;
 import java.util.Set;
 
 @AllArgsConstructor

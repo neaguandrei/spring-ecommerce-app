@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-class ApiValidationError extends ApiSubError {
+class ApiValidationError implements ApiSubError {
     private String object;
     private String field;
     private Object rejectedValue;
