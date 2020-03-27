@@ -7,10 +7,10 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "OrderDetails")
-@Table(name = "order_product")
+@NoArgsConstructor
+@Entity
+@Table
 public class OrderDetails {
 
     @EmbeddedId

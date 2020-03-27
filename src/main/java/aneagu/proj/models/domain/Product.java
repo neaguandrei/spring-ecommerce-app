@@ -37,7 +37,7 @@ public class Product {
     private ProductCategory category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_line_id")
+    @JoinColumn(name = "productLine_id")
     private ProductLine productLine;
 
     @OneToMany(

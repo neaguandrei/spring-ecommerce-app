@@ -4,6 +4,7 @@ import aneagu.proj.models.domain.*;
 import aneagu.proj.models.enums.PaymentMethod;
 import aneagu.proj.models.enums.ProductCategory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,15 +31,21 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
     private final ProductLineRepository productLineRepository;
 
     private static final String DUMMY_PASSWORD = "parola";
+
     private final PasswordEncoder passwordEncoder;
+
+    @Value(value = "${database-seeder.populate:}")
+    private Boolean isSeedingEnabled;
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-        List<ProductLine> productLines = seedProductLines();
-        List<Product> products = seedProducts(productLines);
-        List<Customer> customers = seedCustomersAndAddresses();
-        seedPayments(customers);
-        seedOrderAndOrderDetails(products, customers);
+        if (isSeedingEnabled != null && isSeedingEnabled) {
+            List<ProductLine> productLines = seedProductLines();
+            List<Product> products = seedProducts(productLines);
+            List<Customer> customers = seedCustomersAndAddresses();
+            seedPayments(customers);
+            seedOrderAndOrderDetails(products, customers);
+        }
     }
 
     private void seedPayments(List<Customer> customers) {

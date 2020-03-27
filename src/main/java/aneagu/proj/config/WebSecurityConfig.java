@@ -13,7 +13,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @RequiredArgsConstructor
-public class WebSecurityConfiguration {
+public class WebSecurityConfig {
 
     private final UserDetailsServiceImpl userDetailsService;
 

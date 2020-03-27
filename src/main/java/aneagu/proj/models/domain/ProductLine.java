@@ -29,8 +29,8 @@ public class ProductLine {
 
     @OneToMany(
             cascade = CascadeType.ALL,
-            mappedBy = "productLine",
-            orphanRemoval = true
+            orphanRemoval = true,
+            mappedBy = "productLine"
     )
-    private Set<Product> product;
+    private Set<Product> products;
 }
