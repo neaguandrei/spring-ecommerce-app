@@ -6,6 +6,7 @@ import aneagu.proj.models.enums.ProductCategory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -28,6 +29,9 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
 
     private final ProductLineRepository productLineRepository;
 
+    private static final String DUMMY_PASSWORD = "parola";
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         List<ProductLine> productLines = seedProductLines();
@@ -48,23 +52,26 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
         long id = 1;
         List<Customer> list = new ArrayList<>();
 
+        String encodedPassword = passwordEncoder.encode(DUMMY_PASSWORD);
+
         Address address = new Address(id, "Str. X", "asd",
                 "Bucharest", "Bucharest", "Romania", "021996");
         addressRepository.save(address);
-        Customer customer = new Customer(id++, "andreineagu.c@gmail.com", "password", "Andrei",
+        Customer customer = new Customer(id++, "andreineagu.c@gmail.com", encodedPassword, "Andrei",
                 "Neagu", "0723111927", address, Collections.emptySet());
         customerRepository.save(customer);
+
         Address address2 = new Address(id, "Str. Y", "dsa",
                 "Bucharest", "Bucharest", "Romania", "21323");
         addressRepository.save(address2);
-        Customer customer2 = new Customer(id++, "irisneagu@gmail.com", "password", "Iris",
+        Customer customer2 = new Customer(id++, "irisneagu@gmail.com", encodedPassword, "Iris",
                 "Neagu", "0723111928", address2, Collections.emptySet());
         customerRepository.save(customer2);
 
         Address address3 = new Address(id, "Str. Z", "dsa",
                 "Bucharest", "Bucharest", "Romania", "21323");
         addressRepository.save(address3);
-        Customer customer3 = new Customer(id++, "claudianeamtu@gmail.com", "password", "Claudia",
+        Customer customer3 = new Customer(id++, "claudianeamtu@gmail.com", encodedPassword, "Claudia",
                 "Neamtu", "0723111929", address3, Collections.emptySet());
         customerRepository.save(customer3);
 

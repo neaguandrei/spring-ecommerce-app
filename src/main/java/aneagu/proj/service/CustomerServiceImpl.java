@@ -8,6 +8,7 @@ import aneagu.proj.models.exception.NotFoundException;
 import aneagu.proj.repository.AddressRepository;
 import aneagu.proj.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,6 +22,8 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
 
     private final AddressRepository addressRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
     private final MapperService mapperService;
 
@@ -37,12 +40,17 @@ public class CustomerServiceImpl implements CustomerService {
     public Long save(CustomerDto object) throws BadRequestException {
         boolean isEmailExisting = customerRepository.findByEmail(object.getEmail()).isPresent();
         boolean isPhoneExisting = customerRepository.findByPhone(object.getPhone()).isPresent();
-        if (isEmailExisting || isPhoneExisting) {
-            throw new BadRequestException("Customer e-mail already exists!");
+        if (isEmailExisting) {
+            throw new BadRequestException("E-mail already exists!");
+        }
+
+        if (isPhoneExisting) {
+            throw new BadRequestException("Phone already exists!");
         }
 
         Address address = addressRepository.save(mapperService.convertAddressDtoToAddress(object.getAddress()));
         Customer customer = mapperService.convertCustomerDtoToCustomer(object);
+        customer.setPassword(passwordEncoder.encode(object.getPassword()));
         customer.setAddress(address);
         return customerRepository.save(customer).getId();
     }
@@ -56,6 +64,9 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
         if (optionalCustomer.isPresent()) {
             Customer customer = mapperService.convertCustomerDtoToCustomer(object);
+            if (customer.getPassword() != null) {
+                customer.setPassword(passwordEncoder.encode(object.getPassword()));
+            }
             customer.setId(id);
             updateAddress(id, customer);
             customerRepository.save(mapperService.convertCustomerDtoToCustomer(object));

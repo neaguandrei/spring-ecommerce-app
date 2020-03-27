@@ -3,12 +3,11 @@ package aneagu.proj.models.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.*;
+import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.Set;
 
 @Data
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
