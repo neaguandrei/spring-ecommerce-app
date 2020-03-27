@@ -9,4 +9,6 @@ import org.springframework.data.domain.Pageable;
 public interface ProductService {
     Page<ProductDto> getProducts(String searchKey, ProductCategory productCategory,  Pageable pageable)
             throws NotFoundException;
+
+    ProductDto getProduct(Long id) throws NotFoundException;
 }

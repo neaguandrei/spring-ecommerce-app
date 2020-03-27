@@ -3,10 +3,8 @@ package aneagu.proj.service;
 import aneagu.proj.models.domain.Payment;
 import aneagu.proj.models.dto.PaymentDto;
 import aneagu.proj.models.exception.NotFoundException;
-import aneagu.proj.repository.CustomerRepository;
+import aneagu.proj.repository.UserRepository;
 import aneagu.proj.repository.PaymentRepository;
-import aneagu.proj.service.MapperService;
-import aneagu.proj.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +18,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentRepository paymentRepository;
 
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
 
     private final MapperService mapperService;
 
@@ -41,7 +39,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public List<PaymentDto> getPaymentsForUserId(Long userId) throws NotFoundException {
-        if (!customerRepository.findById(userId).isPresent()) {
+        if (!userRepository.findById(userId).isPresent()) {
             throw new NotFoundException("Customer doesn't exist");
         }
         List<PaymentDto> paymentDtos = new ArrayList<>();

@@ -2,15 +2,15 @@ package aneagu.proj.service;
 
 import aneagu.proj.models.dto.ProductDto;
 import aneagu.proj.models.enums.ProductCategory;
+import aneagu.proj.models.exception.NotFoundException;
 import aneagu.proj.repository.ProductRepository;
-import aneagu.proj.service.MapperService;
-import aneagu.proj.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,5 +32,15 @@ public class ProductServiceImpl implements ProductService {
         }
         return productRepository.findAll(pageable)
                 .map(mapperService::convertProductToProductDto);
+    }
+
+    @Override
+    public ProductDto getProduct(Long id) throws NotFoundException {
+        Optional<ProductDto> optional = productRepository.findById(id).map(mapperService::convertProductToProductDto);
+        if (!optional.isPresent()) {
+            throw new NotFoundException("Product doesn't exist!");
+        }
+
+        return optional.get();
     }
 }

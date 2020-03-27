@@ -17,4 +17,4 @@ overload la Hibernate.
 
 
 - order details.
-- customer.
+- user.

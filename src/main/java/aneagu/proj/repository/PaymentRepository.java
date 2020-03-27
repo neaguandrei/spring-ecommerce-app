@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
-    @Query("SELECT p FROM Payment p WHERE p.customer.id = :id ")
+    @Query("SELECT p FROM Payment p WHERE p.user.id = :id ")
     Iterable<Payment> findAllByCustomerId(Long id);
 }

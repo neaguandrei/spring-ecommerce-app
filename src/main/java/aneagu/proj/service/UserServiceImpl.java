@@ -1,12 +1,12 @@
 package aneagu.proj.service;
 
 import aneagu.proj.models.domain.Address;
-import aneagu.proj.models.domain.Customer;
-import aneagu.proj.models.dto.CustomerDto;
+import aneagu.proj.models.domain.User;
+import aneagu.proj.models.dto.UserDto;
 import aneagu.proj.models.exception.BadRequestException;
 import aneagu.proj.models.exception.NotFoundException;
 import aneagu.proj.repository.AddressRepository;
-import aneagu.proj.repository.CustomerRepository;
+import aneagu.proj.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,11 +15,11 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CustomerServiceImpl implements CustomerService {
+public class UserServiceImpl implements UserService {
 
     private static final String CUSTOMER_NOT_FOUND = "Customer not found";
 
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
 
     private final AddressRepository addressRepository;
 
@@ -29,17 +29,17 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void delete(Long id) throws NotFoundException {
-        Optional<Customer> address = customerRepository.findById(id);
+        Optional<User> address = userRepository.findById(id);
         if (!address.isPresent()) {
             throw new NotFoundException(CUSTOMER_NOT_FOUND);
         }
-        customerRepository.deleteById(id);
+        userRepository.deleteById(id);
     }
 
     @Override
-    public Long save(CustomerDto object) throws BadRequestException {
-        boolean isEmailExisting = customerRepository.findByEmail(object.getEmail()).isPresent();
-        boolean isPhoneExisting = customerRepository.findByPhone(object.getPhone()).isPresent();
+    public Long save(UserDto object) throws BadRequestException {
+        boolean isEmailExisting = userRepository.findByEmail(object.getEmail()).isPresent();
+        boolean isPhoneExisting = userRepository.findByPhone(object.getPhone()).isPresent();
         if (isEmailExisting) {
             throw new BadRequestException("E-mail already exists!");
         }
@@ -49,41 +49,41 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         Address address = addressRepository.save(mapperService.convertAddressDtoToAddress(object.getAddress()));
-        Customer customer = mapperService.convertCustomerDtoToCustomer(object);
-        customer.setPassword(passwordEncoder.encode(object.getPassword()));
-        customer.setAddress(address);
-        return customerRepository.save(customer).getId();
+        User user = mapperService.convertCustomerDtoToCustomer(object);
+        user.setPassword(passwordEncoder.encode(object.getPassword()));
+        user.setAddress(address);
+        return userRepository.save(user).getId();
     }
 
     @Override
-    public void update(Long id, CustomerDto object) {
+    public void update(Long id, UserDto object) {
         if (object == null) {
             throw new IllegalArgumentException("Object can't be null!");
         }
 
-        Optional<Customer> optionalCustomer = customerRepository.findById(id);
+        Optional<User> optionalCustomer = userRepository.findById(id);
         if (optionalCustomer.isPresent()) {
-            Customer customer = mapperService.convertCustomerDtoToCustomer(object);
-            if (customer.getPassword() != null) {
-                customer.setPassword(passwordEncoder.encode(object.getPassword()));
+            User user = mapperService.convertCustomerDtoToCustomer(object);
+            if (user.getPassword() != null) {
+                user.setPassword(passwordEncoder.encode(object.getPassword()));
             }
-            customer.setId(id);
-            updateAddress(id, customer);
-            customerRepository.save(mapperService.convertCustomerDtoToCustomer(object));
+            user.setId(id);
+            updateAddress(id, user);
+            userRepository.save(mapperService.convertCustomerDtoToCustomer(object));
         }
     }
 
     @Override
-    public CustomerDto get(Long id) throws NotFoundException {
-        return mapperService.convertCustomerToCustomerDto(customerRepository.findById(id)
+    public UserDto get(Long id) throws NotFoundException {
+        return mapperService.convertCustomerToCustomerDto(userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND)));
     }
 
-    private void updateAddress(Long id, Customer customer) {
+    private void updateAddress(Long id, User user) {
         Optional<Address> optionalAddress = addressRepository.findById(id);
         optionalAddress.ifPresent(address -> {
             addressRepository.save(address);
-            customer.setAddress(address);
+            user.setAddress(address);
         });
     }
 }

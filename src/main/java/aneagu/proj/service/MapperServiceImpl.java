@@ -60,14 +60,14 @@ public class MapperServiceImpl implements MapperService {
     }
 
     @Override
-    public Customer convertCustomerDtoToCustomer(CustomerDto customerDto) {
-        return modelMapper.map(customerDto, Customer.class);
+    public User convertCustomerDtoToCustomer(UserDto userDto) {
+        return modelMapper.map(userDto, User.class);
 
     }
 
     @Override
-    public CustomerDto convertCustomerToCustomerDto(Customer customer) {
-        return modelMapper.map(customer, CustomerDto.class);
+    public UserDto convertCustomerToCustomerDto(User user) {
+        return modelMapper.map(user, UserDto.class);
     }
 
     @Override

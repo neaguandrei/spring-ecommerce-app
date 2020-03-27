@@ -18,7 +18,7 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
 
     private final AddressRepository addressRepository;
 
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
 
     private final OrderRepository orderRepository;
 
@@ -42,49 +42,49 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
         if (isSeedingEnabled != null && isSeedingEnabled) {
             List<ProductLine> productLines = seedProductLines();
             List<Product> products = seedProducts(productLines);
-            List<Customer> customers = seedCustomersAndAddresses();
-            seedPayments(customers);
-            seedOrderAndOrderDetails(products, customers);
+            List<User> users = seedCustomersAndAddresses();
+            seedPayments(users);
+            seedOrderAndOrderDetails(products, users);
         }
     }
 
-    private void seedPayments(List<Customer> customers) {
+    private void seedPayments(List<User> users) {
         long id = 1L;
-        for (int i = 0; i < customers.size(); i++) {
-            paymentRepository.save(new Payment(id++, new Date(), generateLong(200L, 1020), PaymentMethod.values()[i], customers.get(i)));
+        for (int i = 0; i < users.size(); i++) {
+            paymentRepository.save(new Payment(id++, new Date(), generateLong(200L, 1020), PaymentMethod.values()[i], users.get(i)));
         }
     }
 
-    private List<Customer> seedCustomersAndAddresses() {
+    private List<User> seedCustomersAndAddresses() {
         long id = 1;
-        List<Customer> list = new ArrayList<>();
+        List<User> list = new ArrayList<>();
 
         String encodedPassword = passwordEncoder.encode(DUMMY_PASSWORD);
 
         Address address = new Address(id, "Str. X", "asd",
                 "Bucharest", "Bucharest", "Romania", "021996");
         addressRepository.save(address);
-        Customer customer = new Customer(id++, "andreineagu.c@gmail.com", encodedPassword, "Andrei",
+        User user = new User(id++, "andreineagu.c@gmail.com", encodedPassword, "Andrei",
                 "Neagu", "0723111927", address, Collections.emptySet());
-        customerRepository.save(customer);
+        userRepository.save(user);
 
         Address address2 = new Address(id, "Str. Y", "dsa",
                 "Bucharest", "Bucharest", "Romania", "21323");
         addressRepository.save(address2);
-        Customer customer2 = new Customer(id++, "irisneagu@gmail.com", encodedPassword, "Iris",
+        User user2 = new User(id++, "irisneagu@gmail.com", encodedPassword, "Iris",
                 "Neagu", "0723111928", address2, Collections.emptySet());
-        customerRepository.save(customer2);
+        userRepository.save(user2);
 
         Address address3 = new Address(id, "Str. Z", "dsa",
                 "Bucharest", "Bucharest", "Romania", "21323");
         addressRepository.save(address3);
-        Customer customer3 = new Customer(id++, "claudianeamtu@gmail.com", encodedPassword, "Claudia",
+        User user3 = new User(id++, "claudianeamtu@gmail.com", encodedPassword, "Claudia",
                 "Neamtu", "0723111929", address3, Collections.emptySet());
-        customerRepository.save(customer3);
+        userRepository.save(user3);
 
-        list.add(customer);
-        list.add(customer2);
-        list.add(customer3);
+        list.add(user);
+        list.add(user2);
+        list.add(user3);
 
         return list;
     }
@@ -116,14 +116,14 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
         return products;
     }
 
-    private void seedOrderAndOrderDetails(List<Product> products, List<Customer> customers) {
+    private void seedOrderAndOrderDetails(List<Product> products, List<User> users) {
         List<Order> orders = new ArrayList<>();
         orders.add(orderRepository.save(new Order(1L, new Date(), "Deliver it at noon please!",
-                customers.get(0), Collections.emptySet())));
+                users.get(0), Collections.emptySet())));
         orders.add(orderRepository.save(new Order(2L, new Date(), "Deliver it in the morning please!",
-                customers.get(1), Collections.emptySet())));
+                users.get(1), Collections.emptySet())));
         orders.add(orderRepository.save(new Order(3L, new Date(), "Call before delivery!",
-                customers.get(2), Collections.emptySet())));
+                users.get(2), Collections.emptySet())));
 
         List<OrderDetails> orderDetailsList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {

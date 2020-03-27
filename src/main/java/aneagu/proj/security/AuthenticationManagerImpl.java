@@ -1,7 +1,7 @@
 package aneagu.proj.security;
 
-import aneagu.proj.models.domain.Customer;
-import aneagu.proj.repository.CustomerRepository;
+import aneagu.proj.models.domain.User;
+import aneagu.proj.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,12 +16,12 @@ import java.util.Optional;
 @Service
 public class AuthenticationManagerImpl implements AuthenticationManager {
 
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
 
-    public AuthenticationManagerImpl(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
-        this.customerRepository = customerRepository;
+    public AuthenticationManagerImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -30,7 +30,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
         String email = authentication.getPrincipal().toString();
         String password = authentication.getCredentials().toString();
 
-        Optional<Customer> optionalCustomer = customerRepository.findByEmail(email);
+        Optional<User> optionalCustomer = userRepository.findByEmail(email);
 
         if (!optionalCustomer.isPresent()) {
             throw new BadCredentialsException(String.format("E-mail: %s doesn't exist!", email));

@@ -1,9 +1,9 @@
 package aneagu.proj.controller;
 
 import aneagu.proj.controller.utils.ControllerUtils;
-import aneagu.proj.models.dto.CustomerDto;
+import aneagu.proj.models.dto.UserDto;
 import aneagu.proj.models.exception.BadRequestException;
-import aneagu.proj.service.CustomerService;
+import aneagu.proj.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,19 +19,19 @@ public class AuthenticationController {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final CustomerService customerService;
+    private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> saveCustomer(@Validated(CustomerDto.SignUp.class) @RequestBody CustomerDto user) throws BadRequestException {
+    public ResponseEntity<?> saveCustomer(@Validated(UserDto.SignUp.class) @RequestBody UserDto user) throws BadRequestException {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return ResponseEntity
-                .created(ControllerUtils.generateUri(customerService.save(user), "getCustomer",
+                .created(ControllerUtils.generateUri(userService.save(user), "getCustomer",
                         CustomerController.class).toUri())
                 .build();
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> signIn(@Validated(CustomerDto.SignIn.class) @RequestBody CustomerDto user) {
+    public ResponseEntity<Object> signIn(@Validated(UserDto.SignIn.class) @RequestBody UserDto user) {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

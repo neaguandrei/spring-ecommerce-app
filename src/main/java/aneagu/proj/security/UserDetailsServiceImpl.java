@@ -1,9 +1,8 @@
 package aneagu.proj.security;
 
-import aneagu.proj.models.domain.Customer;
-import aneagu.proj.repository.CustomerRepository;
+import aneagu.proj.models.domain.User;
+import aneagu.proj.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,16 +16,16 @@ import static java.util.Collections.emptyList;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<Customer> optionalCustomer = customerRepository.findByEmail(email);
+        Optional<User> optionalCustomer = userRepository.findByEmail(email);
         if (!optionalCustomer.isPresent()) {
             throw new UsernameNotFoundException(email);
         }
 
-        Customer user = optionalCustomer.get();
-        return new User(user.getEmail(), user.getPassword(), emptyList());
+        User user = optionalCustomer.get();
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), emptyList());
     }
 }

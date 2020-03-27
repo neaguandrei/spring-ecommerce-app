@@ -1,6 +1,6 @@
 package aneagu.proj.security;
 
-import aneagu.proj.models.dto.CustomerDto;
+import aneagu.proj.models.dto.UserDto;
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,8 +31,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
-            CustomerDto credentials = new ObjectMapper()
-                    .readValue(request.getInputStream(), CustomerDto.class);
+            UserDto credentials = new ObjectMapper()
+                    .readValue(request.getInputStream(), UserDto.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(

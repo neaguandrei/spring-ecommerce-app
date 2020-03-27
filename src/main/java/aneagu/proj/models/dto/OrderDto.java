@@ -22,5 +22,5 @@ public class OrderDto {
     @Size(max = 450)
     private String comment;
 
-    private Long customerId;
+    private Long userId;
 }

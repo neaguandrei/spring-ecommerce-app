@@ -5,15 +5,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
-public class PaymentDto {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Relation(collectionRelation = "payments")
+public class PaymentDto extends RepresentationModel<PaymentDto> {
 
     private Long id;
 
@@ -28,6 +32,6 @@ public class PaymentDto {
     @NotNull(message = "Payment method can't be empty.")
     private PaymentMethod paymentMethod;
 
-    private Long customerId;
+    private Long userId;
 
 }

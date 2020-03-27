@@ -11,8 +11,8 @@ import java.util.Set;
 @Setter
 @Builder
 @Entity
-@Table(name = "customers")
-public class Customer {
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,7 +39,7 @@ public class Customer {
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true,
-            mappedBy = "customer"
+            mappedBy = "user"
     )
     private Set<Payment> payments;
 }

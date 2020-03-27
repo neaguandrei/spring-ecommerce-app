@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    @Query("SELECT o FROM Order o WHERE o.customer.id = :id")
+    @Query("SELECT o FROM Order o WHERE o.user.id = :id")
     Page<Order> findAllByCustomerId(Long id, Pageable pageable);
 }

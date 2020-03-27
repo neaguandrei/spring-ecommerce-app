@@ -3,4 +3,8 @@ spring:
     include: mysql
 
 database-seeder:
-  populate: false
+  populate: true
+
+test:
+  integration:
+    port: 5001

@@ -14,9 +14,9 @@ public interface MapperService {
 
     AddressDto convertAddressToAddressDto(Address address);
 
-    Customer convertCustomerDtoToCustomer(CustomerDto customerDto);
+    User convertCustomerDtoToCustomer(UserDto userDto);
 
-    CustomerDto convertCustomerToCustomerDto(Customer customer);
+    UserDto convertCustomerToCustomerDto(User user);
 
     OrderDetails convertOrderDetailsDtoToOrderDetails(OrderDetailsDto orderDetailsDto);
 
