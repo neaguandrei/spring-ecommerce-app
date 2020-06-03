@@ -1,7 +1,6 @@
 package aneagu.proj.integration;
 
 import aneagu.proj.AwbdApplication;
-import aneagu.proj.models.enums.PaymentMethod;
 import aneagu.proj.utils.TestUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;

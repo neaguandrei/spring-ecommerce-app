@@ -1,10 +1,6 @@
 spring:
   profiles:
-    include: mysql
+    include: h2
 
 database-seeder:
   populate: true
-
-test:
-  integration:
-    port: 5001
