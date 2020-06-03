@@ -22,7 +22,7 @@ public class AuthenticationController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> saveCustomer(@Validated(UserDto.SignUp.class) @RequestBody UserDto user) throws BadRequestException {
+    public ResponseEntity<?> registerUser(@Validated(UserDto.SignUp.class) @RequestBody UserDto user) throws BadRequestException {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return ResponseEntity
                 .created(ControllerUtils.generateUri(userService.save(user), "getCustomer",
@@ -31,7 +31,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> signIn(@Validated(UserDto.SignIn.class) @RequestBody UserDto user) {
+    public ResponseEntity<Object> loginUser(@Validated(UserDto.SignIn.class) @RequestBody UserDto user) {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
