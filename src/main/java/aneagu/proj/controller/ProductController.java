@@ -3,7 +3,6 @@ package aneagu.proj.controller;
 import aneagu.proj.models.dto.ProductDto;
 import aneagu.proj.models.exception.NotFoundException;
 import aneagu.proj.service.ProductService;
-import aneagu.proj.service.ResourceAssemblerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

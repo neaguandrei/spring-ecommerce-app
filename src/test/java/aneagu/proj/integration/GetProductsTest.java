@@ -1,10 +1,9 @@
 package aneagu.proj.integration;
 
 
-import aneagu.proj.AwbdApplication;
+import aneagu.proj.CommerceApplication;
 import aneagu.proj.utils.TestUtils;
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static aneagu.proj.utils.TokenGenerator.createAuthorisationToken;
@@ -24,7 +22,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 
-@SpringBootTest(classes = {AwbdApplication.class}, webEnvironment = RANDOM_PORT)
+@SpringBootTest(classes = {CommerceApplication.class}, webEnvironment = RANDOM_PORT)
 @RunWith(SpringRunner.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class GetProductsTest {

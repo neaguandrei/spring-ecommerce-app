@@ -1,6 +1,6 @@
 package aneagu.proj.repository;
 
-import aneagu.proj.models.domain.*;
+import aneagu.proj.models.entity.*;
 import aneagu.proj.models.enums.PaymentMethod;
 import aneagu.proj.models.enums.ProductCategory;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +28,6 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
 
     private final ProductRepository productRepository;
 
-    private final ProductLineRepository productLineRepository;
-
     private static final String DUMMY_PASSWORD = "parola";
 
     private final PasswordEncoder passwordEncoder;
@@ -40,97 +38,86 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         if (isSeedingEnabled != null && isSeedingEnabled) {
-            List<ProductLine> productLines = seedProductLines();
-            List<Product> products = seedProducts(productLines);
-            List<User> users = seedCustomersAndAddresses();
-            seedPayments(users);
-            seedOrderAndOrderDetails(products, users);
+            List<ProductEntity> productEntities = seedProducts();
+            List<UserEntity> userEntities = seedCustomersAndAddresses();
+            seedPayments(userEntities);
+            seedOrderAndOrderDetails(productEntities, userEntities);
         }
     }
 
-    private void seedPayments(List<User> users) {
+    private void seedPayments(List<UserEntity> userEntities) {
         long id = 1L;
-        for (int i = 0; i < users.size(); i++) {
-            paymentRepository.save(new Payment(id++, new Date(), generateLong(200L, 1020), PaymentMethod.values()[i], users.get(i)));
+        for (int i = 0; i < userEntities.size(); i++) {
+            paymentRepository.save(new PaymentEntity(id++, new Date(), generateLong(200L, 1020), PaymentMethod.values()[i], userEntities.get(i)));
         }
     }
 
-    private List<User> seedCustomersAndAddresses() {
+    private List<UserEntity> seedCustomersAndAddresses() {
         long id = 1;
-        List<User> list = new ArrayList<>();
+        List<UserEntity> list = new ArrayList<>();
 
         String encodedPassword = passwordEncoder.encode(DUMMY_PASSWORD);
 
-        Address address = new Address(id, "Str. X", "asd",
+        AddressEntity addressEntity = new AddressEntity(id, "Str. X", "asd",
                 "Bucharest", "Bucharest", "Romania", "021996");
-        addressRepository.save(address);
-        User user = new User(id++, "andreineagu.c@gmail.com", encodedPassword, "Andrei",
-                "Neagu", "0723111927", address, Collections.emptySet());
-        userRepository.save(user);
+        addressRepository.save(addressEntity);
+        UserEntity userEntity = new UserEntity(id++, "andreineagu.c@gmail.com", encodedPassword, "Andrei",
+                "Neagu", "0723111927", addressEntity, Collections.emptySet());
+        userRepository.save(userEntity);
 
-        Address address2 = new Address(id, "Str. Y", "dsa",
+        AddressEntity addressEntity2 = new AddressEntity(id, "Str. Y", "dsa",
                 "Bucharest", "Bucharest", "Romania", "21323");
-        addressRepository.save(address2);
-        User user2 = new User(id++, "irisneagu@gmail.com", encodedPassword, "Iris",
-                "Neagu", "0723111928", address2, Collections.emptySet());
-        userRepository.save(user2);
+        addressRepository.save(addressEntity2);
+        UserEntity userEntity2 = new UserEntity(id++, "irisneagu@gmail.com", encodedPassword, "Iris",
+                "Neagu", "0723111928", addressEntity2, Collections.emptySet());
+        userRepository.save(userEntity2);
 
-        Address address3 = new Address(id, "Str. Z", "dsa",
+        AddressEntity addressEntity3 = new AddressEntity(id, "Str. Z", "dsa",
                 "Bucharest", "Bucharest", "Romania", "21323");
-        addressRepository.save(address3);
-        User user3 = new User(id++, "claudianeamtu@gmail.com", encodedPassword, "Claudia",
-                "Neamtu", "0723111929", address3, Collections.emptySet());
-        userRepository.save(user3);
+        addressRepository.save(addressEntity3);
+        UserEntity userEntity3 = new UserEntity(id++, "claudianeamtu@gmail.com", encodedPassword, "Claudia",
+                "Neamtu", "0723111929", addressEntity3, Collections.emptySet());
+        userRepository.save(userEntity3);
 
-        list.add(user);
-        list.add(user2);
-        list.add(user3);
+        list.add(userEntity);
+        list.add(userEntity2);
+        list.add(userEntity3);
 
         return list;
     }
 
-    private List<ProductLine> seedProductLines() {
+    private List<ProductEntity> seedProducts() {
         long id = 1L;
-        List<ProductLine> productLineList = new ArrayList<>();
-        productLineList.add(new ProductLine(id++, "Samsung", "One of best product lines", new byte[10], Collections.emptySet()));
-        productLineList.add(new ProductLine(id++, "Dell", "One of best product lines", new byte[10], Collections.emptySet()));
-        productLineList.add(new ProductLine(id++, "Nvidia", "Best gaming hardware", new byte[10], Collections.emptySet()));
-        productLineList.add(new ProductLine(id++, "Asus", "One of best product lines", new byte[10], Collections.emptySet()));
-        return productLineRepository.saveAll(productLineList);
-    }
-
-    private List<Product> seedProducts(List<ProductLine> productLines) {
-        long id = 1L;
-        List<Product> products = new ArrayList<>();
+        List<ProductEntity> productEntities = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-            products.add(productRepository.save(new Product(id++, "TV v" + id, "4k", generateLong(5L, 25),
-                    generateLong(5L, 25), ProductCategory.MONITORS, productLines.get(0), Collections.emptySet())));
-            products.add(productRepository.save(new Product(id++, "Monitor v" + id, "144Hz", generateLong(5L, 25),
-                    generateLong(5L, 25), ProductCategory.MONITORS, productLines.get(1), Collections.emptySet())));
-            products.add(productRepository.save(new Product(id++, "GPU 1080v" + id, "GPU with 8gb DVM", generateLong(5L, 25),
-                    generateLong(5L, 25), ProductCategory.HARDWARE, productLines.get(2), Collections.emptySet())));
-            products.add(productRepository.save(new Product(id++, "Mouse G905" + id, "Best mouse on the market",
-                    generateLong(5L, 25), generateLong(5L, 25), ProductCategory.PERIPHERALS, productLines.get(3), Collections.emptySet())));
+            productEntities.add(productRepository.save(new ProductEntity(id++, "TV v" + id, "4k", generateLong(5L, 25),
+                    generateLong(5L, 25), ProductCategory.MONITORS, "DELL", Collections.emptySet())));
+            productEntities.add(productRepository.save(new ProductEntity(id++, "Monitor v" + id, "144Hz", generateLong(5L, 25),
+                    generateLong(5L, 25), ProductCategory.MONITORS, "SAMSUNG", Collections.emptySet())));
+            productEntities.add(productRepository.save(new ProductEntity(id++, "GPU 1080v" + id, "GPU with 8gb DVM", generateLong(5L, 25),
+                    generateLong(5L, 25), ProductCategory.HARDWARE, "GIGABYTE", Collections.emptySet())));
+            productEntities.add(productRepository.save(new ProductEntity(id++, "Mouse GPW" + id, "Best mouse on the market",
+                    generateLong(5L, 25), generateLong(5L, 25), ProductCategory.PERIPHERALS, "LOGITECH", Collections.emptySet())));
         }
 
-        return products;
+        return productEntities;
     }
 
-    private void seedOrderAndOrderDetails(List<Product> products, List<User> users) {
-        List<Order> orders = new ArrayList<>();
-        orders.add(orderRepository.save(new Order(1L, new Date(), "Deliver it at noon please!",
-                users.get(0), Collections.emptySet())));
-        orders.add(orderRepository.save(new Order(2L, new Date(), "Deliver it in the morning please!",
-                users.get(1), Collections.emptySet())));
-        orders.add(orderRepository.save(new Order(3L, new Date(), "Call before delivery!",
-                users.get(2), Collections.emptySet())));
+    private void seedOrderAndOrderDetails(List<ProductEntity> productEntities, List<UserEntity> userEntities) {
+        List<OrderEntity> orderEntities = new ArrayList<>();
+        orderEntities.add(orderRepository.save(new OrderEntity(1L, new Date(), "Deliver it at noon please!",
+                userEntities.get(0), Collections.emptySet())));
+        orderEntities.add(orderRepository.save(new OrderEntity(2L, new Date(), "Deliver it in the morning please!",
+                userEntities.get(1), Collections.emptySet())));
+        orderEntities.add(orderRepository.save(new OrderEntity(3L, new Date(), "Call before delivery!",
+                userEntities.get(2), Collections.emptySet())));
 
-        List<OrderDetails> orderDetailsList = new ArrayList<>();
+        List<OrderDetailsEntity> orderDetailsEntityList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            orderDetailsList.add(new OrderDetails(new OrderDetailsId(orders.get(i).getId(), products.get(i).getId()), products.get(i), orders.get(i),
+            orderDetailsEntityList.add(new OrderDetailsEntity(new OrderDetailsId(orderEntities.get(i).getId(), productEntities.get(i).getId()), productEntities.get(i), orderEntities.get(i),
                     generateLong(1L, 6), generateLong(20L, 45)));
         }
-        orderDetailsRepository.saveAll(orderDetailsList);
+        orderDetailsRepository.saveAll(orderDetailsEntityList);
 
     }
 

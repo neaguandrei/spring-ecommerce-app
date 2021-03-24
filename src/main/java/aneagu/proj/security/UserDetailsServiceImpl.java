@@ -1,6 +1,6 @@
 package aneagu.proj.security;
 
-import aneagu.proj.models.domain.User;
+import aneagu.proj.models.entity.UserEntity;
 import aneagu.proj.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,12 +20,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<User> optionalCustomer = userRepository.findByEmail(email);
+        Optional<UserEntity> optionalCustomer = userRepository.findByEmail(email);
         if (!optionalCustomer.isPresent()) {
             throw new UsernameNotFoundException(email);
         }
 
-        User user = optionalCustomer.get();
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), emptyList());
+        UserEntity userEntity = optionalCustomer.get();
+        return new org.springframework.security.core.userdetails.User(userEntity.getEmail(), userEntity.getPassword(), emptyList());
     }
 }

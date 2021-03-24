@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ProductControllerTest {
+public class ProductEntityControllerTest {
 
     @Mock
     private ProductService productService;

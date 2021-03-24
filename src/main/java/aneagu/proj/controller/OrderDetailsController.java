@@ -17,8 +17,8 @@ public class OrderDetailsController {
 
     private final OrderDetailsService orderDetailsService;
 
-    @GetMapping(value = "/{orderId}")
-    public ResponseEntity<OrderDetailsWrapperDto> getOrderDetailsForOrderId(@PathVariable Long orderId) throws NotFoundException {
+    @GetMapping(value = "/{order_id}")
+    public ResponseEntity<OrderDetailsWrapperDto> getOrderDetailsForOrderId(@PathVariable(value = "order_id") Long orderId) throws NotFoundException {
         return ResponseEntity.ok(orderDetailsService.get(orderId));
     }
 

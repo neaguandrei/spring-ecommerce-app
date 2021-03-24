@@ -1,6 +1,7 @@
 package aneagu.proj.models.dto;
 
 import aneagu.proj.models.enums.PaymentMethod;
+import aneagu.proj.utils.validation.OneOf;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -30,7 +31,8 @@ public class PaymentDto extends RepresentationModel<PaymentDto> {
     private Long amount;
 
     @NotNull(message = "Payment method can't be empty.")
-    private PaymentMethod paymentMethod;
+    @OneOf(enumClass = PaymentMethod.class, message = "Payment Method doesn't have a valid value.")
+    private String paymentMethod;
 
     private Long userId;
 

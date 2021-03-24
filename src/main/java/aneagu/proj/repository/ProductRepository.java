@@ -1,15 +1,15 @@
 package aneagu.proj.repository;
 
-import aneagu.proj.models.domain.Product;
+import aneagu.proj.models.entity.ProductEntity;
 import aneagu.proj.models.enums.ProductCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
-    Page<Product> findAllByName(String name, Pageable pageable);
+    Page<ProductEntity> findAllByName(String name, Pageable pageable);
 
-    Page<Product> findAllByNameAndCategory(String name, ProductCategory category, Pageable pageable);
+    Page<ProductEntity> findAllByNameAndCategory(String name, ProductCategory category, Pageable pageable);
 
 }

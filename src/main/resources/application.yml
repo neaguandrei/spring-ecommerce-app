@@ -1,6 +1,5 @@
 spring:
   profiles:
     include: h2
-
 database-seeder:
   populate: true

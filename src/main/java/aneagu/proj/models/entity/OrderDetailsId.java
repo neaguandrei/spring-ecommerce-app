@@ -1,4 +1,4 @@
-package aneagu.proj.models.domain;
+package aneagu.proj.models.entity;
 
 
 import lombok.AllArgsConstructor;

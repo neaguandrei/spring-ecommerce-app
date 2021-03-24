@@ -1,11 +1,11 @@
 package aneagu.proj.unit.service;
 
-import aneagu.proj.models.domain.Product;
+import aneagu.proj.models.entity.ProductEntity;
 import aneagu.proj.models.dto.ProductDto;
 import aneagu.proj.models.enums.ProductCategory;
 import aneagu.proj.repository.ProductRepository;
 import aneagu.proj.service.MapperService;
-import aneagu.proj.service.ProductServiceImpl;
+import aneagu.proj.service.ProductService;
 import aneagu.proj.utils.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,7 +27,7 @@ import static aneagu.proj.utils.TestUtils.createProductDto;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ProductServiceTest {
+public class ProductEntityServiceTest {
 
     @Mock
     private ProductRepository productRepository;
@@ -36,17 +36,17 @@ public class ProductServiceTest {
     private MapperService mapperService;
 
     @InjectMocks
-    private ProductServiceImpl productService;
+    private ProductService productService;
 
     @Test
     public void testGetProductsGivenCorrectDataReturnCorrectData() {
         Mockito.when(productRepository.findAllByNameAndCategory(Mockito.any(), Mockito.any(), Mockito.any()))
-                .thenReturn(new PageImpl<>(Collections.singletonList(new Product())));
+                .thenReturn(new PageImpl<>(Collections.singletonList(new ProductEntity())));
         Mockito.when(productRepository.findAllByName(Mockito.any(), Mockito.any()))
-                .thenReturn(new PageImpl<>(Collections.singletonList(new Product())));
+                .thenReturn(new PageImpl<>(Collections.singletonList(new ProductEntity())));
         Mockito.when(productRepository.findAll(Mockito.any(Pageable.class)))
-                .thenReturn(new PageImpl<>(Collections.singletonList(new Product())));
-        Mockito.when(mapperService.convertProductToProductDto(Mockito.any(Product.class)))
+                .thenReturn(new PageImpl<>(Collections.singletonList(new ProductEntity())));
+        Mockito.when(mapperService.convertProductToProductDto(Mockito.any(ProductEntity.class)))
                 .thenReturn(createProductDto());
 
         Page<ProductDto> productDtoPage = productService.getProducts("Test", ProductCategory.MONITORS, null);

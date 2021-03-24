@@ -1,7 +1,6 @@
 package aneagu.proj.utils;
 
 import aneagu.proj.models.dto.ProductDto;
-import aneagu.proj.models.dto.ProductLineDto;
 import aneagu.proj.models.enums.ProductCategory;
 
 import java.net.URI;
@@ -38,9 +37,9 @@ public class TestUtils {
         productDto.setBuyPrice(100L);
         productDto.setDescription("Description");
         productDto.setName("Name");
-        productDto.setCategory(ProductCategory.MONITORS);
+        productDto.setCategory(ProductCategory.MONITORS.getValue());
         productDto.setQuantityInStock(12L);
-        productDto.setProductLine(new ProductLineDto(10L, "Samsung", "text", new byte[10]));
+        productDto.setProductLine("DELL");
 
         return productDto;
     }

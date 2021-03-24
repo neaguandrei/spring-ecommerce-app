@@ -1,4 +1,4 @@
-package aneagu.proj.models.domain;
+package aneagu.proj.models.entity;
 
 import lombok.*;
 import org.hibernate.annotations.*;
@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ import java.util.Set;
 @org.hibernate.annotations.Cache(
         usage = CacheConcurrencyStrategy.READ_WRITE
 )
-public class Order {
+public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,12 +36,35 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserEntity user;
 
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             mappedBy = "order"
     )
-    private Set<OrderDetails> products;
+    private Set<OrderDetailsEntity> products;
+
+    @Column(insertable = false, updatable = false)
+    @Setter(AccessLevel.NONE)
+    @CreationTimestamp
+    private LocalDateTime created;
+
+    @Column(insertable = false, updatable = false)
+    @Setter(AccessLevel.NONE)
+    @UpdateTimestamp
+    private LocalDateTime lastUpdated;
+
+    @Version
+    @Column
+    @Setter(AccessLevel.NONE)
+    private int version;
+
+    public OrderEntity(Long id, Date date, String comment, UserEntity user, Set<OrderDetailsEntity> products) {
+        this.id = id;
+        this.date = date;
+        this.comment = comment;
+        this.user = user;
+        this.products = products;
+    }
 }

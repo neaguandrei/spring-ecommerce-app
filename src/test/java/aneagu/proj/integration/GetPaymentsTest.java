@@ -1,6 +1,6 @@
 package aneagu.proj.integration;
 
-import aneagu.proj.AwbdApplication;
+import aneagu.proj.CommerceApplication;
 import aneagu.proj.utils.TestUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +21,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 
-@SpringBootTest(classes = {AwbdApplication.class}, webEnvironment = RANDOM_PORT)
+@SpringBootTest(classes = {CommerceApplication.class}, webEnvironment = RANDOM_PORT)
 @RunWith(SpringRunner.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class GetPaymentsTest {

@@ -1,6 +1,7 @@
 package aneagu.proj.models.dto;
 
 import aneagu.proj.models.enums.ProductCategory;
+import aneagu.proj.utils.validation.OneOf;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
@@ -31,7 +32,10 @@ public class ProductDto extends RepresentationModel<ProductDto> {
     @Size(min = 1)
     private Long buyPrice;
 
-    private ProductCategory category;
 
-    private ProductLineDto productLine;
+    @NotNull(message = "Product category can't be empty.")
+    @OneOf(enumClass = ProductCategory.class, message = "Product category doesn't have a valid value.")
+    private String category;
+
+    private String productLine;
 }
