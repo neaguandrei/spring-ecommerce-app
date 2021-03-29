@@ -11,6 +11,7 @@ import org.springframework.hateoas.server.core.Relation;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Relation(collectionRelation = "products")

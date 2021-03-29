@@ -16,7 +16,7 @@ import java.util.Set;
 @Setter
 @Builder
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class ProductEntity {
 
     @Id
@@ -42,13 +42,6 @@ public class ProductEntity {
     @Column(nullable = false)
     private String productLine;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            mappedBy = "product"
-    )
-    private Set<OrderDetailsEntity> orderEntities;
-
     @Column(insertable = false, updatable = false)
     @Setter(AccessLevel.NONE)
     @CreationTimestamp
@@ -64,7 +57,7 @@ public class ProductEntity {
     @Setter(AccessLevel.NONE)
     private int version;
 
-    public ProductEntity(Long id, String name, String description, Long quantityInStock, Long buyPrice, ProductCategory category, String productLine, Set<OrderDetailsEntity> orderEntities) {
+    public ProductEntity(Long id, String name, String description, Long quantityInStock, Long buyPrice, ProductCategory category, String productLine) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -72,6 +65,5 @@ public class ProductEntity {
         this.buyPrice = buyPrice;
         this.category = category;
         this.productLine = productLine;
-        this.orderEntities = orderEntities;
     }
 }

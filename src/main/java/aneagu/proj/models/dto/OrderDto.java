@@ -15,10 +15,6 @@ public class OrderDto {
 
     private Long id;
 
-    @NotNull(message = "Date can't be empty.")
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date date;
-
     @Size(max = 450)
     private String comment;
 

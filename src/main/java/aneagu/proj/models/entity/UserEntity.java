@@ -14,7 +14,7 @@ import java.util.Set;
 @Setter
 @Builder
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity {
 
     @Id
@@ -40,13 +40,6 @@ public class UserEntity {
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            mappedBy = "user"
-    )
-    private Set<PaymentEntity> payments;
-
     @Column(insertable = false, updatable = false)
     @Setter(AccessLevel.NONE)
     @CreationTimestamp
@@ -62,7 +55,7 @@ public class UserEntity {
     @Setter(AccessLevel.NONE)
     private int version;
 
-    public UserEntity(Long id, String email, String password, String firstName, String lastName, String phone, AddressEntity address, Set<PaymentEntity> payments) {
+    public UserEntity(Long id, String email, String password, String firstName, String lastName, String phone, AddressEntity address) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -70,6 +63,5 @@ public class UserEntity {
         this.lastName = lastName;
         this.phone = phone;
         this.address = address;
-        this.payments = payments;
     }
 }

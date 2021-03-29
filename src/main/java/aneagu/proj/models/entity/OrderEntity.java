@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -23,13 +24,10 @@ import java.util.Set;
         usage = CacheConcurrencyStrategy.READ_WRITE
 )
 public class OrderEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @Column(columnDefinition="DATETIME", nullable = false)
-    private Date date;
 
     @Column(nullable = false)
     private String comment;
@@ -38,12 +36,14 @@ public class OrderEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @OneToMany(
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<ProductEntity> products;
+
+    @OneToOne(
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            mappedBy = "order"
+            orphanRemoval = true
     )
-    private Set<OrderDetailsEntity> products;
+    private PaymentEntity payment;
 
     @Column(insertable = false, updatable = false)
     @Setter(AccessLevel.NONE)
@@ -60,9 +60,8 @@ public class OrderEntity {
     @Setter(AccessLevel.NONE)
     private int version;
 
-    public OrderEntity(Long id, Date date, String comment, UserEntity user, Set<OrderDetailsEntity> products) {
+    public OrderEntity(Long id, String comment, UserEntity user, List<ProductEntity> products) {
         this.id = id;
-        this.date = date;
         this.comment = comment;
         this.user = user;
         this.products = products;

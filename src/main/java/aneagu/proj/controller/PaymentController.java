@@ -32,8 +32,8 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.get(id));
     }
 
-    @GetMapping(value = "/users/{userId}", produces = "application/hal+json")
-    public ResponseEntity<CollectionModel<PaymentDto>> getPaymentsForUserId(@PathVariable Long userId) throws NotFoundException {
-        return ResponseEntity.ok(resourceAssembler.assemblePaymentsResource(paymentService.getPaymentsForUserId(userId)));
+    @GetMapping(value = "/orders/{orderId}", produces = "application/hal+json")
+    public ResponseEntity<CollectionModel<PaymentDto>> getPaymentsForOrder(@PathVariable Long orderId) throws NotFoundException {
+        return ResponseEntity.ok(resourceAssembler.assemblePaymentsResource(paymentService.getPaymentsForOrderId(orderId)));
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @Component
@@ -21,8 +22,6 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
     private final UserRepository userRepository;
 
     private final OrderRepository orderRepository;
-
-    private final OrderDetailsRepository orderDetailsRepository;
 
     private final PaymentRepository paymentRepository;
 
@@ -40,15 +39,15 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
         if (isSeedingEnabled != null && isSeedingEnabled) {
             List<ProductEntity> productEntities = seedProducts();
             List<UserEntity> userEntities = seedCustomersAndAddresses();
-            seedPayments(userEntities);
-            seedOrderAndOrderDetails(productEntities, userEntities);
+            List<OrderEntity> orderEntities = seedOrders(productEntities, userEntities);
+            seedPayments(orderEntities);
         }
     }
 
-    private void seedPayments(List<UserEntity> userEntities) {
+    private void seedPayments(List<OrderEntity> orderEntities) {
         long id = 1L;
-        for (int i = 0; i < userEntities.size(); i++) {
-            paymentRepository.save(new PaymentEntity(id++, new Date(), generateLong(200L, 1020), PaymentMethod.values()[i], userEntities.get(i)));
+        for (int i = 0; i < orderEntities.size(); i++) {
+            paymentRepository.save(new PaymentEntity(id++, generateBigDecimal(200L, 1020), PaymentMethod.values()[i], orderEntities.get(i)));
         }
     }
 
@@ -62,21 +61,21 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
                 "Bucharest", "Bucharest", "Romania", "021996");
         addressRepository.save(addressEntity);
         UserEntity userEntity = new UserEntity(id++, "andreineagu.c@gmail.com", encodedPassword, "Andrei",
-                "Neagu", "0723111927", addressEntity, Collections.emptySet());
+                "Neagu", "0723111927", addressEntity);
         userRepository.save(userEntity);
 
         AddressEntity addressEntity2 = new AddressEntity(id, "Str. Y", "dsa",
                 "Bucharest", "Bucharest", "Romania", "21323");
         addressRepository.save(addressEntity2);
         UserEntity userEntity2 = new UserEntity(id++, "irisneagu@gmail.com", encodedPassword, "Iris",
-                "Neagu", "0723111928", addressEntity2, Collections.emptySet());
+                "Neagu", "0723111928", addressEntity2);
         userRepository.save(userEntity2);
 
         AddressEntity addressEntity3 = new AddressEntity(id, "Str. Z", "dsa",
                 "Bucharest", "Bucharest", "Romania", "21323");
         addressRepository.save(addressEntity3);
         UserEntity userEntity3 = new UserEntity(id++, "claudianeamtu@gmail.com", encodedPassword, "Claudia",
-                "Neamtu", "0723111929", addressEntity3, Collections.emptySet());
+                "Neamtu", "0723111929", addressEntity3);
         userRepository.save(userEntity3);
 
         list.add(userEntity);
@@ -91,37 +90,36 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
         List<ProductEntity> productEntities = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
             productEntities.add(productRepository.save(new ProductEntity(id++, "TV v" + id, "4k", generateLong(5L, 25),
-                    generateLong(5L, 25), ProductCategory.MONITORS, "DELL", Collections.emptySet())));
+                    generateLong(5L, 25), ProductCategory.MONITORS, "DELL")));
             productEntities.add(productRepository.save(new ProductEntity(id++, "Monitor v" + id, "144Hz", generateLong(5L, 25),
-                    generateLong(5L, 25), ProductCategory.MONITORS, "SAMSUNG", Collections.emptySet())));
+                    generateLong(5L, 25), ProductCategory.MONITORS, "SAMSUNG")));
             productEntities.add(productRepository.save(new ProductEntity(id++, "GPU 1080v" + id, "GPU with 8gb DVM", generateLong(5L, 25),
-                    generateLong(5L, 25), ProductCategory.HARDWARE, "GIGABYTE", Collections.emptySet())));
+                    generateLong(5L, 25), ProductCategory.HARDWARE, "GIGABYTE")));
             productEntities.add(productRepository.save(new ProductEntity(id++, "Mouse GPW" + id, "Best mouse on the market",
-                    generateLong(5L, 25), generateLong(5L, 25), ProductCategory.PERIPHERALS, "LOGITECH", Collections.emptySet())));
+                    generateLong(5L, 25), generateLong(5L, 25), ProductCategory.PERIPHERALS, "LOGITECH")));
         }
 
         return productEntities;
     }
 
-    private void seedOrderAndOrderDetails(List<ProductEntity> productEntities, List<UserEntity> userEntities) {
+    private List<OrderEntity> seedOrders(List<ProductEntity> productEntities, List<UserEntity> userEntities) {
         List<OrderEntity> orderEntities = new ArrayList<>();
-        orderEntities.add(orderRepository.save(new OrderEntity(1L, new Date(), "Deliver it at noon please!",
-                userEntities.get(0), Collections.emptySet())));
-        orderEntities.add(orderRepository.save(new OrderEntity(2L, new Date(), "Deliver it in the morning please!",
-                userEntities.get(1), Collections.emptySet())));
-        orderEntities.add(orderRepository.save(new OrderEntity(3L, new Date(), "Call before delivery!",
-                userEntities.get(2), Collections.emptySet())));
+        orderEntities.add(orderRepository.save(new OrderEntity(1L, "Deliver it at noon please!",
+                userEntities.get(0), productEntities.subList(1, 2))));
+        orderEntities.add(orderRepository.save(new OrderEntity(2L, "Deliver it in the morning please!",
+                userEntities.get(1), productEntities.subList(1, 3))));
+        orderEntities.add(orderRepository.save(new OrderEntity(3L, "Call before delivery!",
+                userEntities.get(2), productEntities.subList(2, 4))));
+        orderRepository.saveAll(orderEntities);
 
-        List<OrderDetailsEntity> orderDetailsEntityList = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            orderDetailsEntityList.add(new OrderDetailsEntity(new OrderDetailsId(orderEntities.get(i).getId(), productEntities.get(i).getId()), productEntities.get(i), orderEntities.get(i),
-                    generateLong(1L, 6), generateLong(20L, 45)));
-        }
-        orderDetailsRepository.saveAll(orderDetailsEntityList);
-
+        return orderEntities;
     }
 
     private Long generateLong(Long lower, Integer upper) {
         return new Random().nextInt(upper) + lower;
+    }
+
+    private BigDecimal generateBigDecimal(Long lower, Integer upper) {
+        return BigDecimal.valueOf(new Random().nextInt(upper) + lower);
     }
 }

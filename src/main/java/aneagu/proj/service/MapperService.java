@@ -6,8 +6,6 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-
 @Service
 public class MapperService {
 
@@ -19,31 +17,6 @@ public class MapperService {
         this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
     }
 
-
-    public OrderDetailsWrapperDto fromOrderDetailsToFullDetailsDto(List<OrderDetailsEntity> list) {
-        OrderDetailsWrapperDto orderDetailsWrapperDto = new OrderDetailsWrapperDto();
-        orderDetailsWrapperDto.setProducts(new ArrayList<>());
-        Map<Long, OrderDetailsSpecificsDto> specificsMap = new HashMap<>();
-
-        OrderDetailsEntity firstOrderDetailsEntity = list.get(0);
-        Optional.of(firstOrderDetailsEntity.getId())
-                .ifPresent(orderProductId -> orderDetailsWrapperDto.setId(convertOrderProductIdToOrderProductIdDto(orderProductId)));
-        Optional.of(firstOrderDetailsEntity.getOrder())
-                .ifPresent(order -> orderDetailsWrapperDto.setOrder(convertOrderToOrderDto(order)));
-
-        for (OrderDetailsEntity orderDetailsEntity : list) {
-            OrderDetailsSpecificsDto orderDetailsSpecificsDto = new OrderDetailsSpecificsDto();
-            Optional.of(firstOrderDetailsEntity.getPriceEach())
-                    .ifPresent(orderDetailsSpecificsDto::setPriceEach);
-            Optional.of(firstOrderDetailsEntity.getQuantity())
-                    .ifPresent(orderDetailsSpecificsDto::setQuantity);
-            specificsMap.put(orderDetailsEntity.getProduct().getId(), orderDetailsSpecificsDto);
-            orderDetailsWrapperDto.getProducts().add(convertProductToProductDto(orderDetailsEntity.getProduct()));
-        }
-        orderDetailsWrapperDto.setSpecifics(specificsMap);
-
-        return orderDetailsWrapperDto;
-    }
 
     public AddressEntity convertAddressDtoToAddress(AddressDto addressDto) {
         return modelMapper.map(addressDto, AddressEntity.class);
@@ -60,24 +33,6 @@ public class MapperService {
 
     public UserDto convertCustomerToCustomerDto(UserEntity userEntity) {
         return modelMapper.map(userEntity, UserDto.class);
-    }
-
-    public OrderDetailsEntity convertOrderDetailsDtoToOrderDetails(OrderDetailsDto orderDetailsDto) {
-        return modelMapper.map(orderDetailsDto, OrderDetailsEntity.class);
-
-    }
-
-    public OrderDetailsDto convertOrderDetailsToOrderDetailsDto(OrderDetailsEntity orderDetailsEntity) {
-        return modelMapper.map(orderDetailsEntity, OrderDetailsDto.class);
-
-    }
-
-    public OrderDetailsId convertOrderProductIdDtoToOrderProductId(OrderDetailsIdDto orderDetailsDto) {
-        return modelMapper.map(orderDetailsDto, OrderDetailsId.class);
-    }
-
-    public OrderDetailsIdDto convertOrderProductIdToOrderProductIdDto(OrderDetailsId orderDetailsDto) {
-        return modelMapper.map(orderDetailsDto, OrderDetailsIdDto.class);
     }
 
     public OrderEntity convertOrderDtoToOrder(OrderDto orderDto) {

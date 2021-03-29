@@ -22,10 +22,6 @@ public class PaymentDto extends RepresentationModel<PaymentDto> {
 
     private Long id;
 
-    @NotNull(message = "Date can't be empty.")
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date date;
-
     @NotNull(message = "Amount can't be empty.")
     @Size(min = 1, max = 1000)
     private Long amount;

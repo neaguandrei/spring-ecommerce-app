@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -15,27 +16,23 @@ import java.util.Date;
 @Setter
 @Builder
 @Entity
-@Table(name = "payment")
+@Table(name = "payments")
 public class PaymentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @Column(columnDefinition="DATETIME", nullable = false)
-    private Date date;
-
     @Column(nullable = false)
-    private Long amount;
+    private BigDecimal amount;
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private PaymentMethod paymentMethod;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private OrderEntity order;
 
     @Column(insertable = false, updatable = false)
     @Setter(AccessLevel.NONE)
@@ -52,11 +49,10 @@ public class PaymentEntity {
     @Setter(AccessLevel.NONE)
     private Integer version;
 
-    public PaymentEntity(Long id, Date date, Long amount, PaymentMethod paymentMethod, UserEntity user) {
+    public PaymentEntity(Long id, BigDecimal amount, PaymentMethod paymentMethod, OrderEntity order) {
         this.id = id;
-        this.date = date;
         this.amount = amount;
         this.paymentMethod = paymentMethod;
-        this.user = user;
+        this.order = order;
     }
 }

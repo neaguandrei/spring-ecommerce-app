@@ -35,12 +35,13 @@ public class PaymentService  {
         return mapperService.convertPaymentToPaymentDto(optionalPayment.get());
     }
 
-    public List<PaymentDto> getPaymentsForUserId(Long userId) throws NotFoundException {
-        if (!userRepository.findById(userId).isPresent()) {
+    public List<PaymentDto> getPaymentsForOrderId(Long orderId) throws NotFoundException {
+        if (!userRepository.findById(orderId).isPresent()) {
             throw new NotFoundException("Customer doesn't exist");
         }
+
         List<PaymentDto> paymentDtos = new ArrayList<>();
-        paymentRepository.findAllByCustomerId(userId)
+        paymentRepository.findAllByOrderId(orderId)
                 .forEach(payment -> paymentDtos.add(mapperService.convertPaymentToPaymentDto(payment)));
 
         return paymentDtos;
