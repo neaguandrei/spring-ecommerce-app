@@ -18,30 +18,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestControllerAdvice
-public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+public class RestExceptionHandlerController extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
     public final ResponseEntity<Object> handleException(NotFoundException ex) {
         String error = "Not Found";
         return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, error, ex));
     }
 
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(BadRequestException.class)
     public final ResponseEntity<Object> handleException(BadRequestException ex) {
         String error = "Bad Request";
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex));
     }
 
-    @ExceptionHandler
+    @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public final ResponseEntity<Object> handleException(BadCredentialsException ex) {
         String error = "Unauthorized Request";
         return buildResponseEntity(new ApiError(HttpStatus.UNAUTHORIZED, error, ex));
     }
 
-    @ExceptionHandler
+    @ExceptionHandler(HttpClientErrorException.Forbidden.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public final ResponseEntity<Object> handleException(HttpClientErrorException.Forbidden ex) {
         String error = "Forbidden";

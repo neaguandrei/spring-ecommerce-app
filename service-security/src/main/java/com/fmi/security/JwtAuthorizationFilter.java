@@ -49,7 +49,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                 .build()
                 .verify(token.replace(Constants.TOKEN_PREFIX, ""))
                 .getSubject();
-
         if (user == null) {
             return null;
         }

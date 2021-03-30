@@ -9,14 +9,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class PaymentService  {
+public class PaymentService {
 
-    private PaymentRepository paymentRepository;
-//    private final UserRepository userRepository;
+    private final PaymentRepository paymentRepository;
+
+    private final OrderGatewayService orderGatewayService;
 
     private final MapperService mapperService;
 
@@ -34,9 +36,9 @@ public class PaymentService  {
     }
 
     public List<PaymentDto> getPaymentsForOrderId(Long orderId) throws NotFoundException {
-//        if (!userRepository.findById(orderId).isPresent()) {
-//            throw new NotFoundException("Customer doesn't exist");
-//        }
+        if (Objects.isNull(orderGatewayService.getOrderById(orderId))) {
+            throw new NotFoundException("Order doesn't exist.");
+        }
 
         List<PaymentDto> paymentDtos = new ArrayList<>();
         paymentRepository.findAllByOrderId(orderId).forEach(payment -> paymentDtos.add(mapperService.convertPaymentToPaymentDto(payment)));

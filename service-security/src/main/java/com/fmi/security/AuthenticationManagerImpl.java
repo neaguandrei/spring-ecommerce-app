@@ -1,6 +1,7 @@
 package com.fmi.security;
 
 import com.fmi.security.config.SecurityConfigurationProperties;
+import com.fmi.security.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,13 +31,12 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         final String email = authentication.getPrincipal().toString();
         final String password = authentication.getCredentials().toString();
-
         try {
-            final ResponseEntity<UserDto> responseEntity = restTemplate.getForEntity(securityConfigurationProperties.getUserUrl(),
-                    UserDto.class, email);
-            final UserDto userDto = responseEntity.getBody();
+            final ResponseEntity<User> responseEntity = restTemplate.getForEntity(securityConfigurationProperties.getUserUrl(),
+                    User.class, email);
+            final User user = responseEntity.getBody();
 
-            if (Objects.isNull(userDto) || !passwordEncoder.matches(password, userDto.getPassword())) {
+            if (Objects.isNull(user) || !passwordEncoder.matches(password, user.getPassword())) {
                 throw new BadCredentialsException("Passwords don't match!");
             }
         } catch (HttpClientErrorException.NotFound ex) {

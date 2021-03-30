@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/payments")
 @RequiredArgsConstructor
-public class PaymentController {
+public class RestPaymentController {
 
     private final PaymentService paymentService;
 

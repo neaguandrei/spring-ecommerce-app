@@ -10,3 +10,6 @@ security:
   user-url: http://localhost:8080/{email}
   jwt-expiration: 864000000
   jwt-secret: secretKeyToProviderJWT
+
+order:
+  url: http://localhost:8083

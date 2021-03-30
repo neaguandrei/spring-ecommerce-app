@@ -1,9 +1,9 @@
-package com.fmi.security;
+package com.fmi.security.model;
 
 import lombok.Data;
 
 @Data
-public class UserDto {
+public class User {
 
     private String email;
 
