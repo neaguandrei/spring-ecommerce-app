@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    include: h2
+
+server:
+  port: 8081

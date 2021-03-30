@@ -1,0 +1,47 @@
+package com.fmi.payment.service;
+
+import com.fmi.common.exception.NotFoundException;
+import com.fmi.dao.entity.PaymentEntity;
+import com.fmi.dao.repository.PaymentRepository;
+import com.fmi.payment.dto.PaymentDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class PaymentService  {
+
+    private PaymentRepository paymentRepository;
+//    private final UserRepository userRepository;
+
+    private final MapperService mapperService;
+
+    public void save(PaymentDto object) {
+        paymentRepository.save(mapperService.convertPaymentDtoToPayment(object));
+    }
+
+    public PaymentDto get(Long id) throws NotFoundException {
+        Optional<PaymentEntity> optionalPayment = paymentRepository.findById(id);
+        if (!optionalPayment.isPresent()) {
+            throw new NotFoundException("Payment not found!");
+        }
+
+        return mapperService.convertPaymentToPaymentDto(optionalPayment.get());
+    }
+
+    public List<PaymentDto> getPaymentsForOrderId(Long orderId) throws NotFoundException {
+//        if (!userRepository.findById(orderId).isPresent()) {
+//            throw new NotFoundException("Customer doesn't exist");
+//        }
+
+        List<PaymentDto> paymentDtos = new ArrayList<>();
+        paymentRepository.findAllByOrderId(orderId).forEach(payment -> paymentDtos.add(mapperService.convertPaymentToPaymentDto(payment)));
+
+        return paymentDtos;
+    }
+
+}
