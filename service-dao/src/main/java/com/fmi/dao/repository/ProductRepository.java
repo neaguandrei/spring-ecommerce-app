@@ -6,10 +6,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     Page<ProductEntity> findAllByName(String name, Pageable pageable);
 
     Page<ProductEntity> findAllByNameAndCategory(String name, ProductEntity.ProductCategory category, Pageable pageable);
+
+    Optional<ProductEntity> findByInternalId(String internalId);
 
 }

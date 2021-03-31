@@ -2,6 +2,7 @@ package com.fmi.dao.entity;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -15,17 +16,21 @@ import java.util.Arrays;
 @Setter
 @Builder
 @Entity
-@Table(name = "payments")
+@Table(name = "payment")
 public class PaymentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NaturalId
+    @Column(name = "internal_id", nullable = false, length = 36)
+    private String internalId;
+
     @Column(nullable = false)
     private BigDecimal amount;
 
-    @Column(nullable = false)
+    @Column(name = "payment_method", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private PaymentMethod paymentMethod;
 
@@ -38,13 +43,13 @@ public class PaymentEntity {
     @CreationTimestamp
     private LocalDateTime created;
 
-    @Column(insertable = false, updatable = false)
+    @Column(name = "last_updated", insertable = false, updatable = false)
     @Setter(AccessLevel.NONE)
     @UpdateTimestamp
     private LocalDateTime lastUpdated;
 
     @Version
-    @Column
+    @Column(nullable = false)
     @Setter(AccessLevel.NONE)
     private Integer version;
 
@@ -66,7 +71,7 @@ public class PaymentEntity {
 
         public PaymentMethod fromValue(String value) {
             return Arrays.stream(PaymentMethod.values())
-                    .filter(paymentMethod -> paymentMethod.getValue().equals(value))
+                    .filter(method -> method.getValue().equals(value))
                     .findFirst()
                     .orElseThrow(() -> new IllegalArgumentException("Value doesn't exist!"));
         }

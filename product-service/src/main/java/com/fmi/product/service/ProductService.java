@@ -1,4 +1,5 @@
 package com.fmi.product.service;
+
 import com.fmi.common.exception.NotFoundException;
 import com.fmi.product.dto.ProductDto;
 import com.fmi.dao.entity.ProductEntity;
@@ -8,11 +9,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Objects;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProductService {
 
     private final ProductRepository productRepository;
@@ -32,8 +35,8 @@ public class ProductService {
                 .map(mapperService::convertProductToProductDto);
     }
 
-    public ProductDto getProduct(Long id) throws NotFoundException {
-        Optional<ProductDto> optional = productRepository.findById(id).map(mapperService::convertProductToProductDto);
+    public ProductDto getProductByInternalId(String internalId) throws NotFoundException {
+        Optional<ProductDto> optional = productRepository.findByInternalId(internalId).map(mapperService::convertProductToProductDto);
         if (!optional.isPresent()) {
             throw new NotFoundException("Product doesn't exist!");
         }

@@ -1,4 +1,4 @@
-package com.fmi.order.dto;
+package com.fmi.api;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "internalId")
-public class OrderDto {
+public class Order {
 
     @NotNull
     private Long internalId;
@@ -27,6 +27,6 @@ public class OrderDto {
     public enum Status {
         APPROVED,
         CANCELLED,
-        PENDING;
+        PENDING
     }
 }

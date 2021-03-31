@@ -24,8 +24,16 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @NaturalId
+    @Column(name = "internal_id", nullable = false, length = 36)
+    private String internalId;
+
+    @Column
     private String comment;
+
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private Status status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -36,7 +44,8 @@ public class OrderEntity {
 
     @OneToOne(
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            mappedBy = "order"
     )
     private PaymentEntity payment;
 
@@ -45,14 +54,19 @@ public class OrderEntity {
     @CreationTimestamp
     private LocalDateTime created;
 
-    @Column(insertable = false, updatable = false)
+    @Column(name = "last_updated", insertable = false, updatable = false)
     @Setter(AccessLevel.NONE)
     @UpdateTimestamp
     private LocalDateTime lastUpdated;
 
     @Version
-    @Column
+    @Column(nullable = false)
     @Setter(AccessLevel.NONE)
     private int version;
 
+    public enum Status {
+        APPROVED,
+        CANCELLED,
+        PENDING;
+    }
 }

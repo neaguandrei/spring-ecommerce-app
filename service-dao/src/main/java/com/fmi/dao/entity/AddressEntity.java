@@ -2,6 +2,7 @@ package com.fmi.dao.entity;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -13,17 +14,26 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @Entity
-@Table(name = "addresses")
+@Table(name = "address")
 public class AddressEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
-    private String addressLineOne;
+    @NaturalId
+    @Column(name = "internal_id", nullable = false, length = 36)
+    private String internalId;
 
-    @Column(nullable = false)
-    private String addressLineTwo;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
+    @Column(name = "address_one", nullable = false)
+    private String addressOne;
+
+    @Column(name = "address_two", nullable = false)
+    private String addressTwo;
 
     @Column(nullable = false)
     private String city;
@@ -34,7 +44,7 @@ public class AddressEntity {
     @Column(nullable = false)
     private String country;
 
-    @Column(nullable = false)
+    @Column(name = "postal_code", nullable = false)
     private String postalCode;
 
     @Column(insertable = false, updatable = false)
@@ -42,13 +52,13 @@ public class AddressEntity {
     @CreationTimestamp
     private LocalDateTime created;
 
-    @Column(insertable = false, updatable = false)
+    @Column(name = "last_updated", insertable = false, updatable = false)
     @Setter(AccessLevel.NONE)
     @UpdateTimestamp
     private LocalDateTime lastUpdated;
 
     @Version
-    @Column
+    @Column(nullable = false)
     @Setter(AccessLevel.NONE)
     private int version;
 }

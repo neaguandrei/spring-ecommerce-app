@@ -3,17 +3,17 @@ package com.fmi.product.dto;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fmi.common.validation.OneOf;
-import com.fmi.dao.entity.ProductEntity;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "internalId")
 public class ProductDto {
 
-    private Long id;
+    @NotNull
+    private String internalId;
 
     @NotNull(message = "Name can't be empty.")
     private String name;
@@ -23,15 +23,22 @@ public class ProductDto {
 
     @NotNull(message = "Quantity can't be empty.")
     @Size(max = 30)
-    private Long quantityInStock;
+    private Long quantity;
 
     @NotNull(message = "Buy price can't be empty.")
     @Size(min = 1)
-    private Long buyPrice;
+    private Long price;
 
     @NotNull(message = "Product category can't be empty.")
-    @OneOf(enumClass = ProductEntity.ProductCategory.class, message = "Category isn't of correct type.")
+    @OneOf(enumClass = ProductCategory.class, message = "Category isn't of correct type.")
     private String category;
 
     private String productLine;
+
+    public enum ProductCategory {
+        MONITORS,
+        HARDWARE,
+        PERIPHERALS,
+        NONE;
+    }
 }

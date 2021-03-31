@@ -7,6 +7,7 @@ import com.fmi.payment.dto.PaymentDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PaymentService {
 
     private final PaymentRepository paymentRepository;
@@ -26,8 +28,8 @@ public class PaymentService {
         paymentRepository.save(mapperService.convertPaymentDtoToPayment(object));
     }
 
-    public PaymentDto get(Long id) throws NotFoundException {
-        Optional<PaymentEntity> optionalPayment = paymentRepository.findById(id);
+    public PaymentDto getByInternalId(String id) throws NotFoundException {
+        Optional<PaymentEntity> optionalPayment = paymentRepository.findByInternalId(id);
         if (!optionalPayment.isPresent()) {
             throw new NotFoundException("Payment not found!");
         }
@@ -35,7 +37,7 @@ public class PaymentService {
         return mapperService.convertPaymentToPaymentDto(optionalPayment.get());
     }
 
-    public List<PaymentDto> getPaymentsForOrderId(Long orderId) throws NotFoundException {
+    public List<PaymentDto> getPaymentsForOrderId(String orderId) throws NotFoundException {
         if (Objects.isNull(orderGatewayService.getOrderById(orderId))) {
             throw new NotFoundException("Order doesn't exist.");
         }

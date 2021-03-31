@@ -4,6 +4,9 @@ spring:
     url: jdbc:h2:mem:testdb
     username: root
     password: ''
+  devtools:
+    restart:
+      log-condition-evaluation-delta: false
   h2:
     console:
       enabled: true
@@ -11,3 +14,6 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
+
+server:
+  port: 8081

@@ -27,13 +27,13 @@ public class RestPaymentController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<PaymentDto> getPayment(@PathVariable Long id) throws NotFoundException {
-        return ResponseEntity.ok(paymentService.get(id));
+    @GetMapping(value = "/{paymentId}")
+    public ResponseEntity<PaymentDto> getPayment(@PathVariable String paymentId) throws NotFoundException {
+        return ResponseEntity.ok(paymentService.getByInternalId(paymentId));
     }
 
     @GetMapping(value = "/orders/{orderId}", produces = "application/hal+json")
-    public ResponseEntity<CollectionModel<PaymentDto>> getPaymentsForOrder(@PathVariable Long orderId) throws NotFoundException {
+    public ResponseEntity<CollectionModel<PaymentDto>> getPaymentsForOrder(@PathVariable String orderId) throws NotFoundException {
         return ResponseEntity.ok(resourceAssembler.assemblePaymentsResource(paymentService.getPaymentsForOrderId(orderId)));
     }
 }

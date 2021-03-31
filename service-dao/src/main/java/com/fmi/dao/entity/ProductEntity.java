@@ -2,11 +2,11 @@ package com.fmi.dao.entity;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,12 +15,16 @@ import java.util.Arrays;
 @Setter
 @Builder
 @Entity
-@Table(name = "products")
+@Table(name = "product")
 public class ProductEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NaturalId
+    @Column(name = "internal_id", nullable = false, length = 36)
+    private String internalId;
 
     @Column(nullable = false)
     private String name;
@@ -29,16 +33,16 @@ public class ProductEntity {
     private String description;
 
     @Column(nullable = false)
-    private Long quantityInStock;
+    private Long quantity;
 
     @Column(nullable = false)
-    private Long buyPrice;
+    private Long price;
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private ProductCategory category;
 
-    @Column(nullable = false)
+    @Column(name = "product_line", nullable = false)
     private String productLine;
 
     @Column(insertable = false, updatable = false)
@@ -46,37 +50,20 @@ public class ProductEntity {
     @CreationTimestamp
     private LocalDateTime created;
 
-    @Column(insertable = false, updatable = false)
+    @Column(name = "last_updated", insertable = false, updatable = false)
     @Setter(AccessLevel.NONE)
     @UpdateTimestamp
     private LocalDateTime lastUpdated;
 
     @Version
-    @Column
+    @Column(nullable = false)
     @Setter(AccessLevel.NONE)
     private int version;
 
     public enum ProductCategory {
-        MONITORS("Monitors"),
-        HARDWARE("Hardware"),
-        PERIPHERALS("Peripherals"),
-        NONE("None");
-
-        private String value;
-
-        ProductCategory(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public static ProductCategory fromValue(String value) {
-            return Arrays.stream(values())
-                    .filter(productCategory -> productCategory.getValue().equals(value))
-                    .findFirst()
-                    .orElse(null);
-        }
+        MONITORS,
+        HARDWARE,
+        PERIPHERALS,
+        NONE;
     }
 }

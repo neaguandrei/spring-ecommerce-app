@@ -30,15 +30,15 @@ public class UserService {
 
     private final MapperService mapperService;
 
-    public void delete(Long id) throws NotFoundException {
-        Optional<UserEntity> address = userRepository.findById(id);
-        if (!address.isPresent()) {
+    public void delete(String userId) throws NotFoundException {
+        Optional<UserEntity> userEntity = userRepository.findByInternalId(userId);
+        if (!userEntity.isPresent()) {
             throw new NotFoundException(CUSTOMER_NOT_FOUND);
         }
-        userRepository.deleteById(id);
+        userRepository.deleteByInternalId(userId);
     }
 
-    public Long save(UserDto object) throws BadRequestException {
+    public void save(UserDto object) throws BadRequestException {
         boolean isEmailExisting = userRepository.findByEmail(object.getEmail()).isPresent();
         boolean isPhoneExisting = userRepository.findByPhone(object.getPhone()).isPresent();
         if (isEmailExisting) {
@@ -51,33 +51,33 @@ public class UserService {
         final UserEntity userEntity = mapperService.convertCustomerDtoToCustomer(object);
         userEntity.setPassword(passwordEncoder.encode(object.getPassword()));
 
-        return userRepository.save(userEntity).getId();
+        userRepository.save(userEntity);
     }
 
-    public void update(Long id, UserDto object) {
+    public void update(String internalId, UserDto object) {
         if (object == null) {
             throw new IllegalArgumentException("Object can't be null!");
         }
 
-        Optional<UserEntity> optionalCustomer = userRepository.findById(id);
+        Optional<UserEntity> optionalCustomer = userRepository.findByInternalId(internalId);
         if (optionalCustomer.isPresent()) {
             UserEntity userEntity = mapperService.convertCustomerDtoToCustomer(object);
             if (userEntity.getPassword() != null) {
                 userEntity.setPassword(passwordEncoder.encode(object.getPassword()));
             }
-            userEntity.setId(id);
-            updateAddress(id, userEntity);
+            userEntity.setInternalId(internalId);
+            updateAddress(internalId, userEntity);
             userRepository.save(mapperService.convertCustomerDtoToCustomer(object));
         }
     }
 
-    public UserDto get(Long id) throws NotFoundException {
-        return mapperService.convertCustomerToCustomerDto(userRepository.findById(id)
+    public UserDto getUserByInternalId(String userId) throws NotFoundException {
+        return mapperService.convertCustomerToCustomerDto(userRepository.findByInternalId(userId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND)));
     }
 
-    private void updateAddress(Long id, UserEntity userEntity) {
-        Optional<AddressEntity> optionalAddress = addressRepository.findById(id);
+    private void updateAddress(String userId, UserEntity userEntity) {
+        Optional<AddressEntity> optionalAddress = addressRepository.findByUserInternalId(userId);
         optionalAddress.ifPresent(address -> {
             addressRepository.save(address);
             userEntity.setAddress(address);

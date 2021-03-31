@@ -14,13 +14,12 @@ public class OrderGatewayService {
 
     private final RestTemplate restTemplate;
 
-    @Value("${order.url}")
+    @Value("${order.api.endpoint.baseURL}")
     private String orderUrl;
 
-    public OrderDto getOrderById(Long orderId) {
+    public OrderDto getOrderById(String orderId) {
         try {
-            final ResponseEntity<OrderDto> responseEntity = restTemplate.getForEntity(orderUrl + "/{orderId}",
-                    OrderDto.class, orderId);
+            final ResponseEntity<OrderDto> responseEntity = restTemplate.getForEntity(orderUrl + "/{orderId}", OrderDto.class, orderId);
             return responseEntity.getBody();
         } catch (HttpClientErrorException.NotFound ex) {
             return null;

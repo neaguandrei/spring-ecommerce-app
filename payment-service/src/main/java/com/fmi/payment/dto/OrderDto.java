@@ -4,13 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
-import javax.validation.constraints.Size;
-
 @Data
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class OrderDto {
 
-    private Long id;
+    private Long internalId;
 
     private String comment;
 

@@ -16,7 +16,7 @@ public class ResourceAssemblerService {
 
     public CollectionModel<PaymentDto> assemblePaymentsResource(List<PaymentDto> list) {
         list.forEach(paymentDto -> {
-            Long id = paymentDto.getId();
+            String id = paymentDto.getInternalId();
             try {
                 Link link = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RestPaymentController.class).getPayment(id)).withSelfRel();
                 paymentDto.add(link);

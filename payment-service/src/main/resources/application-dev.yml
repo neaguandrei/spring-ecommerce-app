@@ -14,3 +14,17 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
+
+server:
+  port: 8082
+
+security:
+  enabled: false
+  user-url: http://localhost:8080/{email}
+  jwt-expiration: 864000000
+  jwt-secret: secretKeyToProviderJWT
+
+order:
+  api:
+    endpoint:
+      baseURL: http://localhost:8083

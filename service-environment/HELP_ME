@@ -1,0 +1,6 @@
+# Flyway commands
+flyway:clean -Dflyway.configFile=flyway-config.properties
+flyway:migrate -Dflyway.configFile=flyway-config.properties
+
+# Docker DB
+docker-compose up

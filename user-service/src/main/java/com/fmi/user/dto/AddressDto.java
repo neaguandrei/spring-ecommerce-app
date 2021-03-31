@@ -8,17 +8,17 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "internalId")
 public class AddressDto {
 
-    private Long id;
+    private String internalId;
 
     @NotNull(message = "Address can't be empty.")
     @Size(min = 3, max = 20)
-    private String addressLineOne;
+    private String addressOne;
 
     @Size(max = 20)
-    private String addressLineTwo;
+    private String addressTwo;
 
     @NotNull(message = "City can't be empty.")
     @Size(min = 3, max = 15)
