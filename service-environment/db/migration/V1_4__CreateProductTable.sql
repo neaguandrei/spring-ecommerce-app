@@ -1,7 +1,6 @@
 CREATE TABLE IF NOT EXISTS PRODUCT
 (
     id           INT AUTO_INCREMENT PRIMARY KEY,
-    internal_id  VARCHAR(255) NOT NULL,
     name         VARCHAR(255) NOT NULL,
     description  VARCHAR(255) NOT NULL,
     quantity     INT          NOT NULL,

@@ -15,12 +15,11 @@ import java.util.Arrays;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "internalId")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Relation(collectionRelation = "payments")
 public class PaymentDto extends RepresentationModel<PaymentDto> {
 
-    @NotNull
-    private String internalId;
+    private Long id;
 
     @NotNull(message = "Amount can't be empty.")
     @Size(min = 1, max = 1000)

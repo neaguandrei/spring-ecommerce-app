@@ -28,8 +28,8 @@ public class PaymentService {
         paymentRepository.save(mapperService.convertPaymentDtoToPayment(object));
     }
 
-    public PaymentDto getByInternalId(String id) throws NotFoundException {
-        Optional<PaymentEntity> optionalPayment = paymentRepository.findByInternalId(id);
+    public PaymentDto getById(Long id) throws NotFoundException {
+        Optional<PaymentEntity> optionalPayment = paymentRepository.findById(id);
         if (!optionalPayment.isPresent()) {
             throw new NotFoundException("Payment not found!");
         }

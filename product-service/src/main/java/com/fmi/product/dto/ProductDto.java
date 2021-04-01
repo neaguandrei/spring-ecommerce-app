@@ -9,11 +9,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "internalId")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ProductDto {
 
-    @NotNull
-    private String internalId;
+    private Long id;
 
     @NotNull(message = "Name can't be empty.")
     private String name;

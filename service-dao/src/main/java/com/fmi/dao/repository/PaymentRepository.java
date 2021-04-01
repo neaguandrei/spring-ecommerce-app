@@ -8,8 +8,6 @@ import java.util.Optional;
 
 public interface PaymentRepository extends JpaRepository<PaymentEntity, Long> {
 
-    @Query("SELECT p FROM PaymentEntity p WHERE p.order.internalId = :id ")
+    @Query("SELECT p FROM PaymentEntity p WHERE p.order.id = :id ")
     Iterable<PaymentEntity> findAllByOrderId(String id);
-
-    Optional<PaymentEntity> findByInternalId(String internalId);
 }

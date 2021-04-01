@@ -10,12 +10,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "internalId")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
 
-    @NotEmpty(message = "Internal ID can't be empty.", groups = {SignIn.class, SignUp.class})
-    private String internalId;
+    private Long id;
 
     @NotEmpty(message = "Email can't be empty.", groups = {SignIn.class, SignUp.class})
     private String email;

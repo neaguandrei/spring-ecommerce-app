@@ -22,10 +22,6 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NaturalId
-    @Column(name = "internal_id", nullable = false, length = 36)
-    private String internalId;
-
     @Column(nullable = false)
     private String name;
 

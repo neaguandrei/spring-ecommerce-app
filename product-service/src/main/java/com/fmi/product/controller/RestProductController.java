@@ -22,8 +22,8 @@ public class RestProductController {
     private final ProductService productService;
 
     @GetMapping("/{productId}")
-    public ResponseEntity<ProductDto> getProduct(@PathVariable String productId) throws NotFoundException {
-        return ResponseEntity.ok(productService.getProductByInternalId(productId));
+    public ResponseEntity<ProductDto> getProduct(@PathVariable Long productId) throws NotFoundException {
+        return ResponseEntity.ok(productService.getProductById(productId));
     }
 
     @GetMapping

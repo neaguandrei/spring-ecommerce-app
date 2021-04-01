@@ -19,16 +19,16 @@ public class RestOrderController {
     private final OrderService orderService;
 
     @GetMapping(value = "/{orderId}")
-    public ResponseEntity<OrderDto> getOrder(@PathVariable String orderId) throws NotFoundException {
-        return ResponseEntity.ok(orderService.getByInternalId(orderId));
+    public ResponseEntity<OrderDto> getOrder(@PathVariable Long orderId) throws NotFoundException {
+        return ResponseEntity.ok(orderService.getById(orderId));
     }
 
     @GetMapping(value = "/users/{userId}")
-    public ResponseEntity<Page<OrderDto>> getOrdersForUserId(@PathVariable String userId,
+    public ResponseEntity<Page<OrderDto>> getOrdersForUserId(@PathVariable Long userId,
                                                              @RequestParam(name = "page", defaultValue = "0") int page,
                                                              @RequestParam(name = "size", defaultValue = "10") int size,
                                                              @RequestParam(name = "sort", defaultValue = "DESC") String sort,
                                                              @RequestParam(name = "sortedParam", defaultValue = "date") String sortedParam) throws NotFoundException {
-        return ResponseEntity.ok(orderService.getOrdersByUserInternalId(userId, PageRequest.of(page, size, Sort.Direction.valueOf(sort), sortedParam)));
+        return ResponseEntity.ok(orderService.getOrdersByUserId(userId, PageRequest.of(page, size, Sort.Direction.valueOf(sort), sortedParam)));
     }
 }

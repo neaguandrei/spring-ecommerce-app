@@ -21,10 +21,6 @@ public class AddressEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NaturalId
-    @Column(name = "internal_id", nullable = false, length = 36)
-    private String internalId;
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;

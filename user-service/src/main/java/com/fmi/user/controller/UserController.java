@@ -17,18 +17,18 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping(value = "/{userId}")
-    public ResponseEntity<UserDto> getUser(@PathVariable String userId) throws NotFoundException {
-        return ResponseEntity.ok(userService.getUserByInternalId(userId));
+    public ResponseEntity<UserDto> getUser(@PathVariable Long userId) throws NotFoundException {
+        return ResponseEntity.ok(userService.getById(userId));
     }
 
     @PutMapping(value = "/update/{userId}")
-    public ResponseEntity<?> updateUser(@PathVariable String userId, @Validated(UserDto.SignUp.class) @RequestBody UserDto userDto) {
+    public ResponseEntity<?> updateUser(@PathVariable Long userId, @Validated(UserDto.SignUp.class) @RequestBody UserDto userDto) {
         userService.update(userId, userDto);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(value = "/remove/{userId}")
-    public ResponseEntity<?> deleteUser(@PathVariable String userId) throws NotFoundException {
+    public ResponseEntity<?> deleteUser(@PathVariable Long userId) throws NotFoundException {
         userService.delete(userId);
         return ResponseEntity.ok().build();
     }

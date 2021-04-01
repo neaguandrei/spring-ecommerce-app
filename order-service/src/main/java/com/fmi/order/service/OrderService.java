@@ -22,8 +22,8 @@ public class OrderService {
 
     private final MapperService mapperService;
 
-    public OrderDto getByInternalId(String id) throws NotFoundException {
-        Optional<OrderEntity> optionalOrder = orderRepository.findByInternalId(id);
+    public OrderDto getById(Long id) throws NotFoundException {
+        Optional<OrderEntity> optionalOrder = orderRepository.findById(id);
         if (!optionalOrder.isPresent()) {
             throw new NotFoundException("Not found");
         }
@@ -32,8 +32,8 @@ public class OrderService {
     }
 
 
-    public Page<OrderDto> getOrdersByUserInternalId(String userId, Pageable pageable) throws NotFoundException {
-        if (!orderRepository.findByInternalId(userId).isPresent()) {
+    public Page<OrderDto> getOrdersByUserId(Long userId, Pageable pageable) throws NotFoundException {
+        if (!orderRepository.findById(userId).isPresent()) {
             throw new NotFoundException("Customer doesn't exist");
         }
 

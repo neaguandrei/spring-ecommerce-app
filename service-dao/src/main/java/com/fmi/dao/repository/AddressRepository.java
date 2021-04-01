@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface AddressRepository extends JpaRepository<AddressEntity, Long> {
 
-    Optional<AddressEntity> findByUserInternalId(String internalId);
+    Optional<AddressEntity> findByUserId(Long userId);
 }

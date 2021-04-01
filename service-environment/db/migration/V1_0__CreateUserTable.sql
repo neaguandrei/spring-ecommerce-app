@@ -1,7 +1,6 @@
 CREATE TABLE IF NOT EXISTS USER
 (
     id           INT AUTO_INCREMENT PRIMARY KEY,
-    internal_id  VARCHAR(36)        NOT NULL,
     email        VARCHAR(255) UNIQUE NOT NULL,
     password     VARCHAR(255)        NOT NULL,
     first_name   VARCHAR(255)        NOT NULL,

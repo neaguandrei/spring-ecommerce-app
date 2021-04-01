@@ -35,8 +35,8 @@ public class ProductService {
                 .map(mapperService::convertProductToProductDto);
     }
 
-    public ProductDto getProductByInternalId(String internalId) throws NotFoundException {
-        Optional<ProductDto> optional = productRepository.findByInternalId(internalId).map(mapperService::convertProductToProductDto);
+    public ProductDto getProductById(Long id) throws NotFoundException {
+        Optional<ProductDto> optional = productRepository.findById(id).map(mapperService::convertProductToProductDto);
         if (!optional.isPresent()) {
             throw new NotFoundException("Product doesn't exist!");
         }

@@ -14,6 +14,4 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     Page<ProductEntity> findAllByNameAndCategory(String name, ProductEntity.ProductCategory category, Pageable pageable);
 
-    Optional<ProductEntity> findByInternalId(String internalId);
-
 }

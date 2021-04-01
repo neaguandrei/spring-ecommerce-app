@@ -28,8 +28,8 @@ public class RestPaymentController {
     }
 
     @GetMapping(value = "/{paymentId}")
-    public ResponseEntity<PaymentDto> getPayment(@PathVariable String paymentId) throws NotFoundException {
-        return ResponseEntity.ok(paymentService.getByInternalId(paymentId));
+    public ResponseEntity<PaymentDto> getPayment(@PathVariable Long paymentId) throws NotFoundException {
+        return ResponseEntity.ok(paymentService.getById(paymentId));
     }
 
     @GetMapping(value = "/orders/{orderId}", produces = "application/hal+json")
