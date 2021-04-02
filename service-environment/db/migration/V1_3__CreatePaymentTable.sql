@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS PAYMENT
+CREATE TABLE IF NOT EXISTS payment
 (
     id             INT AUTO_INCREMENT PRIMARY KEY,
     order_id       INT,
@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS PAYMENT
     created        TIMESTAMP    NOT NULL,
     last_updated   TIMESTAMP    NOT NULL,
     version        INT          NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES ORDERS (id)
+    FOREIGN KEY (order_id) REFERENCES payment (id)
 )

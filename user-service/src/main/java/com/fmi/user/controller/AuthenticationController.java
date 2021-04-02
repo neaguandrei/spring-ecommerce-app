@@ -5,7 +5,6 @@ import com.fmi.common.exception.NotFoundException;
 import com.fmi.user.dto.UserDto;
 import com.fmi.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +16,14 @@ public class AuthenticationController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Validated(UserDto.SignUp.class) @RequestBody UserDto user) throws BadRequestException {
+    public ResponseEntity<Object> registerUser(@Validated(UserDto.SignUp.class) @RequestBody UserDto user) throws BadRequestException {
         userService.save(user);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@Validated(UserDto.SignIn.class) @RequestBody UserDto user) {
-        return ResponseEntity.status(HttpStatus.OK).build();
+    public ResponseEntity<Object> loginUser(@Validated(UserDto.SignIn.class) @RequestBody UserDto user) {
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping(value = "/{email}")

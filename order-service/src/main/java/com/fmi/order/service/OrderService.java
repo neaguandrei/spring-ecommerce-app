@@ -34,7 +34,7 @@ public class OrderService {
 
     public Page<OrderDto> getOrdersByUserId(Long userId, Pageable pageable) throws NotFoundException {
         if (!orderRepository.findById(userId).isPresent()) {
-            throw new NotFoundException("Customer doesn't exist");
+            throw new NotFoundException("User doesn't exist");
         }
 
         return orderRepository.findAllByUserId(userId, pageable).map(mapperService::convertOrderToOrderDto);

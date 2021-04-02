@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -17,7 +18,7 @@ import java.util.List;
 @Setter
 @Builder
 @Entity
-@Table(name = "orders")
+@Table(name = "ORDERS")
 public class OrderEntity {
 
     @Id
@@ -45,15 +46,18 @@ public class OrderEntity {
     )
     private PaymentEntity payment;
 
-    @Column(insertable = false, updatable = false)
+    @Column(updatable = false, nullable = false)
     @Setter(AccessLevel.NONE)
+    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    private LocalDateTime created;
+    private Date created;
 
-    @Column(name = "last_updated", insertable = false, updatable = false)
+    @Column(name = "last_updated", nullable = false)
     @Setter(AccessLevel.NONE)
+    @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
-    private LocalDateTime lastUpdated;
+    private Date lastUpdated;
+
 
     @Version
     @Column(nullable = false)

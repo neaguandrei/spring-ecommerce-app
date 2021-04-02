@@ -5,7 +5,6 @@ import com.fmi.common.exception.NotFoundException;
 import com.fmi.user.dto.UserDto;
 import com.fmi.dao.entity.AddressEntity;
 import com.fmi.dao.entity.UserEntity;
-import com.fmi.dao.repository.AddressRepository;
 import com.fmi.dao.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,72 +19,77 @@ import java.util.Optional;
 @Transactional
 public class UserService {
 
-    private static final String CUSTOMER_NOT_FOUND = "Customer not found";
+    private static final String USER_NOT_FOUND = "User not found";
 
     private final UserRepository userRepository;
-
-    private final AddressRepository addressRepository;
 
     private final PasswordEncoder passwordEncoder;
 
     private final MapperService mapperService;
 
-    public void delete(Long userId) throws NotFoundException {
-        Optional<UserEntity> userEntity = userRepository.findById(userId);
-        if (!userEntity.isPresent()) {
-            throw new NotFoundException(CUSTOMER_NOT_FOUND);
-        }
-        userRepository.deleteById(userId);
-    }
+    public void save(UserDto user) throws BadRequestException {
+        validateCreateUniqueFields(user);
 
-    public void save(UserDto object) throws BadRequestException {
-        boolean isEmailExisting = userRepository.findByEmail(object.getEmail()).isPresent();
-        boolean isPhoneExisting = userRepository.findByPhone(object.getPhone()).isPresent();
-        if (isEmailExisting) {
-            throw new BadRequestException("E-mail already exists!");
-        }
-        if (isPhoneExisting) {
-            throw new BadRequestException("Phone already exists!");
-        }
-
-        final UserEntity userEntity = mapperService.convertCustomerDtoToCustomer(object);
-        userEntity.setPassword(passwordEncoder.encode(object.getPassword()));
-
+        final UserEntity userEntity = mapperService.mapToEntity(user);
+        final AddressEntity addressEntity = mapperService.mapToEntity(user.getAddress());
+        userEntity.setAddress(addressEntity);
+        addressEntity.setUser(userEntity);
+        userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(userEntity);
     }
 
-    public void update(Long id, UserDto object) {
-        if (object == null) {
-            throw new IllegalArgumentException("Object can't be null!");
+    public void update(Long id, UserDto user) throws BadRequestException {
+        Optional<UserEntity> optionalUserEntity = userRepository.findById(id);
+        if (optionalUserEntity.isPresent()) {
+            final UserEntity existingUser = optionalUserEntity.get();
+            validateUpdateFields(user, existingUser);
+
+            final UserEntity updatedUser = mapperService.mapToEntity(user);
+            final AddressEntity updatedAddress = mapperService.mapToEntity(user.getAddress());
+
+            mapperService.mapToUpdatedEntity(updatedUser, existingUser, user.getOldPassword());
+            mapperService.mapToUpdatedEntity(updatedAddress, existingUser.getAddress());
         }
-
-        Optional<UserEntity> optionalCustomer = userRepository.findById(id);
-        if (optionalCustomer.isPresent()) {
-            UserEntity userEntity = mapperService.convertCustomerDtoToCustomer(object);
-            if (userEntity.getPassword() != null) {
-                userEntity.setPassword(passwordEncoder.encode(object.getPassword()));
-            }
-            userEntity.setId(id);
-            updateAddress(id, userEntity);
-            userRepository.save(mapperService.convertCustomerDtoToCustomer(object));
-        }
-    }
-
-    public UserDto getById(Long userId) throws NotFoundException {
-        return mapperService.convertCustomerToCustomerDto(userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND)));
-    }
-
-    private void updateAddress(Long userId, UserEntity userEntity) {
-        Optional<AddressEntity> optionalAddress = addressRepository.findByUserId(userId);
-        optionalAddress.ifPresent(address -> {
-            addressRepository.save(address);
-            userEntity.setAddress(address);
-        });
     }
 
     public UserDto getByEmail(String email) throws NotFoundException {
-        return mapperService.convertCustomerToCustomerDto(userRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND)));
+        return mapperService.mapToDto(userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND)));
+    }
+
+    public void delete(Long userId) throws NotFoundException {
+        Optional<UserEntity> userEntity = userRepository.findById(userId);
+        if (!userEntity.isPresent()) {
+            throw new NotFoundException(USER_NOT_FOUND);
+        }
+
+        userRepository.deleteById(userId);
+    }
+
+    private void validateCreateUniqueFields(UserDto user) throws BadRequestException {
+        boolean isEmailExisting = userRepository.findByEmail(user.getEmail()).isPresent();
+        if (isEmailExisting) {
+            throw new BadRequestException("E-mail already exists!");
+        }
+
+        boolean isPhoneExisting = userRepository.findByPhone(user.getPhone()).isPresent();
+        if (isPhoneExisting) {
+            throw new BadRequestException("Phone already exists!");
+        }
+    }
+
+    private void validateUpdateFields(UserDto user, UserEntity existingEntity) throws BadRequestException {
+        if (!user.getEmail().equals(existingEntity.getEmail())) {
+            boolean isEmailExisting = userRepository.findByEmail(user.getEmail()).isPresent();
+            if (isEmailExisting) {
+                throw new BadRequestException("E-mail already exists!");
+            }
+        }
+
+        if (!user.getPhone().equals(existingEntity.getPhone())) {
+            boolean isPhoneExisting = userRepository.findByPhone(user.getPhone()).isPresent();
+            if (isPhoneExisting) {
+                throw new BadRequestException("Phone already exists!");
+            }
+        }
     }
 }

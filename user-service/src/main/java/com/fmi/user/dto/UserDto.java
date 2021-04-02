@@ -23,6 +23,9 @@ public class UserDto {
     @Size(min = 6, max = 15, message = "Keep it between 6 and 15 characters!")
     private String password;
 
+    @Size(min = 6, max = 15, message = "Keep it between 6 and 15 characters!")
+    private String oldPassword;
+
     @NotEmpty(message = "First name can't be empty.", groups = SignUp.class)
     @Size(min = 3, max = 15)
     private String firstName;

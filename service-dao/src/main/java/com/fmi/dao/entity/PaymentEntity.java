@@ -2,13 +2,13 @@ package com.fmi.dao.entity;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Date;
 
 @AllArgsConstructor()
 @NoArgsConstructor
@@ -16,7 +16,7 @@ import java.util.Arrays;
 @Setter
 @Builder
 @Entity
-@Table(name = "payment")
+@Table(name = "PAYMENT")
 public class PaymentEntity {
 
     @Id
@@ -34,15 +34,18 @@ public class PaymentEntity {
     @JoinColumn(name = "order_id")
     private OrderEntity order;
 
-    @Column(insertable = false, updatable = false)
+    @Column(updatable = false, nullable = false)
     @Setter(AccessLevel.NONE)
+    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    private LocalDateTime created;
+    private Date created;
 
-    @Column(name = "last_updated", insertable = false, updatable = false)
+    @Column(name = "last_updated", nullable = false)
     @Setter(AccessLevel.NONE)
+    @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
-    private LocalDateTime lastUpdated;
+    private Date lastUpdated;
+
 
     @Version
     @Column(nullable = false)

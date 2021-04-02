@@ -2,11 +2,11 @@ package com.fmi.dao.entity;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @Entity
-@Table(name = "product")
+@Table(name = "PRODUCT")
 public class ProductEntity {
 
     @Id
@@ -41,15 +41,18 @@ public class ProductEntity {
     @Column(name = "product_line", nullable = false)
     private String productLine;
 
-    @Column(insertable = false, updatable = false)
+    @Column(updatable = false, nullable = false)
     @Setter(AccessLevel.NONE)
+    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    private LocalDateTime created;
+    private Date created;
 
-    @Column(name = "last_updated", insertable = false, updatable = false)
+    @Column(name = "last_updated", nullable = false)
     @Setter(AccessLevel.NONE)
+    @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
-    private LocalDateTime lastUpdated;
+    private Date lastUpdated;
+
 
     @Version
     @Column(nullable = false)

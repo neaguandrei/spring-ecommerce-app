@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS ORDERS
+CREATE TABLE IF NOT EXISTS orders
 (
     id           INT AUTO_INCREMENT PRIMARY KEY,
     user_id      INT          NOT NULL,
@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS ORDERS
     created      TIMESTAMP    NOT NULL,
     last_updated TIMESTAMP    NOT NULL,
     version      INT          NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES USER (id)
+    FOREIGN KEY (user_id) REFERENCES user (id)
 )
