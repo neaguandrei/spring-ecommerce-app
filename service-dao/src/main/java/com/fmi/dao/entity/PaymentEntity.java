@@ -16,7 +16,7 @@ import java.util.Date;
 @Setter
 @Builder
 @Entity
-@Table(name = "PAYMENT")
+@Table(name = "payment")
 public class PaymentEntity {
 
     @Id
@@ -46,33 +46,15 @@ public class PaymentEntity {
     @UpdateTimestamp
     private Date lastUpdated;
 
-
     @Version
     @Column(nullable = false)
     @Setter(AccessLevel.NONE)
     private Integer version;
 
     public enum PaymentMethod {
-        PAYPAL("PayPal"),
-        MASTER_CARD("MasterCard"),
-        VISA_CARD("VisaCard"),
-        CASH("Cash");
-
-        private String value;
-
-        PaymentMethod(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public PaymentMethod fromValue(String value) {
-            return Arrays.stream(PaymentMethod.values())
-                    .filter(method -> method.getValue().equals(value))
-                    .findFirst()
-                    .orElseThrow(() -> new IllegalArgumentException("Value doesn't exist!"));
-        }
+        PAYPAL,
+        MASTERCARD,
+        VISA,
+        CASH;
     }
 }

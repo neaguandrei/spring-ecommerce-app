@@ -13,7 +13,7 @@ import java.util.Date;
 @Setter
 @Builder
 @Entity
-@Table(name = "ADDRESS")
+@Table(name = "address")
 public class AddressEntity {
 
     @Id

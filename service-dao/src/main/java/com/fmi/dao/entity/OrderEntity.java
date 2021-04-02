@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @Builder
 @Entity
-@Table(name = "ORDERS")
+@Table(name = "orders")
 public class OrderEntity {
 
     @Id
@@ -36,8 +36,13 @@ public class OrderEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<ProductEntity> products;
+    @OneToMany(
+            mappedBy = "order",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private List<OrderProductEntity> products = new ArrayList<>();
 
     @OneToOne(
             cascade = CascadeType.ALL,
@@ -57,7 +62,6 @@ public class OrderEntity {
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
     private Date lastUpdated;
-
 
     @Version
     @Column(nullable = false)

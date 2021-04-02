@@ -35,6 +35,7 @@ public class UserService {
         userEntity.setAddress(addressEntity);
         addressEntity.setUser(userEntity);
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
+
         userRepository.save(userEntity);
     }
 
