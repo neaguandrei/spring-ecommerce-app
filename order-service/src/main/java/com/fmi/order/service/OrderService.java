@@ -3,9 +3,12 @@ package com.fmi.order.service;
 import com.fmi.common.exception.NotFoundException;
 import com.fmi.dao.entity.OrderEntity;
 import com.fmi.dao.entity.OrderProductEntity;
+import com.fmi.dao.entity.OrderProductId;
 import com.fmi.dao.entity.ProductEntity;
+import com.fmi.dao.repository.OrderProductRepository;
 import com.fmi.dao.repository.OrderRepository;
 import com.fmi.dao.repository.ProductRepository;
+import com.fmi.order.mapper.OrderMapper;
 import com.fmi.order.model.Order;
 import com.fmi.order.model.Payment;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -28,7 +29,9 @@ public class OrderService {
 
     private final ProductRepository productRepository;
 
-    private final MapperService mapperService;
+    private final OrderProductRepository orderProductRepository;
+
+    private final OrderMapper orderMapper;
 
     public Order getById(Long id) throws NotFoundException {
         final Optional<OrderEntity> optionalOrder = orderRepository.findById(id);
@@ -36,7 +39,7 @@ public class OrderService {
             throw new NotFoundException("Not found");
         }
 
-        return mapperService.mapFromEntity(optionalOrder.get());
+        return orderMapper.mapFromEntity(optionalOrder.get());
     }
 
     public Page<Order> getOrdersByUserId(Long userId, Pageable pageable) throws NotFoundException {
@@ -44,25 +47,31 @@ public class OrderService {
             throw new NotFoundException("User doesn't exist");
         }
 
-        return orderRepository.findAllByUserId(userId, pageable).map(mapperService::mapFromEntity);
+        return orderRepository.findAllByUserId(userId, pageable).map(orderMapper::mapFromEntity);
     }
 
     public void saveOrder(Order order, Payment payment, Map<Long, Integer> products) throws NotFoundException {
-        final OrderEntity orderEntity = mapperService.mapToEntity(order);
-        final List<OrderProductEntity> orderProducts = new ArrayList<>();
+        final OrderEntity orderEntity = orderMapper.mapToEntity(order);
+        orderEntity.setPayment(orderMapper.mapToEntity(payment));
+        orderRepository.save(orderEntity);
+
         for (Long productId : products.keySet()) {
-            final Optional<ProductEntity> productEntity = productRepository.findById(productId);
-            if (productEntity.isPresent()) {
+            final Optional<ProductEntity> optionalProductEntity = productRepository.findById(productId);
+            if (optionalProductEntity.isPresent()) {
                 final OrderProductEntity orderProductEntity = new OrderProductEntity();
+                final ProductEntity productEntity = optionalProductEntity.get();
+
+                orderProductEntity.setOrder(orderEntity);
+                orderProductEntity.setProduct(productEntity);
                 orderProductEntity.setQuantity(products.get(productId));
-                orderProducts.add(orderProductEntity);
+                orderProductEntity.setOrderProductId(new OrderProductId(orderEntity.getId(), productEntity.getId()));
+
+                orderProductRepository.save(orderProductEntity);
             } else {
                 throw new NotFoundException("Product does with id: " + productId + " does not exist!");
             }
         }
-        orderEntity.setPayment(mapperService.mapToEntity(payment));
-        orderEntity.setProducts(orderProducts);
-        orderRepository.save(orderEntity);
+
     }
 
 }

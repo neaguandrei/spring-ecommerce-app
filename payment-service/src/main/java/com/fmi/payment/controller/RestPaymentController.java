@@ -1,9 +1,11 @@
 package com.fmi.payment.controller;
 
 
-import com.fmi.payment.dto.PaymentDto;
+import com.fmi.api.payment.PaymentDto;
+import com.fmi.api.payment.PaymentResponseResource;
+import com.fmi.payment.mapper.PaymentMapper;
 import com.fmi.payment.service.PaymentService;
-import com.fmi.payment.service.ResourceAssemblerService;
+import com.fmi.payment.assembler.ResourceAssembler;
 import com.fmi.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
@@ -11,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/payments")
@@ -19,21 +23,27 @@ public class RestPaymentController {
 
     private final PaymentService paymentService;
 
-    private final ResourceAssemblerService resourceAssembler;
+    private final PaymentMapper paymentMapper;
 
-    @PostMapping(value = "/add")
-    public ResponseEntity<?> savePayment(@Valid @RequestBody PaymentDto paymentDto) {
-        paymentService.save(paymentDto);
+    private final ResourceAssembler resourceAssembler;
+
+    @PostMapping
+    public ResponseEntity<Object> savePayment(@RequestBody @Valid PaymentDto payment) {
+        paymentService.save(paymentMapper.mapOrderFromDto(payment));
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = "/{paymentId}")
-    public ResponseEntity<PaymentDto> getPayment(@PathVariable Long paymentId) throws NotFoundException {
-        return ResponseEntity.ok(paymentService.getById(paymentId));
+    @GetMapping(value = "/{payment_id}")
+    public ResponseEntity<PaymentDto> getPayment(@PathVariable(value = "payment_id") Long paymentId) throws NotFoundException {
+        return ResponseEntity.ok(paymentMapper.mapToDto(paymentService.getById(paymentId)));
     }
 
-    @GetMapping(value = "/orders/{orderId}", produces = "application/hal+json")
-    public ResponseEntity<CollectionModel<PaymentDto>> getPaymentsForOrder(@PathVariable String orderId) throws NotFoundException {
-        return ResponseEntity.ok(resourceAssembler.assemblePaymentsResource(paymentService.getPaymentsForOrderId(orderId)));
+    @GetMapping(value = "/users/{user_id}", produces = "application/hal+json")
+    public ResponseEntity<CollectionModel<PaymentResponseResource>> getPaymentsForUserId(@PathVariable(value = "user_id") Long userId) throws NotFoundException {
+        final List<PaymentResponseResource> responseResources = paymentService.getPaymentsByUserId(userId).stream()
+                .map(paymentMapper::mapToResource)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(resourceAssembler.assemblePaymentsResource(responseResources));
     }
 }

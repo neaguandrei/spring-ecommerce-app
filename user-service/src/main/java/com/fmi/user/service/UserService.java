@@ -2,10 +2,11 @@ package com.fmi.user.service;
 
 import com.fmi.common.exception.BadRequestException;
 import com.fmi.common.exception.NotFoundException;
-import com.fmi.user.dto.UserDto;
 import com.fmi.dao.entity.AddressEntity;
 import com.fmi.dao.entity.UserEntity;
 import com.fmi.dao.repository.UserRepository;
+import com.fmi.user.mapper.UserMapper;
+import com.fmi.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,13 +26,13 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final MapperService mapperService;
+    private final UserMapper userMapper;
 
-    public void save(UserDto user) throws BadRequestException {
+    public void save(User user) throws BadRequestException {
         validateCreateUniqueFields(user);
 
-        final UserEntity userEntity = mapperService.mapToEntity(user);
-        final AddressEntity addressEntity = mapperService.mapToEntity(user.getAddress());
+        final UserEntity userEntity = userMapper.mapToEntity(user);
+        final AddressEntity addressEntity = userMapper.mapToEntity(user.getAddress());
         userEntity.setAddress(addressEntity);
         addressEntity.setUser(userEntity);
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -39,22 +40,23 @@ public class UserService {
         userRepository.save(userEntity);
     }
 
-    public void update(Long id, UserDto user) throws BadRequestException {
+    public void update(Long id, User user) throws BadRequestException {
         Optional<UserEntity> optionalUserEntity = userRepository.findById(id);
         if (optionalUserEntity.isPresent()) {
             final UserEntity existingUser = optionalUserEntity.get();
             validateUpdateFields(user, existingUser);
 
-            final UserEntity updatedUser = mapperService.mapToEntity(user);
-            final AddressEntity updatedAddress = mapperService.mapToEntity(user.getAddress());
+            final UserEntity updatedUser = userMapper.mapToEntity(user);
+            final AddressEntity updatedAddress = userMapper.mapToEntity(user.getAddress());
 
-            mapperService.mapToUpdatedEntity(updatedUser, existingUser, user.getOldPassword());
-            mapperService.mapToUpdatedEntity(updatedAddress, existingUser.getAddress());
+            userMapper.mapToUpdatedEntity(updatedUser, existingUser, user.getOldPassword());
+            userMapper.mapToUpdatedEntity(updatedAddress, existingUser.getAddress());
         }
     }
 
-    public UserDto getByEmail(String email) throws NotFoundException {
-        return mapperService.mapToDto(userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND)));
+    public User getByEmail(String email) throws NotFoundException {
+        return userRepository.findByEmail(email).map(userMapper::mapFromEntity)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
     }
 
     public void delete(Long userId) throws NotFoundException {
@@ -66,7 +68,7 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    private void validateCreateUniqueFields(UserDto user) throws BadRequestException {
+    private void validateCreateUniqueFields(User user) throws BadRequestException {
         boolean isEmailExisting = userRepository.findByEmail(user.getEmail()).isPresent();
         if (isEmailExisting) {
             throw new BadRequestException("E-mail already exists!");
@@ -78,7 +80,7 @@ public class UserService {
         }
     }
 
-    private void validateUpdateFields(UserDto user, UserEntity existingEntity) throws BadRequestException {
+    private void validateUpdateFields(User user, UserEntity existingEntity) throws BadRequestException {
         if (!user.getEmail().equals(existingEntity.getEmail())) {
             boolean isEmailExisting = userRepository.findByEmail(user.getEmail()).isPresent();
             if (isEmailExisting) {

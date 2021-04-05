@@ -46,6 +46,13 @@ public class RestExceptionHandlerController extends ResponseEntityExceptionHandl
         return buildResponseEntity(new ApiError(HttpStatus.FORBIDDEN, error, ex));
     }
 
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public final ResponseEntity<Object> handleException(Exception ex) {
+        String error = "Internal Server Error";
+        return buildResponseEntity(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, error, ex));
+    }
+
     @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                HttpHeaders headers, HttpStatus status, WebRequest request) {

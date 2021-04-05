@@ -1,8 +1,9 @@
 package com.fmi.user.controller;
 
+import com.fmi.api.user.UserDto;
 import com.fmi.common.exception.BadRequestException;
 import com.fmi.common.exception.NotFoundException;
-import com.fmi.user.dto.UserDto;
+import com.fmi.user.mapper.UserMapper;
 import com.fmi.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +20,17 @@ public class RestUserController {
 
     private final UserService userService;
 
-    @PutMapping(value = "/{userId}")
-    public ResponseEntity<Object> updateUser(@PathVariable Long userId, @Validated(UserDto.SignUp.class) @NotNull @RequestBody UserDto userDto) throws BadRequestException {
-        userService.update(userId, userDto);
+    private final UserMapper userMapper;
+
+
+    @PutMapping(value = "/{user_id}")
+    public ResponseEntity<Object> updateUser(@PathVariable("user_id") Long userId, @Validated(UserDto.SignUp.class) @NotNull @RequestBody UserDto userDto) throws BadRequestException {
+        userService.update(userId, userMapper.mapFromDto(userDto));
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping(value = "/{userId}")
-    public ResponseEntity<Object> deleteUser(@PathVariable Long userId) throws NotFoundException {
+    @DeleteMapping(value = "/{user_id}")
+    public ResponseEntity<Object> deleteUser(@PathVariable("user_id") Long userId) throws NotFoundException {
         userService.delete(userId);
         return ResponseEntity.ok().build();
     }

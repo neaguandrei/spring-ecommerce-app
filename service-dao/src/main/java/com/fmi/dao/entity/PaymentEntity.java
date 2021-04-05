@@ -6,8 +6,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Date;
 
 @AllArgsConstructor()
@@ -55,6 +53,6 @@ public class PaymentEntity {
         PAYPAL,
         MASTERCARD,
         VISA,
-        CASH;
+        CASH
     }
 }

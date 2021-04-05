@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "order.api.endpoint.baseURL",
+      "type": "java.lang.String",
+      "description": "Description for order.api.endpoint.baseURL."
+  }
+] }

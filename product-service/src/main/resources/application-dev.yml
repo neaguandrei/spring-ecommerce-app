@@ -16,4 +16,10 @@ spring:
       ddl-auto: create-drop
 
 server:
-  port: 8081
+  port: 8082
+
+security:
+  enabled: false
+  user-url: http://localhost:8080/{email}
+  jwt-expiration: 864000000
+  jwt-secret: secretKeyToProviderJWT

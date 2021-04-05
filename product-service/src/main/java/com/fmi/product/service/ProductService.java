@@ -1,7 +1,8 @@
 package com.fmi.product.service;
 
 import com.fmi.common.exception.NotFoundException;
-import com.fmi.product.dto.ProductDto;
+import com.fmi.product.mapper.ProductMapper;
+import com.fmi.product.model.Product;
 import com.fmi.dao.entity.ProductEntity;
 import com.fmi.dao.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,23 +21,23 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    private final MapperService mapperService;
+    private final ProductMapper productMapper;
 
-    public Page<ProductDto> getProducts(String searchKey, ProductEntity.ProductCategory productCategory, Pageable pageable) {
+    public Page<Product> getProducts(String searchKey, ProductEntity.ProductCategory productCategory, Pageable pageable) {
         if (Objects.nonNull(searchKey) && !searchKey.isEmpty()) {
             if (productCategory != null && productCategory != ProductEntity.ProductCategory.NONE) {
                 return productRepository.findAllByNameAndCategory(searchKey, productCategory, pageable)
-                        .map(mapperService::convertProductToProductDto);
+                        .map(productMapper::mapFromEntity);
             }
             return productRepository.findAllByName(searchKey, pageable)
-                    .map(mapperService::convertProductToProductDto);
+                    .map(productMapper::mapFromEntity);
         }
         return productRepository.findAll(pageable)
-                .map(mapperService::convertProductToProductDto);
+                .map(productMapper::mapFromEntity);
     }
 
-    public ProductDto getProductById(Long id) throws NotFoundException {
-        Optional<ProductDto> optional = productRepository.findById(id).map(mapperService::convertProductToProductDto);
+    public Product getProductById(Long id) throws NotFoundException {
+        Optional<Product> optional = productRepository.findById(id).map(productMapper::mapFromEntity);
         if (!optional.isPresent()) {
             throw new NotFoundException("Product doesn't exist!");
         }

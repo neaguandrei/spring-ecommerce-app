@@ -3,7 +3,8 @@ package com.fmi.payment.service;
 import com.fmi.common.exception.NotFoundException;
 import com.fmi.dao.entity.PaymentEntity;
 import com.fmi.dao.repository.PaymentRepository;
-import com.fmi.payment.dto.PaymentDto;
+import com.fmi.payment.model.Payment;
+import com.fmi.payment.mapper.PaymentMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,30 +23,30 @@ public class PaymentService {
 
     private final OrderGatewayService orderGatewayService;
 
-    private final MapperService mapperService;
+    private final PaymentMapper paymentMapper;
 
-    public void save(PaymentDto object) {
-        paymentRepository.save(mapperService.convertPaymentDtoToPayment(object));
+    public void save(Payment object) {
+        paymentRepository.save(paymentMapper.mapToEntity(object));
     }
 
-    public PaymentDto getById(Long id) throws NotFoundException {
+    public Payment getById(Long id) throws NotFoundException {
         Optional<PaymentEntity> optionalPayment = paymentRepository.findById(id);
         if (!optionalPayment.isPresent()) {
             throw new NotFoundException("Payment not found!");
         }
 
-        return mapperService.convertPaymentToPaymentDto(optionalPayment.get());
+        return paymentMapper.mapFromEntity(optionalPayment.get());
     }
 
-    public List<PaymentDto> getPaymentsForOrderId(String orderId) throws NotFoundException {
+    public List<Payment> getPaymentsByUserId(Long orderId) throws NotFoundException {
         if (Objects.isNull(orderGatewayService.getOrderById(orderId))) {
             throw new NotFoundException("Order doesn't exist.");
         }
 
-        List<PaymentDto> paymentDtos = new ArrayList<>();
-        paymentRepository.findAllByOrderId(orderId).forEach(payment -> paymentDtos.add(mapperService.convertPaymentToPaymentDto(payment)));
+        List<Payment> payments = new ArrayList<>();
+        paymentRepository.findAllByOrderId(orderId).forEach(payment -> payments.add(paymentMapper.mapFromEntity(payment)));
 
-        return paymentDtos;
+        return payments;
     }
 
 }
