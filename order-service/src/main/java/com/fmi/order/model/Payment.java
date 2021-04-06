@@ -1,5 +1,6 @@
 package com.fmi.order.model;
 
+import com.fmi.api.payment.CurrencyDto;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -9,6 +10,8 @@ import java.math.BigDecimal;
 public class Payment {
 
     private BigDecimal amount;
+
+    private CurrencyDto currency;
 
     private PaymentMethod paymentMethod;
 

@@ -1,6 +1,7 @@
 package com.fmi.order.mapper;
 
 import com.fmi.api.order.OrderDto;
+import com.fmi.api.payment.CurrencyDto;
 import com.fmi.api.payment.PaymentDto;
 import com.fmi.api.order.CreateOrderRequestResource;
 import com.fmi.dao.entity.OrderEntity;
@@ -46,6 +47,7 @@ public class OrderMapper {
         final Payment payment = new Payment();
         payment.setAmount(paymentDto.getAmount());
         payment.setPaymentMethod(PaymentMethod.valueOf(paymentDto.getPaymentMethod()));
+        payment.setCurrency(CurrencyDto.valueOf(paymentDto.getCurrency()));
 
         return payment;
     }

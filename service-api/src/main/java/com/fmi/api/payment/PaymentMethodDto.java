@@ -1,6 +1,6 @@
 package com.fmi.api.payment;
 
-public enum PaymentMethod {
+public enum PaymentMethodDto {
     PAYPAL,
     MASTERCARD,
     VISA,

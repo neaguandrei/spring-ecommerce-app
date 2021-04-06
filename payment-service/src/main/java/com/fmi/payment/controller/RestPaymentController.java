@@ -4,6 +4,7 @@ package com.fmi.payment.controller;
 import com.fmi.api.payment.PaymentDto;
 import com.fmi.api.payment.PaymentResponseResource;
 import com.fmi.payment.mapper.PaymentMapper;
+import com.fmi.payment.service.gateway.PaymentProcessingGatewayService;
 import com.fmi.payment.service.PaymentService;
 import com.fmi.payment.assembler.ResourceAssembler;
 import com.fmi.common.exception.NotFoundException;
@@ -23,14 +24,18 @@ public class RestPaymentController {
 
     private final PaymentService paymentService;
 
+    private final PaymentProcessingGatewayService paymentProcessingGatewayService;
+
     private final PaymentMapper paymentMapper;
 
     private final ResourceAssembler resourceAssembler;
 
     @PostMapping
-    public ResponseEntity<Object> savePayment(@RequestBody @Valid PaymentDto payment) {
-        paymentService.save(paymentMapper.mapFromDto(payment));
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> processPayment(@RequestBody @Valid PaymentDto payment) {
+        if (paymentProcessingGatewayService.sendToProcessing(paymentMapper.mapFromDto(payment))) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.unprocessableEntity().build();
     }
 
     @GetMapping(value = "/{payment_id}")

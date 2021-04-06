@@ -1,6 +1,6 @@
 package com.fmi.api.product;
 
-public enum ProductCategory {
+public enum ProductCategoryDto {
     MONITORS,
     HARDWARE,
     PERIPHERALS,

@@ -8,6 +8,7 @@ import com.fmi.order.model.Order;
 import com.fmi.order.model.Payment;
 import com.fmi.order.mapper.OrderMapper;
 import com.fmi.order.service.OrderService;
+import com.fmi.order.service.gateway.PaymentGatewayService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,12 +16,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/orders")
 public class RestOrderController {
 
     private final OrderService orderService;
+
+    private final PaymentGatewayService paymentGatewayService;
 
     private final OrderMapper orderMapper;
 
@@ -38,9 +43,9 @@ public class RestOrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> saveOrder(@RequestBody CreateOrderRequestResource request) throws NotFoundException {
+    public ResponseEntity<Object> saveOrder(@Valid @RequestBody CreateOrderRequestResource request) throws NotFoundException {
         final Order order = orderMapper.mapFromDto(request);
-        final Payment payment = orderMapper.mapFromDto(request.getPayment());
+        final Payment payment = paymentGatewayService.executePayment(request.getPayment());
         orderService.saveOrder(order, payment, request.getProducts());
 
         return ResponseEntity.noContent().build();

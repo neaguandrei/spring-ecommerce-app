@@ -1,4 +1,4 @@
-package com.fmi.payment.service;
+package com.fmi.payment.service.gateway;
 
 import com.fmi.api.order.OrderDto;
 import com.fmi.common.rest.RestResponsePage;

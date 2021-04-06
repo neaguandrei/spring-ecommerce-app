@@ -31,7 +31,7 @@ public class ProductDto {
     private Long price;
 
     @NotNull(message = "Product category can't be empty.")
-    @OneOf(enumClass = ProductCategory.class, message = "Category isn't of correct type.")
+    @OneOf(enumClass = ProductCategoryDto.class, message = "Category isn't of correct type.")
     private String category;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)

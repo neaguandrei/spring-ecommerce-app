@@ -96,9 +96,9 @@ VALUES (3, 3, 1);
 INSERT INTO orders_product (order_id, product_id, quantity)
 VALUES (3, 6, 1);
 
-INSERT INTO payment (id, order_id, amount, payment_method, created, last_updated, version)
-VALUES (1, 1, 615, 'MASTERCARD', '2021-01-01 00:00:01', '2021-01-01 00:00:01', 1);
-INSERT INTO payment (id, order_id, amount, payment_method, created, last_updated, version)
-VALUES (2, 2, 2000, 'PAYPAL', '2021-01-01 00:00:01', '2021-01-01 00:00:01', 1);
-INSERT INTO payment (id, order_id, amount, payment_method, created, last_updated, version)
-VALUES (3, 3, 615, 'MASTERCARD', '2021-01-01 00:00:01', '2021-01-01 00:00:01', 1);
+INSERT INTO payment (id, order_id, amount, currency, payment_method, created, last_updated, version)
+VALUES (1, 1, 615, 'GBP', 'MASTERCARD', '2021-01-01 00:00:01', '2021-01-01 00:00:01', 1);
+INSERT INTO payment (id, order_id, amount, currency, payment_method, created, last_updated, version)
+VALUES (2, 2, 2000, 'EUR', 'PAYPAL', '2021-01-01 00:00:01', '2021-01-01 00:00:01', 1);
+INSERT INTO payment (id, order_id, amount, currency, payment_method, created, last_updated, version)
+VALUES (3, 3, 615, 'EUR', 'MASTERCARD', '2021-01-01 00:00:01', '2021-01-01 00:00:01', 1);

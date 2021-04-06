@@ -14,10 +14,13 @@ public class PaymentDto {
     @Size(min = 1, max = 1000)
     private BigDecimal amount;
 
+    @NotNull(message = "Currency can't be empty.")
+    @OneOf(enumClass = CurrencyDto.class, message = "Currency isn't of correct type.")
+    private String currency;
+
     @NotNull(message = "Payment method can't be empty.")
-    @OneOf(enumClass = PaymentMethod.class, message = "Method isn't of correct type.")
+    @OneOf(enumClass = PaymentMethodDto.class, message = "Method isn't of correct type.")
     private String paymentMethod;
 
-    @NotNull
     private Long orderId;
 }

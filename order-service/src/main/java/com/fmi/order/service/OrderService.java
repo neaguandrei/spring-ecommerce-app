@@ -1,12 +1,10 @@
 package com.fmi.order.service;
 
 import com.fmi.common.exception.NotFoundException;
-import com.fmi.dao.entity.OrderEntity;
-import com.fmi.dao.entity.OrderProductEntity;
-import com.fmi.dao.entity.OrderProductId;
-import com.fmi.dao.entity.ProductEntity;
+import com.fmi.dao.entity.*;
 import com.fmi.dao.repository.OrderProductRepository;
 import com.fmi.dao.repository.OrderRepository;
+import com.fmi.dao.repository.PaymentRepository;
 import com.fmi.dao.repository.ProductRepository;
 import com.fmi.order.mapper.OrderMapper;
 import com.fmi.order.model.Order;
@@ -31,6 +29,8 @@ public class OrderService {
 
     private final OrderProductRepository orderProductRepository;
 
+    private final PaymentRepository paymentRepository;
+
     private final OrderMapper orderMapper;
 
     public Order getById(Long id) throws NotFoundException {
@@ -52,7 +52,6 @@ public class OrderService {
 
     public void saveOrder(Order order, Payment payment, Map<Long, Integer> products) throws NotFoundException {
         final OrderEntity orderEntity = orderMapper.mapToEntity(order);
-        orderEntity.setPayment(orderMapper.mapToEntity(payment));
         orderRepository.save(orderEntity);
 
         for (Long productId : products.keySet()) {
@@ -71,7 +70,8 @@ public class OrderService {
                 throw new NotFoundException("Product does with id: " + productId + " does not exist!");
             }
         }
-
+        final PaymentEntity paymentEntity = orderMapper.mapToEntity(payment);
+        paymentEntity.setOrder(orderEntity);
+        paymentRepository.save(paymentEntity);
     }
-
 }

@@ -24,6 +24,10 @@ public class PaymentEntity {
     @Column(nullable = false)
     private BigDecimal amount;
 
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private Currency currency;
+
     @Column(name = "payment_method", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private PaymentMethod paymentMethod;
@@ -54,5 +58,11 @@ public class PaymentEntity {
         MASTERCARD,
         VISA,
         CASH
+    }
+
+    public enum Currency {
+        EUR,
+        USD,
+        GBP
     }
 }

@@ -20,3 +20,8 @@ security:
   user-url: http://localhost:8080/{email}
   jwt-expiration: 864000000
   jwt-secret: secretKeyToProviderJWT
+
+payment:
+  api:
+    endpoint:
+      baseURL: http://localhost:8083/payments

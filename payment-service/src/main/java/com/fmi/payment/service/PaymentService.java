@@ -6,6 +6,7 @@ import com.fmi.dao.repository.PaymentRepository;
 import com.fmi.payment.model.Order;
 import com.fmi.payment.model.Payment;
 import com.fmi.payment.mapper.PaymentMapper;
+import com.fmi.payment.service.gateway.OrderGatewayService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +27,6 @@ public class PaymentService {
     private final OrderGatewayService orderGatewayService;
 
     private final PaymentMapper paymentMapper;
-
-    public void save(Payment object) {
-        paymentRepository.save(paymentMapper.mapToEntity(object));
-    }
 
     public Payment getById(Long id) throws NotFoundException {
         Optional<PaymentEntity> optionalPayment = paymentRepository.findById(id);

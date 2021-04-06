@@ -27,8 +27,8 @@ public class CreateOrderRequestResource {
     @NotNull
     private Map<Long, Integer> products;
 
-    @Valid
     @NotNull
+    @Valid
     private PaymentDto payment;
 
 }

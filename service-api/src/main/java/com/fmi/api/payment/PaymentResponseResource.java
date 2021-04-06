@@ -17,6 +17,8 @@ public class PaymentResponseResource extends RepresentationModel<PaymentResponse
 
     private BigDecimal amount;
 
+    private String currency;
+
     private String paymentMethod;
 
     private Long orderId;
