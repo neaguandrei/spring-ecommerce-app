@@ -8,7 +8,11 @@ import com.fmi.payment.model.Order;
 import com.fmi.payment.model.Payment;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -20,7 +24,7 @@ public class PaymentMapper {
         return modelMapper.map(payment, PaymentResponseResource.class);
     }
 
-    public Payment mapOrderFromDto(PaymentDto paymentEntity) {
+    public Payment mapFromDto(PaymentDto paymentEntity) {
         return modelMapper.map(paymentEntity, Payment.class);
     }
 
@@ -32,8 +36,12 @@ public class PaymentMapper {
         return modelMapper.map(paymentEntity, Payment.class);
     }
 
-    public Order mapOrderFromDto(OrderDto orderDto) {
+    public Order mapFromDto(OrderDto orderDto) {
         return modelMapper.map(orderDto, Order.class);
+    }
+
+    public List<Order> mapFromPageOrderDto(Page<OrderDto> orderDtoPage) {
+        return orderDtoPage.map(this::mapFromDto).stream().collect(Collectors.toList());
     }
 
     public PaymentDto mapToDto(Payment payment) {

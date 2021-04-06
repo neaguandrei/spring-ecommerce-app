@@ -3,6 +3,7 @@ package com.fmi.payment.service;
 import com.fmi.common.exception.NotFoundException;
 import com.fmi.dao.entity.PaymentEntity;
 import com.fmi.dao.repository.PaymentRepository;
+import com.fmi.payment.model.Order;
 import com.fmi.payment.model.Payment;
 import com.fmi.payment.mapper.PaymentMapper;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -38,13 +40,16 @@ public class PaymentService {
         return paymentMapper.mapFromEntity(optionalPayment.get());
     }
 
-    public List<Payment> getPaymentsByUserId(Long orderId) throws NotFoundException {
-        if (Objects.isNull(orderGatewayService.getOrderById(orderId))) {
-            throw new NotFoundException("Order doesn't exist.");
+    public List<Payment> getPaymentsByUserId(Long userId) throws NotFoundException {
+        final List<Order> orders = orderGatewayService.getOrdersByUserId(userId);
+        if (Objects.isNull(orders) || orders.isEmpty()) {
+            throw new NotFoundException("No payments realised by this user.");
         }
 
-        List<Payment> payments = new ArrayList<>();
-        paymentRepository.findAllByOrderId(orderId).forEach(payment -> payments.add(paymentMapper.mapFromEntity(payment)));
+        final List<Payment> payments = new ArrayList<>();
+        paymentRepository
+                .findByOrderIdIn(orders.stream().map(Order::getId).collect(Collectors.toList()))
+                .forEach(payment -> payments.add(paymentMapper.mapFromEntity(payment)));
 
         return payments;
     }

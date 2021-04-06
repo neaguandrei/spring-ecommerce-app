@@ -29,7 +29,7 @@ public class RestPaymentController {
 
     @PostMapping
     public ResponseEntity<Object> savePayment(@RequestBody @Valid PaymentDto payment) {
-        paymentService.save(paymentMapper.mapOrderFromDto(payment));
+        paymentService.save(paymentMapper.mapFromDto(payment));
         return ResponseEntity.ok().build();
     }
 
