@@ -20,6 +20,6 @@ server:
 
 security:
   enabled: false
-  user-url: http://localhost:8080/{email}
+  user-url: http://user-service/{email}
   jwt-expiration: 864000000
   jwt-secret: secretKeyToProviderJWT

@@ -1,15 +1,17 @@
 package com.fmi.api.payment;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
 import java.math.BigDecimal;
 
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Relation(collectionRelation = "payments")
 public class PaymentResponseResource extends RepresentationModel<PaymentResponseResource> {
 

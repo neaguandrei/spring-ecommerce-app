@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: payment-service
+  cloud:
+    config:
+      uri: http://localhost:8888
+      fail-fast: true
+      retry:
+        max-attempts: 15
+        initial-interval: 4000
+        multiplier: 1.0
+        max-interval: 4000
+    profiles:
+      active: ${SPRING_PROFILES_ACTIVE}:prod

@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: order-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
@@ -17,11 +19,16 @@ server:
 
 security:
   enabled: false
-  user-url: http://localhost:8080/{email}
+  user-url: http://user-service/{email}
   jwt-expiration: 864000000
   jwt-secret: secretKeyToProviderJWT
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
 
 payment:
   api:
     endpoint:
-      baseURL: http://localhost:8083/payments
+      baseURL: http://payment-service/payments

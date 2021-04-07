@@ -1,9 +1,13 @@
 package com.fmi.user.model;
 
-import lombok.Data;
+import lombok.*;
 
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Address {
 
     private Long id;

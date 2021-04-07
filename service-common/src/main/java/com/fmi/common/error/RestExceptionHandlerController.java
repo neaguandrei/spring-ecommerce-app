@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ConstraintViolation;
@@ -47,13 +46,6 @@ public class RestExceptionHandlerController extends ResponseEntityExceptionHandl
     public final ResponseEntity<Object> handleException(HttpClientErrorException.Forbidden ex) {
         String error = "Forbidden";
         return buildResponseEntity(new ApiError(HttpStatus.FORBIDDEN, error, ex));
-    }
-
-    @ExceptionHandler({Exception.class})
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public final ResponseEntity<Object> handleException(Exception ex) {
-        String error = "Internal Server Error";
-        return buildResponseEntity(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, error, ex));
     }
 
     @ExceptionHandler({ConstraintViolationException.class})

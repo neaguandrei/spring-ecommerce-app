@@ -44,4 +44,8 @@ public class ProductService {
 
         return optional.get();
     }
+
+    public void save(Product product) {
+        productRepository.save(productMapper.mapToEntity(product));
+    }
 }

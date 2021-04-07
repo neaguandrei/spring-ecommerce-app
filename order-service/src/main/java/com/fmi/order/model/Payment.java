@@ -1,12 +1,16 @@
 package com.fmi.order.model;
 
 import com.fmi.api.payment.CurrencyDto;
-import lombok.Data;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Payment {
 
     private BigDecimal amount;

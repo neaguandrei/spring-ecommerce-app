@@ -15,6 +15,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/products")
@@ -24,6 +26,13 @@ public class RestProductController {
     private final ProductService productService;
 
     private final ProductMapper productMapper;
+
+//    TODO: Role Admin
+    @PostMapping("/product")
+    public ResponseEntity<Object> saveProduct(@RequestBody @Valid ProductDto productDto) {
+        productService.save(productMapper.mapFromDto(productDto));
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping("/{product_id}")
     public ResponseEntity<ProductDto> getProduct(@PathVariable(value = "product_id") Long productId) throws NotFoundException {

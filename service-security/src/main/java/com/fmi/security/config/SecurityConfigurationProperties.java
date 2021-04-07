@@ -1,9 +1,13 @@
 package com.fmi.security.config;
 
-import lombok.Data;
+import lombok.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @ConfigurationProperties(prefix = "security")
 public class SecurityConfigurationProperties {
 

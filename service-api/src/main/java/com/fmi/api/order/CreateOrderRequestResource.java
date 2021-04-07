@@ -3,14 +3,18 @@ package com.fmi.api.order;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fmi.api.payment.PaymentDto;
 import com.fmi.common.validation.OneOf;
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Map;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CreateOrderRequestResource {
 
     @Size(max = 450)

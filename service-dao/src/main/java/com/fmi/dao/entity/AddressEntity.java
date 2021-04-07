@@ -54,7 +54,6 @@ public class AddressEntity {
     @UpdateTimestamp
     private Date lastUpdated;
 
-
     @Version
     @Column(nullable = false)
     @Setter(AccessLevel.NONE)

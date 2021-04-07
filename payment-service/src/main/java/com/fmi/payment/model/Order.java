@@ -1,8 +1,12 @@
 package com.fmi.payment.model;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Order {
 
     private Long id;

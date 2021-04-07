@@ -1,17 +1,23 @@
 package com.fmi.api.payment;
 
 import com.fmi.common.validation.OneOf;
-import lombok.Data;
+import lombok.*;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class PaymentDto {
 
     @NotNull(message = "Amount can't be empty.")
-    @Size(min = 1, max = 1000)
+    @DecimalMax(value = "50000")
+    @DecimalMin(value = "1")
     private BigDecimal amount;
 
     @NotNull(message = "Currency can't be empty.")

@@ -1,12 +1,16 @@
 package com.fmi.order.model;
 
-import lombok.Data;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
 
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Order {
 
     private Long id;
