@@ -1,25 +1,34 @@
 spring:
+  application:
+    name: order-service
   datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:testdb
+    driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: ''
-  devtools:
-    restart:
-      log-condition-evaluation-delta: false
-  h2:
-    console:
-      enabled: true
+    password: root
+    url: jdbc:mysql://localhost:3308/FMI
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
 
 server:
-  port: 8083
+  port: 8084
 
 security:
   enabled: false
   user-url: http://user-service/{email}
   jwt-expiration: 864000000
   jwt-secret: secretKeyToProviderJWT
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+payment:
+  api:
+    endpoint:
+      baseURL: http://payment-service/payments

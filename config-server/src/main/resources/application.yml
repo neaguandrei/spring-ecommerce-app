@@ -8,4 +8,4 @@ spring:
       server:
         git:
           uri: file:///C:\Users\andre\IdeaProjects\application-config
-          searchPaths: '{application}/{profile}'
+          search-paths: '{application}/{profile}'

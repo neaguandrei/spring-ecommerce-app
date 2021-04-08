@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: root
+    password: ''
+  devtools:
+    restart:
+      log-condition-evaluation-delta: false
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+
+server:
+  port: 8083
+
+security:
+  enabled: false
+  user-url: http://user-service/{email}
+  jwt-expiration: 864000000
+  jwt-secret: secretKeyToProviderJWT
