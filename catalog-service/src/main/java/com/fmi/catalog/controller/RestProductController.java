@@ -2,6 +2,8 @@ package com.fmi.catalog.controller;
 
 
 import com.fmi.api.catalog.ProductDto;
+import com.fmi.api.catalog.ProductsRequestResource;
+import com.fmi.api.catalog.ProductsResponseResource;
 import com.fmi.common.exception.NotFoundException;
 import com.fmi.common.validation.OneOf;
 import com.fmi.dao.entity.ProductEntity;
@@ -47,5 +49,10 @@ public class RestProductController {
                                                         @RequestParam(name = "category", defaultValue = "NONE")
                                                         @OneOf(enumClass = ProductCategory.class, message = "Category isn't of correct type.") String productCategory) {
         return ResponseEntity.ok(productMapper.mapToDto(productService.getProducts(searchKey, ProductEntity.ProductCategory.valueOf(productCategory), PageRequest.of(page, size, Sort.Direction.valueOf(sort), sortedParam))));
+    }
+
+    @GetMapping(value = "/list")
+    public ResponseEntity<ProductsResponseResource> getProductsList(@RequestBody @Valid ProductsRequestResource requestResource) {
+        return ResponseEntity.ok(productMapper.mapToResource(productService.getProducts(requestResource.getProductIds())));
     }
 }

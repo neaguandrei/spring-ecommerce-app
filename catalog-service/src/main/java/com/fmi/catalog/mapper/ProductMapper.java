@@ -1,12 +1,16 @@
 package com.fmi.catalog.mapper;
 
 import com.fmi.api.catalog.ProductDto;
+import com.fmi.api.catalog.ProductsResponseResource;
 import com.fmi.dao.entity.ProductEntity;
 import com.fmi.catalog.model.Product;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,5 +36,9 @@ public class ProductMapper {
 
     public Page<ProductDto> mapToDto(Page<Product> products) {
         return products.map(this::mapToDto);
+    }
+
+    public ProductsResponseResource mapToResource(List<Product> products) {
+        return new ProductsResponseResource(products.stream().map(this::mapToDto).collect(Collectors.toList()));
     }
 }

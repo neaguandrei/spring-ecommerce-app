@@ -11,8 +11,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +43,10 @@ public class ProductService {
         }
 
         return optional.get();
+    }
+
+    public List<Product> getProducts(List<Long> productIds) {
+        return productRepository.findAllByIdIn(productIds).stream().map(productMapper::mapFromEntity).collect(Collectors.toList());
     }
 
     public void save(Product product) {
