@@ -1,13 +1,13 @@
-package com.fmi.product.controller;
+package com.fmi.catalog.controller;
 
 
-import com.fmi.api.product.ProductDto;
+import com.fmi.api.catalog.ProductDto;
 import com.fmi.common.exception.NotFoundException;
 import com.fmi.common.validation.OneOf;
 import com.fmi.dao.entity.ProductEntity;
-import com.fmi.product.mapper.ProductMapper;
-import com.fmi.product.model.ProductCategory;
-import com.fmi.product.service.ProductService;
+import com.fmi.catalog.mapper.ProductMapper;
+import com.fmi.catalog.model.ProductCategory;
+import com.fmi.catalog.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,7 +27,6 @@ public class RestProductController {
 
     private final ProductMapper productMapper;
 
-//    TODO: Role Admin
     @PostMapping("/product")
     public ResponseEntity<Object> saveProduct(@RequestBody @Valid ProductDto productDto) {
         productService.save(productMapper.mapFromDto(productDto));

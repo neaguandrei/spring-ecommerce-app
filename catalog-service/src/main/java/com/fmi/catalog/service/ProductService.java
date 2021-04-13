@@ -1,8 +1,8 @@
-package com.fmi.product.service;
+package com.fmi.catalog.service;
 
 import com.fmi.common.exception.NotFoundException;
-import com.fmi.product.mapper.ProductMapper;
-import com.fmi.product.model.Product;
+import com.fmi.catalog.mapper.ProductMapper;
+import com.fmi.catalog.model.Product;
 import com.fmi.dao.entity.ProductEntity;
 import com.fmi.dao.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,11 +29,9 @@ public class ProductService {
                 return productRepository.findAllByNameAndCategory(searchKey, productCategory, pageable)
                         .map(productMapper::mapFromEntity);
             }
-            return productRepository.findAllByName(searchKey, pageable)
-                    .map(productMapper::mapFromEntity);
+            return productRepository.findAllByName(searchKey, pageable).map(productMapper::mapFromEntity);
         }
-        return productRepository.findAll(pageable)
-                .map(productMapper::mapFromEntity);
+        return productRepository.findAll(pageable).map(productMapper::mapFromEntity);
     }
 
     public Product getProductById(Long id) throws NotFoundException {

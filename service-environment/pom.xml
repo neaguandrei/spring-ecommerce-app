@@ -30,6 +30,7 @@
                     <password>root</password>
                     <schemas>
                         <schema>fmi</schema>
+                        <schema>cart-service</schema>
                     </schemas>
                 </configuration>
             </plugin>

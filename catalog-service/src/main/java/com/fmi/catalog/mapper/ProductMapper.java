@@ -1,8 +1,8 @@
-package com.fmi.product.mapper;
+package com.fmi.catalog.mapper;
 
-import com.fmi.api.product.ProductDto;
+import com.fmi.api.catalog.ProductDto;
 import com.fmi.dao.entity.ProductEntity;
-import com.fmi.product.model.Product;
+import com.fmi.catalog.model.Product;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;

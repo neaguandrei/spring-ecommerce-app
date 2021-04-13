@@ -1,10 +1,10 @@
 spring:
   application:
-    name: product-service
+    name: catalog-service
   cloud:
     config:
       fail-fast: true
-      name: product-service
+      name: catalog-service
       uri: http://localhost:8888
   profiles:
     active: local

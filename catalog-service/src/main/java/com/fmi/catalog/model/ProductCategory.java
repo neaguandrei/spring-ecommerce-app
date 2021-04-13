@@ -1,4 +1,4 @@
-package com.fmi.product.model;
+package com.fmi.catalog.model;
 
 public enum ProductCategory {
     MONITORS,

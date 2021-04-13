@@ -34,16 +34,21 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        final JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, securityConfigurationProperties);
+        jwtAuthenticationFilter.setFilterProcessesUrl("/auth/login");
+        final JwtAuthorizationFilter jwtAuthorizationFilter = new JwtAuthorizationFilter(authenticationManager, securityConfigurationProperties);
+
         if (securityConfigurationProperties.isEnabled()) {
             http.cors().and().csrf().disable()
                     .authorizeRequests()
                     .antMatchers(AUTHORIZED_ENDPOINTS).authenticated()
                     .anyRequest().permitAll()
                     .and()
-                    .addFilter(new JwtAuthenticationFilter(authenticationManager, securityConfigurationProperties))
-                    .addFilter(new JwtAuthorizationFilter(authenticationManager, securityConfigurationProperties))
+                    .addFilter(jwtAuthenticationFilter)
+                    .addFilter(jwtAuthorizationFilter)
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
+                    .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.logoutUrl("/auth/logout"))
                     .headers().frameOptions().disable()
                     .and()
                     .exceptionHandling().authenticationEntryPoint(getAuthenticationEntryPoint());

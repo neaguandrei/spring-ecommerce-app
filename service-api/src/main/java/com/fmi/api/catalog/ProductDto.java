@@ -1,4 +1,4 @@
-package com.fmi.api.product;
+package com.fmi.api.catalog;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -27,7 +27,7 @@ public class ProductDto {
     private String description;
 
     @NotNull(message = "Quantity can't be empty.")
-    @Size(max = 30)
+    @Size(max = 1500)
     private Long quantity;
 
     @NotNull(message = "Buy price can't be empty.")

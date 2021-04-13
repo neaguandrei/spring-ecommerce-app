@@ -1,6 +1,6 @@
 spring:
   application:
-    name: product-service
+    name: catalog-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
@@ -19,7 +19,7 @@ server:
 
 security:
   enabled: false
-  user-url: http://user-service/{email}
+  user-url: http://user-service/auth/{email}
   jwt-expiration: 864000000
   jwt-secret: secretKeyToProviderJWT
 
@@ -27,6 +27,12 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
+
+hazelcast:
+  network:
+    join:
+      multicast:
+        enabled: true
 
 
 

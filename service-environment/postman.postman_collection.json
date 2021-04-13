@@ -249,7 +249,7 @@
 			]
 		},
 		{
-			"name": "product-service",
+			"name": "catalog-service",
 			"item": [
 				{
 					"name": "get-products",

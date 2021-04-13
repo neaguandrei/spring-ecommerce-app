@@ -1,4 +1,4 @@
-package com.fmi.api.product;
+package com.fmi.api.catalog;
 
 public enum ProductCategoryDto {
     MONITORS,

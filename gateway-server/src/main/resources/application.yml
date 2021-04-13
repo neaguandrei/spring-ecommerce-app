@@ -2,18 +2,18 @@ server:
   port: 8999
 spring:
   application:
-    name: gateway-service
+    name: gateway-server
   cloud:
     gateway:
       routes:
-        - id: productModule
-          uri: lb://product-service
+        - id: catalogModule
+          uri: lb://catalog-service
           predicates:
             - Path=/products/**
         - id: userModule
           uri: lb://user-service
           predicates:
-            - Path=/users/**
+            - Path=/users/**,/auth/**
         - id: orderModule
           uri: lb://order-service
           predicates:
@@ -22,6 +22,10 @@ spring:
           uri: lb://payment-service
           predicates:
             - Path=/payments/**
+        - id: cartModule
+          uri: lb://cart-service
+          predicates:
+            - Path=/carts/**
 logging:
   level:
     org:
