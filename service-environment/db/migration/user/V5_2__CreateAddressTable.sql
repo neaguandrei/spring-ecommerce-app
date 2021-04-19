@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS address
+CREATE TABLE IF NOT EXISTS USER.address
 (
     id           INT AUTO_INCREMENT PRIMARY KEY,
     user_id      INT          NOT NULL,
@@ -11,5 +11,5 @@ CREATE TABLE IF NOT EXISTS address
     created      TIMESTAMP    NOT NULL,
     last_updated TIMESTAMP NOT NULL,
     version      INT          NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user (id)
+    FOREIGN KEY (user_id) REFERENCES USER.user (id)
 )

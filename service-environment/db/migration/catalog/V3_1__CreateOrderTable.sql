@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS orders
+CREATE TABLE CATALOG.orders
 (
     id           INT AUTO_INCREMENT PRIMARY KEY,
     user_id      INT          NOT NULL,
@@ -6,6 +6,5 @@ CREATE TABLE IF NOT EXISTS orders
     status       VARCHAR(255) NOT NULL,
     created      TIMESTAMP    NOT NULL,
     last_updated TIMESTAMP    NOT NULL,
-    version      INT          NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user (id)
+    version      INT          NOT NULL
 )
