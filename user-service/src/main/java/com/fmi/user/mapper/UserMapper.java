@@ -1,8 +1,8 @@
 package com.fmi.user.mapper;
 
 import com.fmi.api.user.UserDto;
-import com.fmi.dao.entity.AddressEntity;
-import com.fmi.dao.entity.UserEntity;
+import com.fmi.user.dao.entity.AddressEntity;
+import com.fmi.user.dao.entity.UserEntity;
 import com.fmi.user.model.Address;
 import com.fmi.user.model.User;
 import lombok.RequiredArgsConstructor;

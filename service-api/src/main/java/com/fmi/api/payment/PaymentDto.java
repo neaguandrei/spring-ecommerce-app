@@ -1,5 +1,7 @@
 package com.fmi.api.payment;
 
+import com.fmi.api.payment.enums.CurrencyDto;
+import com.fmi.api.payment.enums.PaymentMethodDto;
 import com.fmi.common.validation.OneOf;
 import lombok.*;
 

@@ -1,6 +1,6 @@
 package com.fmi.payment.assembler;
 
-import com.fmi.api.payment.PaymentResponseResource;
+import com.fmi.api.payment.resource.response.PaymentResponseResource;
 import com.fmi.common.exception.NotFoundException;
 import com.fmi.payment.controller.RestPaymentController;
 import org.springframework.hateoas.CollectionModel;

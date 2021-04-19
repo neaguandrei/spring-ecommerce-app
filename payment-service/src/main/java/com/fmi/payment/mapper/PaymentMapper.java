@@ -1,9 +1,9 @@
 package com.fmi.payment.mapper;
 
-import com.fmi.api.order.OrderDto;
+import com.fmi.api.catalog.OrderDto;
 import com.fmi.api.payment.PaymentDto;
-import com.fmi.api.payment.PaymentResponseResource;
-import com.fmi.dao.entity.PaymentEntity;
+import com.fmi.api.payment.resource.response.PaymentResponseResource;
+import com.fmi.payment.dao.entity.PaymentEntity;
 import com.fmi.payment.model.Order;
 import com.fmi.payment.model.Payment;
 import lombok.RequiredArgsConstructor;

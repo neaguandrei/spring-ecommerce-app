@@ -23,3 +23,8 @@ security:
   user-url: http://user-service/{email}
   jwt-expiration: 864000000
   jwt-secret: secretKeyToProviderJWT
+
+payment:
+  api:
+    endpoint:
+      baseURL: http://payment-service/payments

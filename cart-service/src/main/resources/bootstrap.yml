@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: cart-service
+  cloud:
+    config:
+      fail-fast: true
+      name: cart-service
+      uri: http://localhost:8888
+  profiles:
+    active: local

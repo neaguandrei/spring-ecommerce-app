@@ -34,5 +34,9 @@ hazelcast:
       multicast:
         enabled: true
 
+payment:
+  api:
+    endpoint:
+      baseURL: http://payment-service/payments
 
 

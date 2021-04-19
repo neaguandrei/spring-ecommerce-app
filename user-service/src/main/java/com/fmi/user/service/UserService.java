@@ -2,9 +2,9 @@ package com.fmi.user.service;
 
 import com.fmi.common.exception.BadRequestException;
 import com.fmi.common.exception.NotFoundException;
-import com.fmi.dao.entity.AddressEntity;
-import com.fmi.dao.entity.UserEntity;
-import com.fmi.dao.repository.UserRepository;
+import com.fmi.user.dao.entity.AddressEntity;
+import com.fmi.user.dao.entity.UserEntity;
+import com.fmi.user.dao.repository.UserRepository;
 import com.fmi.user.mapper.UserMapper;
 import com.fmi.user.model.User;
 import lombok.RequiredArgsConstructor;

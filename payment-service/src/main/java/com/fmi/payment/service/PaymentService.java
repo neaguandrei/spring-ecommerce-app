@@ -1,8 +1,8 @@
 package com.fmi.payment.service;
 
 import com.fmi.common.exception.NotFoundException;
-import com.fmi.dao.entity.PaymentEntity;
-import com.fmi.dao.repository.PaymentRepository;
+import com.fmi.payment.dao.entity.PaymentEntity;
+import com.fmi.payment.dao.repository.PaymentRepository;
 import com.fmi.payment.model.Order;
 import com.fmi.payment.model.Payment;
 import com.fmi.payment.mapper.PaymentMapper;

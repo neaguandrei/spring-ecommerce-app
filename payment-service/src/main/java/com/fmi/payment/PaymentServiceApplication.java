@@ -11,12 +11,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         "com.fmi.payment",
         "com.fmi.common",
         "com.fmi.security",
-        "com.fmi.dao",
-        "com.fmi.api.payment",
-        "com.fmi.api.order"
+        "com.fmi.api.payment"
 })
-@EnableJpaRepositories(basePackages = "com.fmi.dao.repository")
-@EntityScan(basePackages = "com.fmi.dao.entity")
+@EnableJpaRepositories(basePackages = "com.fmi.payment.dao.repository")
+@EntityScan(basePackages = "com.fmi.payment.dao.entity")
 @EnableConfigurationProperties
 @EnableEurekaClient
 public class PaymentServiceApplication {

@@ -1,6 +1,6 @@
 package com.fmi.payment.service.gateway;
 
-import com.fmi.api.order.OrderDto;
+import com.fmi.api.catalog.OrderDto;
 import com.fmi.common.rest.RestResponsePage;
 import com.fmi.payment.mapper.PaymentMapper;
 import com.fmi.payment.model.Order;

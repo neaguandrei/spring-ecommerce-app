@@ -2,7 +2,7 @@ package com.fmi.payment.controller;
 
 
 import com.fmi.api.payment.PaymentDto;
-import com.fmi.api.payment.PaymentResponseResource;
+import com.fmi.api.payment.resource.response.PaymentResponseResource;
 import com.fmi.payment.mapper.PaymentMapper;
 import com.fmi.payment.service.gateway.PaymentProcessingGatewayService;
 import com.fmi.payment.service.PaymentService;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/payments")
+@RequestMapping("/api/payments")
 @RequiredArgsConstructor
 public class RestPaymentController {
 

@@ -2,13 +2,13 @@ package com.fmi.catalog.controller;
 
 
 import com.fmi.api.catalog.ProductDto;
-import com.fmi.api.catalog.ProductsRequestResource;
-import com.fmi.api.catalog.ProductsResponseResource;
+import com.fmi.api.catalog.resource.request.ProductsRequestResource;
+import com.fmi.api.catalog.resource.response.ProductsResponseResource;
 import com.fmi.common.exception.NotFoundException;
 import com.fmi.common.validation.OneOf;
-import com.fmi.dao.entity.ProductEntity;
+import com.fmi.catalog.dao.entity.ProductEntity;
 import com.fmi.catalog.mapper.ProductMapper;
-import com.fmi.catalog.model.ProductCategory;
+import com.fmi.catalog.model.enums.ProductCategory;
 import com.fmi.catalog.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,7 +21,7 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
 @RequiredArgsConstructor
 public class RestProductController {
 

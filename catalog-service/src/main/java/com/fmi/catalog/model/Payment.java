@@ -1,0 +1,23 @@
+package com.fmi.catalog.model;
+
+import com.fmi.api.payment.enums.CurrencyDto;
+import com.fmi.catalog.model.enums.PaymentMethod;
+import lombok.*;
+
+import java.math.BigDecimal;
+
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Payment {
+
+    private BigDecimal amount;
+
+    private CurrencyDto currency;
+
+    private PaymentMethod paymentMethod;
+
+}

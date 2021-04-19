@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: cart-service
+
+server:
+  port: 8085
+
+security:
+  enabled: false
+  user-url: http://user-service/{email}
+  jwt-expiration: 864000000
+  jwt-secret: secretKeyToProviderJWT
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+

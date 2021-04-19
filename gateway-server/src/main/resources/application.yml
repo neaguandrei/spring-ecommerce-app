@@ -1,5 +1,6 @@
 server:
-  port: 8999
+  port: 8085
+
 spring:
   application:
     name: gateway-server
@@ -9,32 +10,28 @@ spring:
         - id: catalogModule
           uri: lb://catalog-service
           predicates:
-            - Path=/products/**
+            - Path=/api/products/**,/api/orders/**
         - id: userModule
           uri: lb://user-service
           predicates:
-            - Path=/users/**,/auth/**
-        - id: orderModule
-          uri: lb://order-service
-          predicates:
-            - Path=/orders/**
+            - Path=/api/users/**,/api/auth/**
         - id: paymentModule
           uri: lb://payment-service
           predicates:
-            - Path=/payments/**
+            - Path=/api/payments/**
         - id: cartModule
           uri: lb://cart-service
           predicates:
-            - Path=/carts/**
+            - Path=/api/carts/**
 logging:
   level:
     org:
       springframework:
         cloud:
           gateway: TRACE
+
 management:
   endpoints:
     web:
       exposure:
         include: '*'
-

@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class RestUserController {
 

@@ -10,12 +10,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication(scanBasePackages = {
         "com.fmi.security",
         "com.fmi.common",
-        "com.fmi.user",
-        "com.fmi.dao",
         "com.fmi.api.user"
 })
-@EnableJpaRepositories(basePackages = "com.fmi.dao.repository")
-@EntityScan(basePackages = "com.fmi.dao.entity")
+@EnableJpaRepositories(basePackages = "com.fmi.user.dao.repository")
+@EntityScan(basePackages = "com.fmi.user.dao.entity")
 @EnableConfigurationProperties
 @EnableEurekaClient
 public class UserServiceApplication {
