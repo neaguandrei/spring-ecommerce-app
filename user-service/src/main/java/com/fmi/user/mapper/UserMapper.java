@@ -2,6 +2,7 @@ package com.fmi.user.mapper;
 
 import com.fmi.api.user.UserDto;
 import com.fmi.user.dao.entity.AddressEntity;
+import com.fmi.user.dao.entity.RoleEntity;
 import com.fmi.user.dao.entity.UserEntity;
 import com.fmi.user.model.Address;
 import com.fmi.user.model.User;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -18,10 +21,6 @@ public class UserMapper {
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserEntity mapToEntity(User userDto) {
-        return modelMapper.map(userDto, UserEntity.class);
-    }
-
     public UserDto mapToDto(User user) {
         return modelMapper.map(user, UserDto.class);
     }
@@ -30,8 +29,17 @@ public class UserMapper {
         return modelMapper.map(userDto, User.class);
     }
 
+    public UserEntity mapToEntity(User user) {
+        modelMapper.typeMap(User.class, UserEntity.class).addMappings(mapping -> mapping.skip(UserEntity::setRoles));
+        return modelMapper.map(user, UserEntity.class);
+    }
+
     public User mapFromEntity(UserEntity entity) {
-        return modelMapper.map(entity, User.class);
+        modelMapper.typeMap(UserEntity.class, User.class).addMappings(mapping -> mapping.skip(User::setRoles));
+        User user = modelMapper.map(entity, User.class);
+        user.setRoles(entity.getRoles().stream().map(RoleEntity::getName).collect(Collectors.toList()));
+
+        return user;
     }
 
     public AddressEntity mapToEntity(Address addressDto) {

@@ -8,6 +8,7 @@ import lombok.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Getter
 @Setter
@@ -45,6 +46,8 @@ public class UserDto {
 
     @NotNull(message = "Address can't be empty", groups = {SignUp.class})
     private AddressDto address;
+
+    private List<String> roles;
 
     public interface SignIn {
 

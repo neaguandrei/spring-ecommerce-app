@@ -2,6 +2,8 @@ package com.fmi.user.model;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,5 +26,7 @@ public class User {
     private String phone;
 
     private Address address;
+
+    private List<String> roles;
 
 }

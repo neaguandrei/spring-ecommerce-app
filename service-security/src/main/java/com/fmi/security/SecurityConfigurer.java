@@ -20,10 +20,10 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     private static final String[] AUTHORIZED_ENDPOINTS =
             new String[]{
-                    "/order-details/*",
-                    "/payments/*",
-                    "/payments/users/*",
-                    "/users/*"
+                    "/api/order-details/*",
+                    "/api/payments/*",
+                    "/api/payments/users/*",
+                    "/api/users/*"
             };
 
     private final AuthenticationManager authenticationManager;
@@ -35,7 +35,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         final JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, securityConfigurationProperties);
-        jwtAuthenticationFilter.setFilterProcessesUrl("/auth/login");
+        jwtAuthenticationFilter.setFilterProcessesUrl("/api/auth/login");
         final JwtAuthorizationFilter jwtAuthorizationFilter = new JwtAuthorizationFilter(authenticationManager, securityConfigurationProperties);
 
         if (securityConfigurationProperties.isEnabled()) {
@@ -48,7 +48,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                     .addFilter(jwtAuthorizationFilter)
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
-                    .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.logoutUrl("/auth/logout"))
+                    .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.logoutUrl("/api/auth/logout"))
                     .headers().frameOptions().disable()
                     .and()
                     .exceptionHandling().authenticationEntryPoint(getAuthenticationEntryPoint());

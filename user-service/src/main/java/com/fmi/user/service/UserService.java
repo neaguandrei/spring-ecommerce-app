@@ -3,7 +3,9 @@ package com.fmi.user.service;
 import com.fmi.common.exception.BadRequestException;
 import com.fmi.common.exception.NotFoundException;
 import com.fmi.user.dao.entity.AddressEntity;
+import com.fmi.user.dao.entity.RoleEntity;
 import com.fmi.user.dao.entity.UserEntity;
+import com.fmi.user.dao.repository.RoleRepository;
 import com.fmi.user.dao.repository.UserRepository;
 import com.fmi.user.mapper.UserMapper;
 import com.fmi.user.model.User;
@@ -12,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -24,11 +28,13 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final RoleRepository roleRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     private final UserMapper userMapper;
 
-    public void save(User user) throws BadRequestException {
+    public void save(User user) throws BadRequestException, NotFoundException {
         validateCreateUniqueFields(user);
 
         final UserEntity userEntity = userMapper.mapToEntity(user);
@@ -36,7 +42,11 @@ public class UserService {
         userEntity.setAddress(addressEntity);
         addressEntity.setUser(userEntity);
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
-
+        List<RoleEntity> roles = new ArrayList<>();
+        for (String name : user.getRoles()) {
+            roles.add(roleRepository.findByName(name).orElseThrow(() -> new NotFoundException("Role doesn't exist.")));
+        }
+        userEntity.setRoles(roles);
         userRepository.save(userEntity);
     }
 
