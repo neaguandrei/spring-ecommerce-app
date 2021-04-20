@@ -1,7 +1,6 @@
-package com.fmi.api.catalog.resource.request;
+package com.fmi.api.catalog;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fmi.api.catalog.enums.StatusDto;
 import com.fmi.api.payment.PaymentDto;
 import com.fmi.common.validation.OneOf;
 import lombok.*;
@@ -25,9 +24,6 @@ public class CreateOrderRequestResource {
     @NotNull
     @OneOf(enumClass = StatusDto.class, message = "Incorrect status type.")
     private String status;
-
-    @NotNull
-    private Long userId;
 
     @NotNull
     private Map<Long, Integer> products;

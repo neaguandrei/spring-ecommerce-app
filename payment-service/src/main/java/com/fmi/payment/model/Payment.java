@@ -20,4 +20,6 @@ public class Payment{
     private String paymentMethod;
 
     private Long orderId;
+
+    private Long userId;
 }

@@ -1,7 +1,6 @@
 CREATE TABLE IF NOT EXISTS PAYMENT.payment
 (
     id             INT AUTO_INCREMENT PRIMARY KEY,
-    order_id       INT UNIQUE,
     user_id        INT,
     amount         DECIMAL      NOT NULL,
     currency       VARCHAR(255) NOT NULL,

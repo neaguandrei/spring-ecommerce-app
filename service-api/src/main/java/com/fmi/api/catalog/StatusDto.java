@@ -1,4 +1,4 @@
-package com.fmi.api.catalog.enums;
+package com.fmi.api.catalog;
 
 public enum StatusDto {
     APPROVED,

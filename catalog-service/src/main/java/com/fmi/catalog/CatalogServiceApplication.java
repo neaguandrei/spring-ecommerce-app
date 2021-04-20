@@ -12,7 +12,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         "com.fmi.common",
         "com.fmi.catalog",
         "com.fmi.security",
-        "com.fmi.api.catalog"
+        "com.fmi.api.catalog",
+        "com.fmi.api.payment"
 })
 @EnableJpaRepositories(basePackages = "com.fmi.catalog.dao.repository")
 @EntityScan(basePackages = "com.fmi.catalog.dao.entity")

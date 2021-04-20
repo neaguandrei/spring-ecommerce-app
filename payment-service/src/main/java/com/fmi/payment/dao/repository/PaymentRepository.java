@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface PaymentRepository extends JpaRepository<PaymentEntity, Long> {
 
-    Iterable<PaymentEntity> findByOrderIdIn(List<Long> orderIds);
+    Iterable<PaymentEntity> findAllByUserId(Long userId);
 }

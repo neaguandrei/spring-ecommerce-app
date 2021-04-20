@@ -40,8 +40,10 @@ public class OrderEntity {
     )
     private List<OrderProductEntity> products = new ArrayList<>();
 
+    @Column(nullable = false, name = "user_id")
     private Long userId;
 
+    @Column(nullable = false, name = "payment_id")
     private Long paymentId;
 
     @Column(updatable = false, nullable = false)

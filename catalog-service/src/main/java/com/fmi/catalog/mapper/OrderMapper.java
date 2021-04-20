@@ -1,8 +1,8 @@
 package com.fmi.catalog.mapper;
 
 import com.fmi.api.catalog.OrderDto;
-import com.fmi.api.catalog.resource.request.CreateOrderRequestResource;
-import com.fmi.api.payment.enums.CurrencyDto;
+import com.fmi.api.catalog.CreateOrderRequestResource;
+import com.fmi.api.payment.CurrencyDto;
 import com.fmi.api.payment.PaymentDto;
 import com.fmi.catalog.dao.entity.OrderEntity;
 import com.fmi.catalog.dao.entity.OrderProductEntity;
@@ -37,7 +37,7 @@ public class OrderMapper {
         final Order order = new Order();
         order.setComment(resource.getComment());
         order.setStatus(Status.valueOf(resource.getStatus()));
-        order.setUserId(resource.getUserId());
+        order.setUserId(resource.getPayment().getUserId());
 
         return order;
     }
@@ -47,6 +47,7 @@ public class OrderMapper {
         payment.setAmount(paymentDto.getAmount());
         payment.setPaymentMethod(PaymentMethod.valueOf(paymentDto.getPaymentMethod()));
         payment.setCurrency(CurrencyDto.valueOf(paymentDto.getCurrency()));
+        payment.setUserId(paymentDto.getUserId());
 
         return payment;
     }
@@ -62,9 +63,5 @@ public class OrderMapper {
     public OrderEntity mapToEntity(Order orderDto) {
         return modelMapper.map(orderDto, OrderEntity.class);
     }
-//
-//    public PaymentEntity mapToEntity(Payment payment) {
-//        return modelMapper.map(payment, PaymentEntity.class);
-//    }
 
 }

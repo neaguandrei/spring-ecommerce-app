@@ -1,4 +1,4 @@
-package com.fmi.api.catalog.resource.request;
+package com.fmi.api.cart;
 
 import lombok.*;
 

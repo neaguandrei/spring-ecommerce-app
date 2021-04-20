@@ -34,6 +34,4 @@ public class RestAuthenticationController {
     public ResponseEntity<UserDto> getUserByEmail(@PathVariable(value = "email") String email) throws NotFoundException {
         return ResponseEntity.ok(userMapper.mapToDto(userService.getByEmail(email)));
     }
-
-
 }

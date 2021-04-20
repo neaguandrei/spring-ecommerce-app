@@ -1,4 +1,4 @@
-package com.fmi.api.payment.resource.response;
+package com.fmi.api.payment;
 
 import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
@@ -23,7 +23,5 @@ public class PaymentResponseResource extends RepresentationModel<PaymentResponse
     private String currency;
 
     private String paymentMethod;
-
-    private Long orderId;
 
 }

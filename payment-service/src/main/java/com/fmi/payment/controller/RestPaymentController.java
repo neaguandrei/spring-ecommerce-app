@@ -2,7 +2,8 @@ package com.fmi.payment.controller;
 
 
 import com.fmi.api.payment.PaymentDto;
-import com.fmi.api.payment.resource.response.PaymentResponseResource;
+import com.fmi.api.payment.PaymentCreationResponseResource;
+import com.fmi.api.payment.PaymentResponseResource;
 import com.fmi.payment.mapper.PaymentMapper;
 import com.fmi.payment.service.gateway.PaymentProcessingGatewayService;
 import com.fmi.payment.service.PaymentService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -31,11 +33,13 @@ public class RestPaymentController {
     private final ResourceAssembler resourceAssembler;
 
     @PostMapping
-    public ResponseEntity<Object> processPayment(@RequestBody @Valid PaymentDto payment) {
-        if (paymentProcessingGatewayService.sendToProcessing(paymentMapper.mapFromDto(payment))) {
-            return ResponseEntity.ok().build();
+    public ResponseEntity<PaymentCreationResponseResource> processPayment(@RequestBody @Valid PaymentDto payment) {
+        final Long paymentId = paymentProcessingGatewayService.sendToProcessing(paymentMapper.mapFromDto(payment));
+        if (Objects.isNull(paymentId)) {
+            return ResponseEntity.unprocessableEntity().build();
         }
-        return ResponseEntity.unprocessableEntity().build();
+
+        return ResponseEntity.ok(new PaymentCreationResponseResource(paymentId));
     }
 
     @GetMapping(value = "/{payment_id}")

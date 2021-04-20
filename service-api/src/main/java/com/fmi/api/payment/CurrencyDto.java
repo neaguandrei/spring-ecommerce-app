@@ -1,4 +1,4 @@
-package com.fmi.api.payment.enums;
+package com.fmi.api.payment;
 
 public enum CurrencyDto {
     EUR,

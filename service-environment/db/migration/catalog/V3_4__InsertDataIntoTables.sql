@@ -1,11 +1,11 @@
-INSERT INTO CATALOG.orders (user_id, comment, status, created, last_updated, version)
-VALUES (1, 'Good stuff!', 'APPROVED', '2021-01-01 00:00:01', '2021-01-01 00:00:01', 1);
+INSERT INTO CATALOG.orders (user_id, payment_id, comment, status, created, last_updated, version)
+VALUES (1, 1, 'Good stuff!', 'APPROVED', '2021-01-01 00:00:01', '2021-01-01 00:00:01', 1);
 
-INSERT INTO CATALOG.orders (user_id, comment, status, created, last_updated, version)
-VALUES (1, 'Bought two GPUs! They are great!', 'CANCELLED', '2021-01-01 00:00:01', '2021-01-01 00:00:01', 1);
+INSERT INTO CATALOG.orders (user_id, payment_id, comment, status, created, last_updated, version)
+VALUES (1, 2, 'Bought two GPUs! They are great!', 'CANCELLED', '2021-01-01 00:00:01', '2021-01-01 00:00:01', 1);
 
-INSERT INTO CATALOG.orders (user_id, comment, status, created, last_updated, version)
-VALUES (1, 'Really nice MONITORS from DELL.', 'APPROVED', '2021-01-01 00:00:01', '2021-01-01 00:00:01', 1);
+INSERT INTO CATALOG.orders (user_id, payment_id, comment, status, created, last_updated, version)
+VALUES (1, 3, 'Really nice MONITORS from DELL.', 'APPROVED', '2021-01-01 00:00:01', '2021-01-01 00:00:01', 1);
 
 
 INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, created, last_updated,

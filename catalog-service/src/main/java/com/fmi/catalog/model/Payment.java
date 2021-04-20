@@ -1,6 +1,6 @@
 package com.fmi.catalog.model;
 
-import com.fmi.api.payment.enums.CurrencyDto;
+import com.fmi.api.payment.CurrencyDto;
 import com.fmi.catalog.model.enums.PaymentMethod;
 import lombok.*;
 
@@ -20,4 +20,7 @@ public class Payment {
 
     private PaymentMethod paymentMethod;
 
+    private Long orderId;
+
+    private Long userId;
 }

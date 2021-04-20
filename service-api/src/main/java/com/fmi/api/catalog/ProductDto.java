@@ -3,7 +3,6 @@ package com.fmi.api.catalog;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.fmi.api.catalog.enums.ProductCategoryDto;
 import com.fmi.common.validation.OneOf;
 import lombok.*;
 

@@ -4,3 +4,6 @@ mvn flyway:migrate -Dflyway.configFile=flyway-config.properties
 
 # Docker DB
 docker-compose up
+
+
+netstat -ano | findstr :8080

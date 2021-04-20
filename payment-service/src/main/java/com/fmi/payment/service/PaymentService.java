@@ -3,7 +3,6 @@ package com.fmi.payment.service;
 import com.fmi.common.exception.NotFoundException;
 import com.fmi.payment.dao.entity.PaymentEntity;
 import com.fmi.payment.dao.repository.PaymentRepository;
-import com.fmi.payment.model.Order;
 import com.fmi.payment.model.Payment;
 import com.fmi.payment.mapper.PaymentMapper;
 import com.fmi.payment.service.gateway.OrderGatewayService;
@@ -13,9 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -38,15 +35,10 @@ public class PaymentService {
     }
 
     public List<Payment> getPaymentsByUserId(Long userId) throws NotFoundException {
-        final List<Order> orders = orderGatewayService.getOrdersByUserId(userId);
-        if (Objects.isNull(orders) || orders.isEmpty()) {
-            throw new NotFoundException("No payments realised by this user.");
-        }
-
         final List<Payment> payments = new ArrayList<>();
-        paymentRepository
-                .findByOrderIdIn(orders.stream().map(Order::getId).collect(Collectors.toList()))
-                .forEach(payment -> payments.add(paymentMapper.mapFromEntity(payment)));
+        Iterable<PaymentEntity> paymentEntities = Optional.ofNullable(paymentRepository.findAllByUserId(userId))
+                .orElseThrow(() -> new NotFoundException("No payments for userId:" + userId));
+        paymentEntities.forEach(paymentEntity -> payments.add(paymentMapper.mapFromEntity(paymentEntity)));
 
         return payments;
     }

@@ -2,7 +2,8 @@ package com.fmi.payment.mapper;
 
 import com.fmi.api.catalog.OrderDto;
 import com.fmi.api.payment.PaymentDto;
-import com.fmi.api.payment.resource.response.PaymentResponseResource;
+import com.fmi.api.payment.PaymentCreationResponseResource;
+import com.fmi.api.payment.PaymentResponseResource;
 import com.fmi.payment.dao.entity.PaymentEntity;
 import com.fmi.payment.model.Order;
 import com.fmi.payment.model.Payment;
@@ -22,6 +23,10 @@ public class PaymentMapper {
 
     public PaymentResponseResource mapToResource(Payment payment) {
         return modelMapper.map(payment, PaymentResponseResource.class);
+    }
+
+    public PaymentCreationResponseResource mapToCreateResponseResource(Payment payment) {
+        return new PaymentCreationResponseResource(payment.getId());
     }
 
     public Payment mapFromDto(PaymentDto paymentEntity) {

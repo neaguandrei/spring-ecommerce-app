@@ -1,7 +1,6 @@
-package com.fmi.api.catalog.resource.response;
+package com.fmi.api.catalog;
 
-import com.fmi.api.catalog.ProductDto;
-import lombok.*;
+ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;

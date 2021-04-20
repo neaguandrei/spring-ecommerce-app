@@ -1,7 +1,7 @@
 package com.fmi.catalog.mapper;
 
 import com.fmi.api.catalog.ProductDto;
-import com.fmi.api.catalog.resource.response.ProductsResponseResource;
+import com.fmi.api.catalog.ProductsResponseResource;
 import com.fmi.catalog.dao.entity.ProductEntity;
 import com.fmi.catalog.model.Product;
 import lombok.RequiredArgsConstructor;

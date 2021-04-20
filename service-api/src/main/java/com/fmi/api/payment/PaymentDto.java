@@ -1,7 +1,5 @@
 package com.fmi.api.payment;
 
-import com.fmi.api.payment.enums.CurrencyDto;
-import com.fmi.api.payment.enums.PaymentMethodDto;
 import com.fmi.common.validation.OneOf;
 import lombok.*;
 
@@ -30,5 +28,5 @@ public class PaymentDto {
     @OneOf(enumClass = PaymentMethodDto.class, message = "Method isn't of correct type.")
     private String paymentMethod;
 
-    private Long orderId;
+    private Long userId;
 }

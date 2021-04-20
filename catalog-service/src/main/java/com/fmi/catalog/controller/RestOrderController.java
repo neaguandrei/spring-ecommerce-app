@@ -2,8 +2,9 @@ package com.fmi.catalog.controller;
 
 
 import com.fmi.api.catalog.OrderDto;
-import com.fmi.api.catalog.resource.request.CreateOrderRequestResource;
+import com.fmi.api.catalog.CreateOrderRequestResource;
 import com.fmi.catalog.model.Payment;
+import com.fmi.common.exception.BadRequestException;
 import com.fmi.common.exception.NotFoundException;
 import com.fmi.catalog.model.Order;
 import com.fmi.catalog.mapper.OrderMapper;
@@ -25,8 +26,6 @@ public class RestOrderController {
 
     private final OrderService orderService;
 
-    private final PaymentGatewayService paymentGatewayService;
-
     private final OrderMapper orderMapper;
 
     @GetMapping(value = "/{order_id}")
@@ -43,11 +42,9 @@ public class RestOrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> saveOrder(@Valid @RequestBody CreateOrderRequestResource request) throws NotFoundException {
+    public ResponseEntity<Object> saveOrder(@Valid @RequestBody CreateOrderRequestResource request) throws NotFoundException, BadRequestException {
         final Order order = orderMapper.mapFromDto(request);
-        final Payment payment = paymentGatewayService.executePayment(request.getPayment());
-        orderService.saveOrder(order, payment, request.getProducts());
-
+        orderService.saveOrder(order, orderMapper.mapFromDto(request.getPayment()), request.getProducts());
         return ResponseEntity.noContent().build();
     }
 }

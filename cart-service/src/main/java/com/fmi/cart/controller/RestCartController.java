@@ -1,7 +1,7 @@
 package com.fmi.cart.controller;
 
-import com.fmi.api.catalog.resource.request.AddCartRequestResource;
-import com.fmi.api.catalog.resource.response.CompletedCartResponseResource;
+import com.fmi.api.cart.AddCartRequestResource;
+import com.fmi.api.cart.CompletedCartResponseResource;
 import com.fmi.cart.service.CartService;
 import com.fmi.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;

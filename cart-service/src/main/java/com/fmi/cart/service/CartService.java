@@ -1,6 +1,6 @@
 package com.fmi.cart.service;
 
-import com.fmi.api.catalog.resource.response.CompletedCartResponseResource;
+import com.fmi.api.cart.CompletedCartResponseResource;
 import com.fmi.common.exception.NotFoundException;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;

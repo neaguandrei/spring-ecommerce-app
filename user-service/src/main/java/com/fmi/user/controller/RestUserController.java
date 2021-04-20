@@ -22,7 +22,6 @@ public class RestUserController {
 
     private final UserMapper userMapper;
 
-
     @PutMapping(value = "/{user_id}")
     public ResponseEntity<Object> updateUser(@PathVariable("user_id") Long userId, @Validated(UserDto.SignUp.class) @NotNull @RequestBody UserDto userDto) throws BadRequestException {
         userService.update(userId, userMapper.mapFromDto(userDto));

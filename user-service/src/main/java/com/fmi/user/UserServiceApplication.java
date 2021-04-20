@@ -8,6 +8,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(scanBasePackages = {
+        "com.fmi.user",
         "com.fmi.security",
         "com.fmi.common",
         "com.fmi.api.user"

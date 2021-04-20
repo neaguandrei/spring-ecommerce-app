@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import static java.util.Collections.emptyList;
 
@@ -23,6 +24,9 @@ public class CartEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
+    private UUID cartKey;
 
     @Column(nullable = false, unique = true)
     private String email;
