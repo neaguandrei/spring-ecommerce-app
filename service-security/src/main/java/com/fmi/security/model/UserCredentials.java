@@ -7,21 +7,18 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
-public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
+public class UserCredentials implements org.springframework.security.core.userdetails.UserDetails {
 
     private User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Role> roles = user.getRoles().stream().map(Role::new).collect(Collectors.toSet());
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-        for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        for (String role : user.getRoles()) {
+            authorities.add(new SimpleGrantedAuthority(role));
         }
 
         return authorities;

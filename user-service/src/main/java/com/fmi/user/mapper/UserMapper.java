@@ -1,6 +1,7 @@
 package com.fmi.user.mapper;
 
 import com.fmi.api.user.UserDto;
+import com.fmi.common.exception.BadRequestException;
 import com.fmi.user.dao.entity.AddressEntity;
 import com.fmi.user.dao.entity.RoleEntity;
 import com.fmi.user.dao.entity.UserEntity;
@@ -47,9 +48,13 @@ public class UserMapper {
 
     }
 
-    public void mapToUpdatedEntity(UserEntity updatedEntity, UserEntity existingEntity, String oldPassword) {
-        if (updatedEntity.getPassword() != null && oldPassword != null && passwordEncoder.matches(oldPassword, existingEntity.getPassword())) {
-            existingEntity.setPassword(passwordEncoder.encode(updatedEntity.getPassword()));
+    public void mapToUpdatedEntity(UserEntity updatedEntity, UserEntity existingEntity, String newPassword) throws BadRequestException {
+        if (!passwordEncoder.matches(updatedEntity.getPassword(), existingEntity.getPassword())) {
+            throw new BadRequestException("Please enter a correct password before proceeding with the update of your profile.");
+        }
+
+        if (updatedEntity.getPassword() != null && newPassword != null) {
+            existingEntity.setPassword(passwordEncoder.encode(newPassword));
         }
         existingEntity.setEmail(updatedEntity.getEmail());
         existingEntity.setFirstName(updatedEntity.getFirstName());

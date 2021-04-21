@@ -59,7 +59,7 @@ public class UserService {
             final UserEntity updatedUser = userMapper.mapToEntity(user);
             final AddressEntity updatedAddress = userMapper.mapToEntity(user.getAddress());
 
-            userMapper.mapToUpdatedEntity(updatedUser, existingUser, user.getOldPassword());
+            userMapper.mapToUpdatedEntity(updatedUser, existingUser, user.getNewPassword());
             userMapper.mapToUpdatedEntity(updatedAddress, existingUser.getAddress());
         } else {
             throw new NotFoundException("User with that email doesn't exist.");

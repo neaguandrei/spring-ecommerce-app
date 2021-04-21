@@ -30,7 +30,7 @@ public class UserDto {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Size(min = 6, max = 15, message = "Keep it between 6 and 15 characters!")
-    private String oldPassword;
+    private String newPassword;
 
     @NotEmpty(message = "First name can't be empty.", groups = SignUp.class)
     @Size(min = 3, max = 15)

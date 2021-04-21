@@ -1,6 +1,7 @@
 package com.fmi.security;
 
 import com.fmi.security.model.User;
+import com.fmi.security.model.UserCredentials;
 import com.fmi.security.service.UserGatewayService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.Objects;
-
-import static java.util.Collections.emptyList;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +25,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(email);
         }
 
-        return new com.fmi.security.model.UserDetails(user);
+        return new UserCredentials(user);
     }
 }
