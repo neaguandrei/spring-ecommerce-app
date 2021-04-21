@@ -29,6 +29,7 @@ public class PaymentGatewayService {
     @Value("${payment.api.endpoint.baseURL}")
     private String paymentUrl;
 
+//    TODO: Propagat pe restTemplate jwt-ul sau autorizarea.
     @Retryable(
             value = {ResourceAccessException.class},
             maxAttemptsExpression = "5",
