@@ -2,9 +2,13 @@ package com.fmi.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fmi.security.config.SecurityConfigurationProperties;
+import com.fmi.security.model.UserPrincipal;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -13,7 +17,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.fmi.security.Constants.CLAIMS_AUTHORITIES;
+import static com.fmi.security.Constants.CLAIMS_USER_ID;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -33,7 +42,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             return;
         }
 
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
+        final UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);
@@ -45,14 +54,25 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             return null;
         }
 
-        String user = JWT.require(Algorithm.HMAC512(securityConfigurationProperties.getJwtSecret().getBytes()))
+        final DecodedJWT decodedJWT = JWT
+                .require(Algorithm.HMAC512(securityConfigurationProperties.getJwtSecret().getBytes()))
                 .build()
-                .verify(token.replace(Constants.TOKEN_PREFIX, ""))
-                .getSubject();
-        if (user == null) {
+                .verify(token.replace(Constants.TOKEN_PREFIX, ""));
+
+        final String email = decodedJWT.getSubject();
+        final Long id = decodedJWT.getClaim(CLAIMS_USER_ID).asLong();
+        if (email == null || id == null) {
             return null;
         }
 
-        return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+        final String[] decodedAuthorities = decodedJWT.getClaim(CLAIMS_AUTHORITIES).asArray(String.class);
+        List<? extends GrantedAuthority> authorities = Arrays.stream(decodedAuthorities).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+
+        final UserPrincipal userPrincipal = UserPrincipal.builder()
+                .id(id)
+                .email(email)
+                .build();
+
+        return new UsernamePasswordAuthenticationToken(userPrincipal, null, authorities);
     }
 }

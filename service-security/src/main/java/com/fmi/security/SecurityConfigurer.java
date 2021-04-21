@@ -32,9 +32,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     private final SecurityConfigurationProperties securityConfigurationProperties;
 
+    private final UserDetailsServiceImpl userDetailsService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        final JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, securityConfigurationProperties);
+        final JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, securityConfigurationProperties, userDetailsService);
         jwtAuthenticationFilter.setFilterProcessesUrl("/api/auth/login");
         final JwtAuthorizationFilter jwtAuthorizationFilter = new JwtAuthorizationFilter(authenticationManager, securityConfigurationProperties);
 

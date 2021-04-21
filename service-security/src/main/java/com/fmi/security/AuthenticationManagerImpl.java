@@ -8,11 +8,13 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -25,7 +27,8 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        final String email = authentication.getPrincipal().toString();
+        final String email = ((User) authentication.getPrincipal()).getEmail();
+        final List<? extends GrantedAuthority> authorities = new ArrayList<>(authentication.getAuthorities());
         final String password = authentication.getCredentials().toString();
         try {
             final User user = userGatewayService.getUserByEmail(email);
@@ -36,6 +39,6 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
             throw new BadCredentialsException(String.format("E-mail: %s doesn't exist!", email));
         }
 
-        return new UsernamePasswordAuthenticationToken(email, passwordEncoder.encode(password), Collections.emptyList());
+        return new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), passwordEncoder.encode(password), authorities);
     }
 }

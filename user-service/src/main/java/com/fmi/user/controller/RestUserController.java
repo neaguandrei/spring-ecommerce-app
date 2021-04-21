@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotNull;
 
 
+@PreAuthorize("#email == authentication.principal.email and hasAuthority('USER')")
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
@@ -23,14 +24,12 @@ public class RestUserController {
 
     private final UserMapper userMapper;
 
-    @PreAuthorize("#email == authentication.name")
     @PutMapping(value = "/{email}")
     public ResponseEntity<Object> updateUser(@PathVariable("email") String email, @Validated(UserDto.SignUp.class) @NotNull @RequestBody UserDto userDto) throws BadRequestException, NotFoundException {
         userService.update(email, userMapper.mapFromDto(userDto));
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("#email == authentication.name")
     @DeleteMapping(value = "/{email}")
     public ResponseEntity<Object> deleteUserByEmail(@PathVariable("email") String email) throws NotFoundException {
         userService.delete(email);

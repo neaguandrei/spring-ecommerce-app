@@ -1,6 +1,7 @@
 package com.fmi.security.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -9,9 +10,10 @@ import java.util.Collection;
 import java.util.List;
 
 @AllArgsConstructor
-public class UserCredentials implements org.springframework.security.core.userdetails.UserDetails {
+@Getter
+public class MyUserDetails implements org.springframework.security.core.userdetails.UserDetails {
 
-    private User user;
+    private final User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

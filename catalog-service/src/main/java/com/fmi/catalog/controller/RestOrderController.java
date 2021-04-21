@@ -3,18 +3,19 @@ package com.fmi.catalog.controller;
 
 import com.fmi.api.catalog.OrderDto;
 import com.fmi.api.catalog.CreateOrderRequestResource;
-import com.fmi.catalog.model.Payment;
 import com.fmi.common.exception.BadRequestException;
 import com.fmi.common.exception.NotFoundException;
 import com.fmi.catalog.model.Order;
 import com.fmi.catalog.mapper.OrderMapper;
 import com.fmi.catalog.service.OrderService;
-import com.fmi.catalog.service.gateway.PaymentGatewayService;
+import com.fmi.security.annotation.PreAuthorizeAll;
+import com.fmi.security.annotation.PreAuthorizeUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,11 +29,13 @@ public class RestOrderController {
 
     private final OrderMapper orderMapper;
 
+    @PreAuthorizeAll
     @GetMapping(value = "/{order_id}")
     public ResponseEntity<OrderDto> getOrder(@PathVariable("order_id") Long orderId) throws NotFoundException {
         return ResponseEntity.ok(orderMapper.mapToDto(orderService.getById(orderId)));
     }
 
+    @PreAuthorize("#userId == authentication.principal.id and hasAnyAuthority('ADMIN','USER')")
     @GetMapping(value = "/users/{user_id}")
     public ResponseEntity<Page<OrderDto>> getOrdersForUserId(@PathVariable("user_id") Long userId,
                                                              @RequestParam(name = "page", defaultValue = "0") int page,
@@ -41,6 +44,7 @@ public class RestOrderController {
         return ResponseEntity.ok(orderMapper.mapToDto(orderService.getOrdersByUserId(userId, PageRequest.of(page, size, Sort.Direction.valueOf(sort), "created"))));
     }
 
+    @PreAuthorizeUser
     @PostMapping
     public ResponseEntity<Object> saveOrder(@Valid @RequestBody CreateOrderRequestResource request) throws NotFoundException, BadRequestException {
         final Order order = orderMapper.mapFromDto(request);

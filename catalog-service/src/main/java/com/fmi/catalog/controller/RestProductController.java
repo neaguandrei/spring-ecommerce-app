@@ -10,6 +10,7 @@ import com.fmi.catalog.dao.entity.ProductEntity;
 import com.fmi.catalog.mapper.ProductMapper;
 import com.fmi.catalog.model.enums.ProductCategory;
 import com.fmi.catalog.service.ProductService;
+import com.fmi.security.annotation.PreAuthorizeAdmin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,12 +29,6 @@ public class RestProductController {
     private final ProductService productService;
 
     private final ProductMapper productMapper;
-
-    @PostMapping("/product")
-    public ResponseEntity<Object> saveProduct(@RequestBody @Valid ProductDto productDto) {
-        productService.save(productMapper.mapFromDto(productDto));
-        return ResponseEntity.ok().build();
-    }
 
     @GetMapping("/{product_id}")
     public ResponseEntity<ProductDto> getProduct(@PathVariable(value = "product_id") Long productId) throws NotFoundException {
@@ -54,5 +49,12 @@ public class RestProductController {
     @GetMapping(value = "/list")
     public ResponseEntity<ProductsResponseResource> getProductsList(@RequestBody @Valid ProductsRequestResource requestResource) {
         return ResponseEntity.ok(productMapper.mapToResource(productService.getProducts(requestResource.getProductIds())));
+    }
+
+    @PreAuthorizeAdmin
+    @PostMapping("/product")
+    public ResponseEntity<Object> saveProduct(@RequestBody @Valid ProductDto productDto) {
+        productService.save(productMapper.mapFromDto(productDto));
+        return ResponseEntity.ok().build();
     }
 }
