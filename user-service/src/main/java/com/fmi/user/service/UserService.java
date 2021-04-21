@@ -50,8 +50,8 @@ public class UserService {
         userRepository.save(userEntity);
     }
 
-    public void update(Long id, User user) throws BadRequestException {
-        Optional<UserEntity> optionalUserEntity = userRepository.findById(id);
+    public void update(String email, User user) throws BadRequestException, NotFoundException {
+        Optional<UserEntity> optionalUserEntity = userRepository.findByEmail(email);
         if (optionalUserEntity.isPresent()) {
             final UserEntity existingUser = optionalUserEntity.get();
             validateUpdateFields(user, existingUser);
@@ -61,6 +61,8 @@ public class UserService {
 
             userMapper.mapToUpdatedEntity(updatedUser, existingUser, user.getOldPassword());
             userMapper.mapToUpdatedEntity(updatedAddress, existingUser.getAddress());
+        } else {
+            throw new NotFoundException("User with that email doesn't exist.");
         }
     }
 
@@ -69,13 +71,15 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
     }
 
-    public void delete(Long userId) throws NotFoundException {
-        Optional<UserEntity> userEntity = userRepository.findById(userId);
+    public void delete(String email) throws NotFoundException {
+        Optional<UserEntity> userEntity = userRepository.findByEmail(email);
         if (!userEntity.isPresent()) {
             throw new NotFoundException(USER_NOT_FOUND);
         }
 
-        userRepository.deleteById(userId);
+        final UserEntity user = userEntity.get();
+        user.getRoles().clear();
+        userRepository.deleteById(user.getId());
     }
 
     private void validateCreateUniqueFields(User user) throws BadRequestException {

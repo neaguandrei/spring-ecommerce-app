@@ -47,6 +47,7 @@ public class UserDto {
     @NotNull(message = "Address can't be empty", groups = {SignUp.class})
     private AddressDto address;
 
+    @NotEmpty(message = "Roles can't be empty", groups = {SignUp.class})
     private List<String> roles;
 
     public interface SignIn {

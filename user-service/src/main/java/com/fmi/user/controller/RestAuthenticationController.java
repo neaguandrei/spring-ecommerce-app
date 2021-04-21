@@ -20,7 +20,7 @@ public class RestAuthenticationController {
     private final UserMapper userMapper;
 
     @PostMapping("/register")
-    public ResponseEntity<Object> registerUser(@Validated(UserDto.SignUp.class) @RequestBody UserDto user) throws BadRequestException {
+    public ResponseEntity<Object> registerUser(@Validated(UserDto.SignUp.class) @RequestBody UserDto user) throws BadRequestException, NotFoundException {
         userService.save(userMapper.mapFromDto(user));
         return ResponseEntity.ok().build();
     }

@@ -7,6 +7,7 @@ import com.fmi.user.mapper.UserMapper;
 import com.fmi.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,15 +23,17 @@ public class RestUserController {
 
     private final UserMapper userMapper;
 
-    @PutMapping(value = "/{user_id}")
-    public ResponseEntity<Object> updateUser(@PathVariable("user_id") Long userId, @Validated(UserDto.SignUp.class) @NotNull @RequestBody UserDto userDto) throws BadRequestException {
-        userService.update(userId, userMapper.mapFromDto(userDto));
+    @PreAuthorize("#email == authentication.name")
+    @PutMapping(value = "/{email}")
+    public ResponseEntity<Object> updateUser(@PathVariable("email") String email, @Validated(UserDto.SignUp.class) @NotNull @RequestBody UserDto userDto) throws BadRequestException, NotFoundException {
+        userService.update(email, userMapper.mapFromDto(userDto));
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping(value = "/{user_id}")
-    public ResponseEntity<Object> deleteUser(@PathVariable("user_id") Long userId) throws NotFoundException {
-        userService.delete(userId);
+    @PreAuthorize("#email == authentication.name")
+    @DeleteMapping(value = "/{email}")
+    public ResponseEntity<Object> deleteUserByEmail(@PathVariable("email") String email) throws NotFoundException {
+        userService.delete(email);
         return ResponseEntity.ok().build();
     }
 }
