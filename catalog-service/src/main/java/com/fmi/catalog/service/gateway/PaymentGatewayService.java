@@ -1,8 +1,6 @@
 package com.fmi.catalog.service.gateway;
 
 import com.fmi.api.payment.PaymentCreationResponseResource;
-import com.fmi.api.payment.PaymentDto;
-import com.fmi.catalog.mapper.OrderMapper;
 import com.fmi.catalog.model.Payment;
 import com.fmi.common.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +27,6 @@ public class PaymentGatewayService {
     @Value("${payment.api.endpoint.baseURL}")
     private String paymentUrl;
 
-//    TODO: Propagat pe restTemplate jwt-ul sau autorizarea.
     @Retryable(
             value = {ResourceAccessException.class},
             maxAttemptsExpression = "5",

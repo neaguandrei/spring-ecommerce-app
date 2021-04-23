@@ -1,5 +1,7 @@
 package com.fmi.catalog.mapper;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fmi.api.catalog.ProductDto;
 import com.fmi.api.catalog.ProductsResponseResource;
 import com.fmi.catalog.dao.entity.ProductEntity;
@@ -40,5 +42,13 @@ public class ProductMapper {
 
     public ProductsResponseResource mapToResource(List<Product> products) {
         return new ProductsResponseResource(products.stream().map(this::mapToDto).collect(Collectors.toList()));
+    }
+
+    public ProductDto getDtoFromString(String product) throws JsonProcessingException {
+        ProductDto productDto;
+        ObjectMapper objectMapper = new ObjectMapper();
+        productDto = objectMapper.readValue(product, ProductDto.class);
+
+        return productDto;
     }
 }

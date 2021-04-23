@@ -26,7 +26,7 @@ public class CartEntity {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private UUID cartKey;
+    private String cartKey;
 
     @Column(nullable = false, unique = true)
     private String email;

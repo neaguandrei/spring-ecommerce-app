@@ -67,7 +67,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private String[] toArrayNames(Collection<? extends GrantedAuthority> authorities) {
         final String[] result = new String[authorities.size()];
         authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()).toArray(result);
-
         return result;
     }
 }

@@ -9,8 +9,7 @@ import com.fmi.payment.service.gateway.PaymentProcessingGatewayService;
 import com.fmi.payment.service.PaymentService;
 import com.fmi.payment.assembler.ResourceAssembler;
 import com.fmi.common.exception.NotFoundException;
-import com.fmi.security.annotation.PreAuthorizeAll;
-import com.fmi.security.annotation.PreAuthorizeUser;
+import com.fmi.security.annotation.PreAuthorizeAny;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +34,6 @@ public class RestPaymentController {
 
     private final ResourceAssembler resourceAssembler;
 
-    @PreAuthorizeUser
     @PostMapping
     public ResponseEntity<PaymentCreationResponseResource> processPayment(@RequestBody @Valid PaymentDto payment) {
         final Long paymentId = paymentProcessingGatewayService.sendToProcessing(paymentMapper.mapFromDto(payment));
@@ -46,7 +44,7 @@ public class RestPaymentController {
         return ResponseEntity.ok(new PaymentCreationResponseResource(paymentId));
     }
 
-    @PreAuthorizeAll
+    @PreAuthorizeAny
     @GetMapping(value = "/{payment_id}")
     public ResponseEntity<PaymentDto> getPayment(@PathVariable(value = "payment_id") Long paymentId) throws NotFoundException {
         return ResponseEntity.ok(paymentMapper.mapToDto(paymentService.getById(paymentId)));

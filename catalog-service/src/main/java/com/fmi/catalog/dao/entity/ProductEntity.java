@@ -42,6 +42,12 @@ public class ProductEntity {
     @Column(name = "product_line", nullable = false)
     private String productLine;
 
+    @Column(name = "image_path", nullable = false)
+    private String imagePath;
+
+    @Column(name = "image_file_name", nullable = false)
+    private String imageFileName;
+
     @OneToMany(
             mappedBy = "product",
             cascade = CascadeType.ALL,

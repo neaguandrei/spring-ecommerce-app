@@ -4,6 +4,7 @@ import com.fmi.api.cart.AddCartRequestResource;
 import com.fmi.api.cart.CompletedCartResponseResource;
 import com.fmi.cart.service.CartService;
 import com.fmi.common.exception.NotFoundException;
+import com.fmi.security.annotation.PreAuthorizeAny;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,7 @@ public class RestCartController {
         return ResponseEntity.ok(cartService.getCart(cartKey));
     }
 
+    @PreAuthorizeAny
     @GetMapping("/{cart_key}")
     public ResponseEntity<CompletedCartResponseResource> completeCart(@PathVariable("cart_key") String cartKey) {
         return ResponseEntity.ok(cartService.completeCart(cartKey));

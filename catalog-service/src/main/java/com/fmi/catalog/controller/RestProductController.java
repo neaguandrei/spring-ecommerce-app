@@ -1,6 +1,7 @@
 package com.fmi.catalog.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fmi.api.catalog.ProductDto;
 import com.fmi.api.catalog.ProductsRequestResource;
 import com.fmi.api.catalog.ProductsResponseResource;
@@ -15,15 +16,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class RestProductController {
 
     private final ProductService productService;
@@ -52,9 +57,16 @@ public class RestProductController {
     }
 
     @PreAuthorizeAdmin
-    @PostMapping("/product")
-    public ResponseEntity<Object> saveProduct(@RequestBody @Valid ProductDto productDto) {
-        productService.save(productMapper.mapFromDto(productDto));
+    @PostMapping(value = "/product", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<Object> saveProduct(@RequestPart("product") String productJson,
+                                              @RequestPart("image") MultipartFile multipartFile) throws JsonProcessingException {
+        ProductDto productDto = productMapper.getDtoFromString(productJson);
+        productService.save(productMapper.mapFromDto(productDto), multipartFile);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(value = "{id}/image/download")
+    public byte[] downloadProductImage(@PathVariable("id") Long id) throws NotFoundException {
+        return productService.downloadProductImage(id);
     }
 }

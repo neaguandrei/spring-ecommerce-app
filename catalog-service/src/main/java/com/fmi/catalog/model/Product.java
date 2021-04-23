@@ -2,11 +2,8 @@ package com.fmi.catalog.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.fmi.common.validation.OneOf;
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -30,4 +27,7 @@ public class Product {
 
     private String productLine;
 
+    private String imagePath;
+
+    private String imageFileName;
 }

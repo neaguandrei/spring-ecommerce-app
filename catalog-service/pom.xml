@@ -83,6 +83,11 @@
             <artifactId>spring-aspects</artifactId>
             <version>5.2.8.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.11.931</version>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>

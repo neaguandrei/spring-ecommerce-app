@@ -1,6 +1,7 @@
 package com.fmi.api.catalog;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fmi.common.validation.OneOf;
@@ -15,6 +16,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @Builder
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductDto {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -41,4 +43,7 @@ public class ProductDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String productLine;
 
+    private String imagePath;
+
+    private String imageFileName;
 }

@@ -8,59 +8,87 @@ INSERT INTO CATALOG.orders (user_id, payment_id, comment, status, created, last_
 VALUES (1, 3, 'Really nice MONITORS from DELL.', 'APPROVED', '2021-01-01 00:00:01', '2021-01-01 00:00:01', 1);
 
 
-INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, created, last_updated,
+INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, image_path, image_file_name, created,
+                             last_updated,
                              version)
 VALUES (1, 'G PRO Wireless', 'The best mouse of year 2021', 100, 150, 'PERIPHERALS', 'Logitech',
+        'spring-ecommerce-fmi/ae146523-1977-4050-ad18-24f9691c7db9',
+        'nvidia.jpg',
         '2021-01-01 00:00:01',
         '2021-01-01 00:00:01', 1);
 
-INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, created, last_updated,
+INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, image_path, image_file_name, created,
+                             last_updated,
                              version)
 VALUES (2, 'G915 TKL', 'The best keyboard of year 2021', 100, 215, 'PERIPHERALS', 'Logitech',
+        'spring-ecommerce-fmi/ae146523-1977-4050-ad18-24f9691c7db9', 'nvidia.jpg',
         '2021-01-01 00:00:01',
         '2021-01-01 00:00:01', 1);
 
-INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, created, last_updated,
+INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, image_path, image_file_name, created,
+                             last_updated,
                              version)
-VALUES (3, 'Monitor 195', 'Budget monitor', 100, 250, 'MONITORS', 'LG', '2021-01-01 00:00:01',
+VALUES (3, 'Monitor 195', 'Budget monitor', 100, 250, 'MONITORS', 'LG', 'spring-ecommerce-fmi/ae146523-1977-4050-ad18-24f9691c7db9',
+        'nvidia.jpg',
         '2021-01-01 00:00:01',
-        1);
-
-INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, created, last_updated,
-                             version)
-VALUES (4, 'Alienware AW3219', '240hz, 2k, G-Sync', 60, 900, 'MONITORS', 'DELL', '2021-01-01 00:00:01',
-        '2021-01-01 00:00:01', 1);
-
-INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, created, last_updated,
-                             version)
-VALUES (5, 'DELL UltraSharp', '2k, FreeSync, 60hz', 100, 450, 'MONITORS', 'DELL', '2021-01-01 00:00:01',
-        '2021-01-01 00:00:01', 1);
-
-INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, created, last_updated,
-                             version)
-VALUES (6, 'DELL Normal Monitor', '1080p', 25, 200, 'MONITORS', 'DELL', '2021-01-01 00:00:01',
         '2021-01-01 00:00:01',
         1);
 
-INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, created, last_updated,
+INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, image_path, image_file_name, created,
+                             last_updated,
                              version)
-VALUES (7, 'Intel I9 9900K', 'Probably the best intel CPU', 100, 450, 'HARDWARE', 'INTEL', '2021-01-01 00:00:01',
+VALUES (4, 'Alienware AW3219', '240hz, 2k, G-Sync', 60, 900, 'MONITORS', 'DELL',
+        'spring-ecommerce-fmi/ae146523-1977-4050-ad18-24f9691c7db9', 'nvidia.jpg',
+        '2021-01-01 00:00:01',
         '2021-01-01 00:00:01', 1);
 
-INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, created, last_updated,
+INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, image_path, image_file_name, created,
+                             last_updated,
                              version)
-VALUES (8, 'RTX 3080', 'MID LEVEL GPU FROM NVIDIA', 25, 500, 'HARDWARE', 'NVIDIA', '2021-01-01 00:00:01',
+VALUES (5, 'DELL UltraSharp', '2k, FreeSync, 60hz', 100, 450, 'MONITORS', 'DELL',
+        'spring-ecommerce-fmi/ae146523-1977-4050-ad18-24f9691c7db9', 'nvidia.jpg',
+        '2021-01-01 00:00:01',
         '2021-01-01 00:00:01', 1);
 
-INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, created, last_updated,
+INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, image_path, image_file_name, created,
+                             last_updated,
                              version)
-VALUES (9, 'AMD RYZEN 3600X', 'AMD BEST CPU', 100, 450, 'HARDWARE', 'AMD', '2021-01-01 00:00:01',
+VALUES (6, 'DELL Normal Monitor', '1080p', 25, 200, 'MONITORS', 'DELL', 'spring-ecommerce-fmi/ae146523-1977-4050-ad18-24f9691c7db9',
+        'nvidia.jpg', '2021-01-01 00:00:01',
         '2021-01-01 00:00:01',
         1);
 
-INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, created, last_updated,
+INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, image_path, image_file_name, created,
+                             last_updated,
                              version)
-VALUES (10, 'RTX 3090', 'NVIDIA BEST GPU', 25, 1500, 'HARDWARE', 'NVIDIA', '2021-01-01 00:00:01',
+VALUES (7, 'Intel I9 9900K', 'Probably the best intel CPU', 100, 450, 'HARDWARE', 'INTEL',
+        'spring-ecommerce-fmi/ae146523-1977-4050-ad18-24f9691c7db9', 'nvidia.jpg',
+        '2021-01-01 00:00:01',
+        '2021-01-01 00:00:01', 1);
+
+INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, image_path, image_file_name, created,
+                             last_updated,
+                             version)
+VALUES (8, 'RTX 3080', 'MID LEVEL GPU FROM NVIDIA', 25, 500, 'HARDWARE', 'NVIDIA',
+        'spring-ecommerce-fmi/ae146523-1977-4050-ad18-24f9691c7db9', 'nvidia.jpg',
+        '2021-01-01 00:00:01',
+        '2021-01-01 00:00:01', 1);
+
+INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, image_path, image_file_name, created,
+                             last_updated,
+                             version)
+VALUES (9, 'AMD RYZEN 3600X', 'AMD BEST CPU', 100, 450, 'HARDWARE', 'AMD', 'spring-ecommerce-fmi/ae146523-1977-4050-ad18-24f9691c7db9',
+        'nvidia.jpg',
+        '2021-01-01 00:00:01',
+        '2021-01-01 00:00:01',
+        1);
+
+INSERT INTO CATALOG.product (id, name, description, quantity, price, category, product_line, image_path, image_file_name, created,
+                             last_updated,
+                             version)
+VALUES (10, 'RTX 3090', 'NVIDIA BEST GPU', 25, 1500, 'HARDWARE', 'NVIDIA', 'spring-ecommerce-fmi/ae146523-1977-4050-ad18-24f9691c7db9',
+        'nvidia.jpg',
+        '2021-01-01 00:00:01',
         '2021-01-01 00:00:01',
         1);
 

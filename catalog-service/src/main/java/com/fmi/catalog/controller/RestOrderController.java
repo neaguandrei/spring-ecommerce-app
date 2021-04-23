@@ -8,7 +8,7 @@ import com.fmi.common.exception.NotFoundException;
 import com.fmi.catalog.model.Order;
 import com.fmi.catalog.mapper.OrderMapper;
 import com.fmi.catalog.service.OrderService;
-import com.fmi.security.annotation.PreAuthorizeAll;
+import com.fmi.security.annotation.PreAuthorizeAny;
 import com.fmi.security.annotation.PreAuthorizeUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,7 +29,7 @@ public class RestOrderController {
 
     private final OrderMapper orderMapper;
 
-    @PreAuthorizeAll
+    @PreAuthorizeAny
     @GetMapping(value = "/{order_id}")
     public ResponseEntity<OrderDto> getOrder(@PathVariable("order_id") Long orderId) throws NotFoundException {
         return ResponseEntity.ok(orderMapper.mapToDto(orderService.getById(orderId)));
