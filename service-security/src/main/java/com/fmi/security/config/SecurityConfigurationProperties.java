@@ -15,7 +15,12 @@ public class SecurityConfigurationProperties {
 
     private String userUrl;
 
+    private String refreshTokenUrl;
+
     private String jwtSecret;
 
     private Long jwtExpiration;
+
+    private Long refreshExpiration;
+
 }

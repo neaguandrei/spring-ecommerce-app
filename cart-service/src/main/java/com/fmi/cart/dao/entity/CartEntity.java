@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -37,15 +38,13 @@ public class CartEntity {
 
     @Column(updatable = false, nullable = false)
     @Setter(AccessLevel.NONE)
-    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    private Date created;
+    private LocalDateTime created;
 
     @Column(name = "last_updated", nullable = false)
     @Setter(AccessLevel.NONE)
-    @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
-    private Date lastUpdated;
+    private LocalDateTime lastUpdated;
 
     @Version
     @Column(nullable = false)

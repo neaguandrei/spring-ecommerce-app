@@ -1,6 +1,9 @@
 package com.fmi.security;
 
 import com.fmi.security.config.SecurityConfigurationProperties;
+import com.fmi.security.service.CookieHandler;
+import com.fmi.security.service.JwtHandler;
+import com.fmi.security.service.UserGatewayService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,10 +37,19 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsServiceImpl userDetailsService;
 
+    private final UserGatewayService userGatewayService;
+
+    private final CookieHandler cookieHandler;
+
+    private final JwtHandler jwtHandler;
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        final JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, securityConfigurationProperties, userDetailsService);
+        final JwtAuthenticationFilter jwtAuthenticationFilter =
+                new JwtAuthenticationFilter(authenticationManager, userDetailsService, userGatewayService, cookieHandler, jwtHandler);
         jwtAuthenticationFilter.setFilterProcessesUrl("/api/auth/login");
+
         final JwtAuthorizationFilter jwtAuthorizationFilter = new JwtAuthorizationFilter(authenticationManager, securityConfigurationProperties);
 
         if (securityConfigurationProperties.isEnabled()) {

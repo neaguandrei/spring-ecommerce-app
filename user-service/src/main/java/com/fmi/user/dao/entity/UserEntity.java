@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -54,6 +55,13 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<RoleEntity> roles = new ArrayList<>();
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "user",
+            orphanRemoval = true
+    )
+    private Set<RefreshTokenEntity> refreshTokens;
 
     @Column(updatable = false, nullable = false)
     @Setter(AccessLevel.NONE)

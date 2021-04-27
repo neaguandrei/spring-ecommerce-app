@@ -21,8 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.fmi.security.Constants.CLAIMS_AUTHORITIES;
-import static com.fmi.security.Constants.CLAIMS_USER_ID;
+import static com.fmi.security.SecurityConstants.*;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -35,9 +34,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String header = request.getHeader(Constants.AUTHORIZATION);
+        String header = request.getHeader(SecurityConstants.AUTHORIZATION);
 
-        if (header == null || !header.startsWith(Constants.TOKEN_PREFIX)) {
+        if (header == null || !header.startsWith(TOKEN_PREFIX)) {
             chain.doFilter(request, response);
             return;
         }
@@ -49,7 +48,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader(Constants.AUTHORIZATION);
+        String token = request.getHeader(SecurityConstants.AUTHORIZATION);
         if (token == null) {
             return null;
         }
@@ -57,7 +56,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         final DecodedJWT decodedJWT = JWT
                 .require(Algorithm.HMAC512(securityConfigurationProperties.getJwtSecret().getBytes()))
                 .build()
-                .verify(token.replace(Constants.TOKEN_PREFIX, ""));
+                .verify(token.replace(TOKEN_PREFIX, ""));
 
         final String email = decodedJWT.getSubject();
         final Long id = decodedJWT.getClaim(CLAIMS_USER_ID).asLong();

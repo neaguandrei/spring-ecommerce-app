@@ -1,12 +1,13 @@
 package com.fmi.security;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fmi.common.exception.AuthenticationFailedException;
-import com.fmi.security.config.SecurityConfigurationProperties;
 import com.fmi.security.model.MyUserDetails;
+import com.fmi.security.model.RefreshTokenResource;
 import com.fmi.security.model.User;
+import com.fmi.security.service.CookieHandler;
+import com.fmi.security.service.JwtHandler;
+import com.fmi.security.service.UserGatewayService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,20 +21,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Date;
 import java.util.stream.Collectors;
 
-import static com.fmi.security.Constants.CLAIMS_AUTHORITIES;
-import static com.fmi.security.Constants.CLAIMS_USER_ID;
 
 @AllArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
 
-    private final SecurityConfigurationProperties securityConfigurationProperties;
-
     private final UserDetailsServiceImpl userDetailsService;
+
+    private final UserGatewayService userGatewayService;
+
+    private final CookieHandler cookieHandler;
+
+    private final JwtHandler jwtHandler;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -55,16 +57,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) {
-        final String token = JWT.create()
-                .withSubject(((User) authResult.getPrincipal()).getEmail())
-                .withClaim(CLAIMS_USER_ID, ((User) authResult.getPrincipal()).getId())
-                .withArrayClaim(CLAIMS_AUTHORITIES, toArrayNames(authResult.getAuthorities()))
-                .withExpiresAt(new Date(System.currentTimeMillis() + securityConfigurationProperties.getJwtExpiration()))
-                .sign(Algorithm.HMAC512(securityConfigurationProperties.getJwtSecret().getBytes()));
-        response.addHeader(Constants.AUTHORIZATION, Constants.TOKEN_PREFIX + token);
+        final User user = (User) authResult.getPrincipal();
+        final String token = jwtHandler.create(user.getEmail(), user.getId(), toArrayNames(authResult.getAuthorities()));
+        final RefreshTokenResource refreshTokenResource = userGatewayService.createRefreshToken(((User) authResult.getPrincipal()).getEmail());
+        final String refreshToken = refreshTokenResource.getRefreshToken();
+
+        response.addHeader(SecurityConstants.AUTHORIZATION, SecurityConstants.TOKEN_PREFIX + token);
+        response.addCookie(cookieHandler.create(refreshToken));
     }
 
-    private String[] toArrayNames(Collection<? extends GrantedAuthority> authorities) {
+    public static String[] toArrayNames(Collection<? extends GrantedAuthority> authorities) {
         final String[] result = new String[authorities.size()];
         authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()).toArray(result);
         return result;
