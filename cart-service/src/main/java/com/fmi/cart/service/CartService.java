@@ -30,6 +30,7 @@ public class CartService {
             cartRow = CartRow.builder()
                     .cartKey(cartKey)
                     .created(LocalDateTime.now())
+                    .products(new HashMap<>())
                     .build();
         }
 
@@ -48,36 +49,48 @@ public class CartService {
         IMap<String, CartRow> cart = hazelcast.getMap(cartKey);
         CartRow cartRow = cart.get(cartKey);
         if (Objects.isNull(cartRow)) {
-            throw new NotFoundException("Cart doesn't exist");
+            throw new NotFoundException("Cart with key: " + cartKey + " is not found.");
         }
+
 
         Integer currentQuantity = Optional.ofNullable(cartRow.getProducts().get(productId)).orElseThrow(() -> new NotFoundException("Product doesn't exist in the cart!"));
         if (currentQuantity > 1) {
             Integer newQuantity = currentQuantity - 1;
             cartRow.getProducts().put(productId, newQuantity);
             cartRow.setLastUpdated(LocalDateTime.now());
-        } else if (cartRow.getProducts().values().size() == 0) {
+        } else if (cartRow.getProducts().values().isEmpty()) {
             cartRow.setDeleted(LocalDateTime.now());
         }
 
         cart.put(cartKey, cartRow);
     }
 
-    public CompletedCartResponseResource completeCart(String cartKey) {
+    public CompletedCartResponseResource completeCart(String cartKey) throws NotFoundException {
         IMap<String, CartRow> cart = hazelcast.getMap(cartKey);
+        CartRow cartRow = cart.get(cartKey);
+        if (Objects.isNull(cartRow)) {
+            throw new NotFoundException("Cart with key: " + cartKey + " is not found.");
+        }
+
         cart.get(cartKey).setDeleted(LocalDateTime.now());
+        cart.get(cartKey).getProducts().clear();
         return CompletedCartResponseResource.builder()
                 .products(cart.get(cartKey).getProducts())
                 .build();
     }
 
-    public CompletedCartResponseResource getCart(String cartKey) {
+    public CompletedCartResponseResource getCart(String cartKey) throws NotFoundException {
         IMap<String, CartRow> cart = hazelcast.getMap(cartKey);
+        CartRow cartRow = cart.get(cartKey);
+        if (Objects.isNull(cartRow)) {
+            throw new NotFoundException("Cart with key: " + cartKey + " is not found.");
+        }
+
         return CompletedCartResponseResource.builder()
                 .products(cart.get(cartKey).getProducts())
                 .build();
     }
-
+    
     private void syncCacheToDatabase(String cartKey) {
         CartEntity existingCart = cartRepository.findByCartKey(cartKey);
         if (existingCart == null) {

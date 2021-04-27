@@ -30,13 +30,13 @@ public class RestCartController {
     }
 
     @GetMapping("/current/{cart_key}")
-    public ResponseEntity<CompletedCartResponseResource> getCart(@PathVariable("cart_key") String cartKey) {
+    public ResponseEntity<CompletedCartResponseResource> getCart(@PathVariable("cart_key") String cartKey) throws NotFoundException {
         return ResponseEntity.ok(cartService.getCart(cartKey));
     }
 
     @PreAuthorizeAny
-    @GetMapping("/{cart_key}")
-    public ResponseEntity<CompletedCartResponseResource> completeCart(@PathVariable("cart_key") String cartKey) {
+    @GetMapping("/final/{cart_key}")
+    public ResponseEntity<CompletedCartResponseResource> completeCart(@PathVariable("cart_key") String cartKey) throws NotFoundException {
         return ResponseEntity.ok(cartService.completeCart(cartKey));
     }
 }

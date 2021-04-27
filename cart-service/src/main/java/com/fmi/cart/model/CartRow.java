@@ -2,6 +2,7 @@ package com.fmi.cart.model;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,9 @@ import java.util.Map;
 @Getter
 @Setter
 @Builder
-public class CartRow {
+public class CartRow implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String cartKey;
 

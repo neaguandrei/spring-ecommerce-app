@@ -26,7 +26,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                     "/api/order-details/*",
                     "/api/payments/*",
                     "/api/payments/users/*",
-                    "/api/users/*"
+                    "/api/users/*",
+                    "/api/carts/final/*"
             };
 
     private final AuthenticationManager authenticationManager;
@@ -42,7 +43,6 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     private final CookieHandler cookieHandler;
 
     private final JwtHandler jwtHandler;
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
