@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
 
@@ -31,7 +32,7 @@ public class CartEntity {
     private String email;
 
     @Column(nullable = false, unique = true)
-    @Convert(converter = StringListConverter.class)
+    @Convert(converter = LongListConverter.class)
     private List<Long> products;
 
     @Column(updatable = false, nullable = false)
@@ -44,23 +45,27 @@ public class CartEntity {
     @UpdateTimestamp
     private LocalDateTime lastUpdated;
 
+    @Column(name = "deleted")
+    @Setter(AccessLevel.NONE)
+    private LocalDateTime deleted;
+
     @Version
     @Column(nullable = false)
     @Setter(AccessLevel.NONE)
     private int version;
 
     @Converter
-    static class StringListConverter implements AttributeConverter<List<String>, String> {
+    static class LongListConverter implements AttributeConverter<List<Long>, String> {
         private static final String SPLIT_CHAR = ";";
 
         @Override
-        public String convertToDatabaseColumn(List<String> stringList) {
-            return stringList != null ? String.join(SPLIT_CHAR, stringList) : "";
+        public String convertToDatabaseColumn(List<Long> longList) {
+            return longList != null ? longList.stream().map(String::valueOf).collect(Collectors.joining(SPLIT_CHAR)) : "";
         }
 
         @Override
-        public List<String> convertToEntityAttribute(String string) {
-            return string != null ? Arrays.asList(string.split(SPLIT_CHAR)) : emptyList();
+        public List<Long> convertToEntityAttribute(String string) {
+            return string != null ? Arrays.stream(string.split(SPLIT_CHAR)).map(Long::valueOf).collect(Collectors.toList()) : emptyList();
         }
     }
 }

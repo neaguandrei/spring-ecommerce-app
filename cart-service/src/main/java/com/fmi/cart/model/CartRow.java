@@ -18,12 +18,15 @@ public class CartRow implements Serializable {
 
     private String cartKey;
 
+    private String email;
+
+    @Builder.Default
     private Map<Long, Integer> products = new HashMap<>();
 
-    private LocalDateTime deleted;
+    private LocalDateTime created;
 
     private LocalDateTime lastUpdated;
 
-    private LocalDateTime created;
+    private LocalDateTime deleted;
 
 }
