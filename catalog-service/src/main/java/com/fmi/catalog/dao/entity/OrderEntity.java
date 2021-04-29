@@ -38,6 +38,7 @@ public class OrderEntity {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
+    @Builder.Default
     private List<OrderProductEntity> products = new ArrayList<>();
 
     @Column(nullable = false, name = "user_id")

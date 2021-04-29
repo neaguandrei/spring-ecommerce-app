@@ -54,6 +54,7 @@ public class ProductEntity {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
+    @Builder.Default
     private List<OrderProductEntity> orders = new ArrayList<>();
 
     @Column(updatable = false, nullable = false)
