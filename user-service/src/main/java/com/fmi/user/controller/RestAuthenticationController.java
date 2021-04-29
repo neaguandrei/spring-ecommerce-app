@@ -12,6 +12,7 @@ import com.fmi.user.mapper.UserMapper;
 import com.fmi.user.model.User;
 import com.fmi.user.service.RefreshTokenService;
 import com.fmi.user.service.UserService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -47,11 +48,13 @@ public class RestAuthenticationController {
         return ResponseEntity.ok().build();
     }
 
+    @CircuitBreaker(name = "userService", fallbackMethod = "getUserByEmailFallback")
     @GetMapping(value = "/{email}")
     public ResponseEntity<UserDto> getUserByEmail(@PathVariable(value = "email") String email) throws NotFoundException {
         return ResponseEntity.ok(userMapper.mapToDto(userService.getByEmail(email)));
     }
 
+    @CircuitBreaker(name = "userService", fallbackMethod = "createRefreshTokenFallback")
     @PostMapping(value = "/refresh-token/{email}")
     public ResponseEntity<RefreshTokenResource> createRefreshToken(@PathVariable(value = "email") String email) throws NotFoundException {
         return ResponseEntity.ok((new RefreshTokenResource(refreshTokenService.create(email))));
@@ -76,5 +79,13 @@ public class RestAuthenticationController {
         refreshTokenService.revoke(user.getId(), refreshToken);
 
         return ResponseEntity.noContent().build();
+    }
+
+    public ResponseEntity<UserDto> getUserByEmailFallback(String email) {
+        return ResponseEntity.ok(new UserDto());
+    }
+
+    public ResponseEntity<RefreshTokenResource> createRefreshTokenFallback(String email) {
+        return ResponseEntity.ok((new RefreshTokenResource()));
     }
 }

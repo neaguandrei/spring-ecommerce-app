@@ -5,7 +5,6 @@ import com.fmi.payment.dao.entity.PaymentEntity;
 import com.fmi.payment.dao.repository.PaymentRepository;
 import com.fmi.payment.model.Payment;
 import com.fmi.payment.mapper.PaymentMapper;
-import com.fmi.payment.service.gateway.OrderGatewayService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +19,6 @@ import java.util.Optional;
 public class PaymentService {
 
     private final PaymentRepository paymentRepository;
-
-    private final OrderGatewayService orderGatewayService;
 
     private final PaymentMapper paymentMapper;
 

@@ -5,5 +5,7 @@ mvn flyway:migrate -Dflyway.configFile=flyway-config.properties
 # Docker DB
 docker-compose up
 
+# Stripe (payments)
+https://dashboard.stripe.com/test/payments
 
 netstat -ano | findstr :8080

@@ -12,6 +12,7 @@ import com.fmi.payment.assembler.ResourceAssembler;
 import com.fmi.common.exception.NotFoundException;
 import com.fmi.security.annotation.PreAuthorizeAny;
 import com.fmi.security.annotation.PreAuthorizeUser;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
@@ -36,17 +37,6 @@ public class RestPaymentController {
 
     private final ResourceAssembler resourceAssembler;
 
-    @PreAuthorizeUser
-    @PostMapping("/stripe")
-    public ResponseEntity<PaymentCreationResponseResource> processStripePayment(@RequestBody @Valid PaymentDto payment) throws PaymentProcessingException {
-        final Long paymentId = stripeGatewayService.process(paymentMapper.mapFromDto(payment));
-        if (Objects.isNull(paymentId)) {
-            return ResponseEntity.unprocessableEntity().build();
-        }
-
-        return ResponseEntity.ok(new PaymentCreationResponseResource(paymentId));
-    }
-
     @PreAuthorizeAny
     @GetMapping(value = "/{payment_id}")
     public ResponseEntity<PaymentDto> getPayment(@PathVariable(value = "payment_id") Long paymentId) throws NotFoundException {
@@ -61,5 +51,21 @@ public class RestPaymentController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(resourceAssembler.assemblePaymentsResource(responseResources));
+    }
+
+    @CircuitBreaker(name = "paymentService", fallbackMethod = "processStripePaymentFallback")
+    @PreAuthorizeUser
+    @PostMapping("/stripe")
+    public ResponseEntity<PaymentCreationResponseResource> processStripePayment(@RequestBody @Valid PaymentDto payment) throws PaymentProcessingException {
+        final Long paymentId = stripeGatewayService.process(paymentMapper.mapFromDto(payment));
+        if (Objects.isNull(paymentId)) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
+
+        return ResponseEntity.ok(new PaymentCreationResponseResource(paymentId));
+    }
+
+    public ResponseEntity<PaymentCreationResponseResource> processStripePaymentFallback(Long userId, Exception ex) {
+        return ResponseEntity.unprocessableEntity().build();
     }
 }
