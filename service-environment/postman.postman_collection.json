@@ -9,157 +9,269 @@
 			"name": "user-service",
 			"item": [
 				{
-					"name": "auth-register",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"andrei4@gmail.com\",\n    \"password\": \"parola\",\n    \"firstName\": \"Andrei\",\n    \"lastName\": \"Neagu\",\n    \"phone\": \"07232111324\",\n    \"address\": {\n        \"addressOne\": \"Str. X\",\n        \"addressTwo\": \"asd\",\n        \"city\": \"Bucharest\",\n        \"state\": \"Bucharest\",\n        \"country\": \"Romania\",\n        \"postalCode\": \"021996\"\n    },\n    \"roles\": [\"ADMIN\"]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "auth",
+					"item": [
+						{
+							"name": "register",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"andrei4@gmail.com\",\n    \"password\": \"parola\",\n    \"firstName\": \"Andrei\",\n    \"lastName\": \"Neagu\",\n    \"phone\": \"07232111324\",\n    \"address\": {\n        \"addressOne\": \"Str. X\",\n        \"addressTwo\": \"asd\",\n        \"city\": \"Bucharest\",\n        \"state\": \"Bucharest\",\n        \"country\": \"Romania\",\n        \"postalCode\": \"021996\"\n    },\n    \"roles\": [\"ADMIN\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/api/auth/register",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"auth",
+										"register"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8081/api/auth/register",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"api",
-								"auth",
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "auth-login",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"andreineagu.c@gmail.com\",\n    \"password\": \"scoala97\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"andreineagu.c@gmail.com\",\n    \"password\": \"parola\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/api/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8081/api/auth/login",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"api",
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get-user-by-email",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8081/api/auth/andrei4@gmail.com",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"api",
-								"auth",
-								"andrei4@gmail.com"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update-user",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYxOTg4MDI3OCwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.o0RfI9aCT5lISuqlK6VfG8rQ6PrsBm1PeMfho4T7mj3Jy0CYJjbgjfbawRREGmBMPIw6mJbpus3JBpV41kekzg",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"andreineagu.c@gmail.com\",\r\n    \"firstName\": \"Andrei\",\r\n    \"lastName\": \"Neagu\",\r\n    \"phone\": \"0722373330\",\r\n    \"password\": \"parola\",\r\n    \"newPassword\": \"scoala97\",\r\n    \"address\": {\r\n        \"addressOne\": \"Str. Tepes Voda\",\r\n        \"addressTwo\": \"dsa\",\r\n        \"city\": \"Bucharest\",\r\n        \"state\": \"Bucharest\",\r\n        \"country\": \"Romania\",\r\n        \"postalCode\": \"021996\"\r\n    },\r\n    \"roles\": [\"ADMIN\"]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "get-user-by-email",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8081/api/auth/andreineagu.c@gmail.com",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"auth",
+										"andreineagu.c@gmail.com"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8081/api/users/andreineagu.c@gmail.com",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"api",
-								"users",
-								"andreineagu.c@gmail.com"
-							]
+						{
+							"name": "create-refresh-token",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/api/auth/refresh-token/andreineagu.c@gmail.com",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"auth",
+										"refresh-token",
+										"andreineagu.c@gmail.com"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "refresh-token",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDQxMjMxNywidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.Pz6wSJ-hlJWbNOeaZtsjFjwEszyWi_oKw3sdt8BPyX4cEWPWT6dHqQeqOQdywzmFMcfIqqcq6MNpY7O3a3S5AQ",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/api/auth/refresh-token",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"auth",
+										"refresh-token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "revoke-refresh-token",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDQxMjMxNywidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.Pz6wSJ-hlJWbNOeaZtsjFjwEszyWi_oKw3sdt8BPyX4cEWPWT6dHqQeqOQdywzmFMcfIqqcq6MNpY7O3a3S5AQ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"andreineagu.c@gmail.com\",\n    \"password\": \"scoala97\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/api/auth/refresh-token/cancellation",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"auth",
+										"refresh-token",
+										"cancellation"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "delete-user",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWk0QGdtYWlsLmNvbSIsImV4cCI6MTYxOTg1NTkxOH0.wWpcMXf0HT_yzuFfWnMNbUPKeh0CJuZlcZPu6n7ym7PW6RYJ14KP_YwdAavMALPQiPWVVaYtYdwonK5LdTYCQA",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "localhost:8081/api/users/andrei33@gmail.com",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"api",
-								"users",
-								"andrei33@gmail.com"
-							]
+					"name": "user",
+					"item": [
+						{
+							"name": "update-user",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYxOTg4MDI3OCwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.o0RfI9aCT5lISuqlK6VfG8rQ6PrsBm1PeMfho4T7mj3Jy0CYJjbgjfbawRREGmBMPIw6mJbpus3JBpV41kekzg",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"andreineagu.c@gmail.com\",\r\n    \"firstName\": \"Andrei\",\r\n    \"lastName\": \"Neagu\",\r\n    \"phone\": \"0722373330\",\r\n    \"password\": \"parola\",\r\n    \"newPassword\": \"scoala97\",\r\n    \"address\": {\r\n        \"addressOne\": \"Str. Tepes Voda\",\r\n        \"addressTwo\": \"dsa\",\r\n        \"city\": \"Bucharest\",\r\n        \"state\": \"Bucharest\",\r\n        \"country\": \"Romania\",\r\n        \"postalCode\": \"021996\"\r\n    },\r\n    \"roles\": [\"ADMIN\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/api/users/andreineagu.c@gmail.com",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"users",
+										"andreineagu.c@gmail.com"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete-user",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWk0QGdtYWlsLmNvbSIsImV4cCI6MTYxOTg1NTkxOH0.wWpcMXf0HT_yzuFfWnMNbUPKeh0CJuZlcZPu6n7ym7PW6RYJ14KP_YwdAavMALPQiPWVVaYtYdwonK5LdTYCQA",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/api/users/andrei33@gmail.com",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"users",
+										"andrei33@gmail.com"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		},
@@ -303,6 +415,123 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "download-image",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8082/api/products/11/image/download",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"products",
+										"11",
+										"image",
+										"download"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "save-product",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDQxNjM4NiwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.XhQ_w3QzZ3a0yoPHochS7jVVZpYhpeEeg7GM6MMeJm3jUQINXDXHXeCbR6x-1l_DqNd3b2VOHES-5veetUtyhw",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "1",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "name",
+											"value": "G PRO Wireless",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "description",
+											"value": "The best mouse of year 2021",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "quantity",
+											"value": "100",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "price",
+											"value": "150",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "category",
+											"value": "PERIPHERALS",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "productLine",
+											"value": "Logitech",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "product",
+											"value": "{\n    \"name\": \"GPX Wireless\",\n    \"description\": \"The best mouse of year 2020\",\n    \"quantity\": 100,\n    \"price\": 150,\n    \"category\": \"PERIPHERALS\",\n    \"productLine\": \"Logitech\"\n}",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/andre/Dropbox/My PC (DESKTOP-B1GMK6V)/Desktop/Screenshot 2021-04-27 203513.png"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8082/api/products/product?file=",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"products",
+										"product"
+									],
+									"query": [
+										{
+											"key": "file",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -319,7 +548,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYxOTg4MTY5NCwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.sE-iO3hvj-Gv1hIa5rCNxumcX3A3I3x-v8talj0RrpojJ3iScV9vtC08hv-hEc_w6Iwmad5bWVP5bsFumCihKg",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYxOTk4MzA0MSwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.X4FToiiWO2lrkkRYunW1FJQtiJN8z-IaeJZX3nExLsLBpAARYYDLmPi2NN8yGBOV_N4UxkRuRA7VavwrxTyPtA",
 										"type": "text"
 									}
 								],
@@ -333,7 +562,7 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8082/api/orders/users/2",
+									"raw": "localhost:8082/api/orders/users/1",
 									"host": [
 										"localhost"
 									],
@@ -342,7 +571,7 @@
 										"api",
 										"orders",
 										"users",
-										"2"
+										"1"
 									],
 									"query": [
 										{
@@ -377,7 +606,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYxOTg4MTY5NCwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.sE-iO3hvj-Gv1hIa5rCNxumcX3A3I3x-v8talj0RrpojJ3iScV9vtC08hv-hEc_w6Iwmad5bWVP5bsFumCihKg",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYxOTk4MzA0MSwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.X4FToiiWO2lrkkRYunW1FJQtiJN8z-IaeJZX3nExLsLBpAARYYDLmPi2NN8yGBOV_N4UxkRuRA7VavwrxTyPtA",
 										"type": "text"
 									}
 								],
@@ -403,7 +632,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYxOTg4MTgxNCwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.qfW7DA5JqrGdFi3pglHO6ZSS3RHpZyPiwYGLZhCJfIuIqDLAv3rHz5F0P30z_W5QQRjNs0Q5uV8Aros00_nDwg",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYxOTk4MzA0MSwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.X4FToiiWO2lrkkRYunW1FJQtiJN8z-IaeJZX3nExLsLBpAARYYDLmPi2NN8yGBOV_N4UxkRuRA7VavwrxTyPtA",
 										"type": "text"
 									}
 								],
@@ -521,16 +750,16 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYxOTg4MTgxNCwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.qfW7DA5JqrGdFi3pglHO6ZSS3RHpZyPiwYGLZhCJfIuIqDLAv3rHz5F0P30z_W5QQRjNs0Q5uV8Aros00_nDwg",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDU2NDgyNiwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.tx9pljPVSJsnoYiE-8rm2L1mI2YApk7wqGebLdYx2pyImz2vmiRlLdXCpughYr4r9Lq53s_r7LvbCG0q8UY2ew",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"amount\": 2000,\r\n    \"paymentMethod\": \"PAYPAL\",\r\n    \"currency\": \"GBP\"\r\n}"
+							"raw": "{\r\n    \"amount\": 13000,\r\n    \"currency\": \"GBP\",\r\n    \"paymentMethod\": \"VISA\",\r\n    \"description\": \"Payment for order XD\"\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8083/api/payments/",
+							"raw": "http://localhost:8083/api/payments/stripe",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -539,7 +768,14 @@
 							"path": [
 								"api",
 								"payments",
-								""
+								"stripe"
+							],
+							"query": [
+								{
+									"key": "stripe_token",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -557,13 +793,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWkyM0BnbWFpbC5jb20iLCJleHAiOjE2MTkxNzYzNjN9.nKILeEd9YkbGlHX2jZxMJzWAgEU6n49eYJNX6E9gli-IDOP0jmGCpkfMWEMHXJePyhgMIoJno1JHg8nHzgHvZg",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDQ3MzYxMiwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.bVORaoYf7LLADmt8-fWoWcxPcyxLLNcQq68vKAD04zKb-AhzDgmIxIhmYluFjZzhQD0Ti5Iy71cjWH8yC07wPw",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"productId\": 10,\r\n    \"cartKey\": 11\r\n}",
+							"raw": "{\r\n    \"productId\": 12,\r\n    \"cartKey\": 11\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -589,9 +825,15 @@
 					"name": "remove-product-cart",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDQ3MTM3NCwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.TYBhW1f4knJZfFwp4KTZtqAl__kgcLMQVxYC7e2T04b1f6affaImw5BTyQDBf9dOn0ZBPz6r4f7EouRNzvAjXg",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "localhost:8084/api/carts/cart/10/product/10",
+							"raw": "localhost:8084/api/carts/cart/11/product/12",
 							"host": [
 								"localhost"
 							],
@@ -600,9 +842,9 @@
 								"api",
 								"carts",
 								"cart",
-								"10",
+								"11",
 								"product",
-								"10"
+								"12"
 							]
 						}
 					},
@@ -612,9 +854,15 @@
 					"name": "complete-cart",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDQxNzkwNSwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.5pPwgqsE42scIDUclxgPc2g7HZ_RafmbC2YQu3ttqbcRdRx_iN06CD3ResMWyyglyYiOwJ2fEvpVt_Qv-iCMXg",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "localhost:8084/api/carts/",
+							"raw": "localhost:8084/api/carts/final/11",
 							"host": [
 								"localhost"
 							],
@@ -622,7 +870,15 @@
 							"path": [
 								"api",
 								"carts",
-								""
+								"final",
+								"11"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDQxNzkwNSwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.5pPwgqsE42scIDUclxgPc2g7HZ_RafmbC2YQu3ttqbcRdRx_iN06CD3ResMWyyglyYiOwJ2fEvpVt_Qv-iCMXg",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -632,9 +888,21 @@
 					"name": "get-cart",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDQ3MTM3NCwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.TYBhW1f4knJZfFwp4KTZtqAl__kgcLMQVxYC7e2T04b1f6affaImw5BTyQDBf9dOn0ZBPz6r4f7EouRNzvAjXg",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"url": {
-							"raw": "localhost:8084/api/carts/current/10",
+							"raw": "localhost:8084/api/carts/current/11",
 							"host": [
 								"localhost"
 							],
@@ -643,7 +911,7 @@
 								"api",
 								"carts",
 								"current",
-								"10"
+								"11"
 							]
 						}
 					},
