@@ -4,12 +4,14 @@ package com.fmi.payment.controller;
 import com.fmi.api.payment.PaymentDto;
 import com.fmi.api.payment.PaymentCreationResponseResource;
 import com.fmi.api.payment.PaymentResponseResource;
+import com.fmi.common.exception.PaymentProcessingException;
 import com.fmi.payment.mapper.PaymentMapper;
-import com.fmi.payment.service.gateway.PaymentProcessingGatewayService;
+import com.fmi.payment.service.gateway.StripeGatewayService;
 import com.fmi.payment.service.PaymentService;
 import com.fmi.payment.assembler.ResourceAssembler;
 import com.fmi.common.exception.NotFoundException;
 import com.fmi.security.annotation.PreAuthorizeAny;
+import com.fmi.security.annotation.PreAuthorizeUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
@@ -28,15 +30,16 @@ public class RestPaymentController {
 
     private final PaymentService paymentService;
 
-    private final PaymentProcessingGatewayService paymentProcessingGatewayService;
+    private final StripeGatewayService stripeGatewayService;
 
     private final PaymentMapper paymentMapper;
 
     private final ResourceAssembler resourceAssembler;
 
-    @PostMapping
-    public ResponseEntity<PaymentCreationResponseResource> processPayment(@RequestBody @Valid PaymentDto payment) {
-        final Long paymentId = paymentProcessingGatewayService.sendToProcessing(paymentMapper.mapFromDto(payment));
+    @PreAuthorizeUser
+    @PostMapping("/stripe")
+    public ResponseEntity<PaymentCreationResponseResource> processStripePayment(@RequestBody @Valid PaymentDto payment) throws PaymentProcessingException {
+        final Long paymentId = stripeGatewayService.process(paymentMapper.mapFromDto(payment));
         if (Objects.isNull(paymentId)) {
             return ResponseEntity.unprocessableEntity().build();
         }

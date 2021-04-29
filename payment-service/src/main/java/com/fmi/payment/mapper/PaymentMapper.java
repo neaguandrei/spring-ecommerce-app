@@ -5,11 +5,14 @@ import com.fmi.api.payment.PaymentDto;
 import com.fmi.api.payment.PaymentCreationResponseResource;
 import com.fmi.api.payment.PaymentResponseResource;
 import com.fmi.payment.dao.entity.PaymentEntity;
+import com.fmi.payment.model.ChargeRequest;
 import com.fmi.payment.model.Order;
 import com.fmi.payment.model.Payment;
+import com.fmi.security.model.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -51,5 +54,16 @@ public class PaymentMapper {
 
     public PaymentDto mapToDto(Payment payment) {
         return modelMapper.map(payment, PaymentDto.class);
+    }
+
+    public ChargeRequest mapToChargeRequest(Payment payment) {
+        final ChargeRequest request = new ChargeRequest();
+        request.setTotal(payment.getAmount().toBigInteger().intValue());
+        request.setCurrency(payment.getCurrency());
+        request.setDescription(payment.getDescription());
+        request.setStripeToken(ChargeRequest.StripeToken.valueOf(payment.getPaymentMethod()));
+        request.setStripeEmail(((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail());
+
+        return request;
     }
 }

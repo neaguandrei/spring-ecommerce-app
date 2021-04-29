@@ -6,6 +6,7 @@ import lombok.*;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Getter
@@ -27,6 +28,10 @@ public class PaymentDto {
     @NotNull(message = "Payment method can't be empty.")
     @OneOf(enumClass = PaymentMethodDto.class, message = "Method isn't of correct type.")
     private String paymentMethod;
+
+    @NotNull(message = "Payment description can't be empty.")
+    @Size(max = 500)
+    private String description;
 
     private Long userId;
 }

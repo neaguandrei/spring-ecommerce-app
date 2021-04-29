@@ -2,6 +2,7 @@ package com.fmi.common.error;
 
 import com.fmi.common.exception.BadRequestException;
 import com.fmi.common.exception.NotFoundException;
+import com.fmi.common.exception.PaymentProcessingException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +59,12 @@ public class RestExceptionHandlerController extends ResponseEntityExceptionHandl
         }
 
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, errors.toString(), ex));
+    }
+
+    @ExceptionHandler({PaymentProcessingException.class})
+    public final ResponseEntity<Object> handleException(PaymentProcessingException ex) {
+        String error = "Payment Processing Failed.";
+        return buildResponseEntity(new ApiError(HttpStatus.UNPROCESSABLE_ENTITY, error, ex));
     }
 
     @Override

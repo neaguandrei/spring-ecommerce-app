@@ -1,6 +1,7 @@
 package com.fmi.payment.model;
 
 import lombok.*;
+
 import java.math.BigDecimal;
 
 
@@ -9,7 +10,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Payment{
+public class Payment {
 
     private Long id;
 
@@ -18,6 +19,8 @@ public class Payment{
     private String currency;
 
     private String paymentMethod;
+
+    private String description;
 
     private Long orderId;
 

@@ -32,6 +32,9 @@ public class PaymentEntity {
     @Enumerated(value = EnumType.STRING)
     private PaymentMethod paymentMethod;
 
+    @Column(name = "description", nullable = false)
+    private String description;
+
     @Column(nullable = false, name = "user_id")
     private Long userId;
 
@@ -53,15 +56,14 @@ public class PaymentEntity {
     private Integer version;
 
     public enum PaymentMethod {
-        PAYPAL,
-        MASTERCARD,
         VISA,
-        CASH
+        MASTERCARD
     }
 
     public enum Currency {
         EUR,
         USD,
-        GBP
+        GBP,
+        RON
     }
 }
