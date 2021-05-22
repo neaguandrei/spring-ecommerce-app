@@ -7,5 +7,5 @@ spring:
     config:
       server:
         git:
-          uri: file:///C:\Users\andre\IdeaProjects\application-config
+          uri: https://github.com/neaguandrei/application-config
           search-paths: '{application}/{profile}'

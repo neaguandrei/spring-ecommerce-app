@@ -7,4 +7,4 @@ spring:
       name: catalog-service
       uri: http://localhost:8888
   profiles:
-    active: local
+    active: prod

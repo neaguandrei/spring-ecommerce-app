@@ -7,6 +7,4 @@ spring:
       name: discovery-service
       uri: http://localhost:8888
   profiles:
-    active: local
-
-# -Dspring.cloud.config.enabled=false (sa rulez fara config)
+    active: prod

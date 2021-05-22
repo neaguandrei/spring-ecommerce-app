@@ -1,0 +1,69 @@
+version: '3'
+services:
+  discovery-server:
+    image: developer.okta.com/microservice-docker-discovery:0.0.1-SNAPSHOT
+    ports:
+      - 8761:8761
+  config-server:
+    image: developer.okta.com/microservice-docker-config:0.0.1-SNAPSHOT
+    volumes:
+      - ./config-data:/var/config-data
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery:8761/eureka
+    depends_on:
+      - discovery
+    ports:
+      - 8888:8888
+  gateway-server:
+    image: developer.okta.com/microservice-docker-school-service:0.0.1-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery:8761/eureka
+    depends_on:
+      - discovery
+      - config
+  cart-service:
+    image: developer.okta.com/microservice-docker-school-ui:0.0.1-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery:8761/eureka
+    restart: on-failure
+    depends_on:
+      - discovery
+      - config
+    ports:
+      - 8080:8080
+  catalog-service:
+    image: developer.okta.com/microservice-docker-school-ui:0.0.1-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery:8761/eureka
+    restart: on-failure
+    depends_on:
+      - discovery
+      - config
+    ports:
+      - 8080:8080
+  payment-service:
+    image: developer.okta.com/microservice-docker-school-ui:0.0.1-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery:8761/eureka
+    restart: on-failure
+    depends_on:
+      - discovery
+      - config
+    ports:
+      - 8080:8080
+  user-service:
+    image: developer.okta.com/microservice-docker-school-ui:0.0.1-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery:8761/eureka
+    restart: on-failure
+    depends_on:
+      - discovery
+      - config
+    ports:
+      - 8080:8080

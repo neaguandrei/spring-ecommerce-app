@@ -8,4 +8,56 @@ docker-compose up
 # Stripe (payments)
 https://dashboard.stripe.com/test/payments
 
-netstat -ano | findstr :8080
+netstat -ano | findstr :8080s
+
+
+AWS CONNECTION
+
+user: root (default)
+AWSAccessKeyId=AKIAQZEDZZNNYG5JJSF4
+AWSSecretKey=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
+
+user: admin @ 053963508571
+user acces: AKIAQZEDZZNNRRMU46EU
+user secret: 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
+parola-mea-all-lower-case
+
+aws configure (secrets)
+AWS CLI ECR connect:
+aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo
+
+DOCKER publish images on remote repo
+
+docker build -t config-server:config-server-0.0.1-SNAPSHOT .
+docker tag config-server:config-server-0.0.1-SNAPSHOT 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:config-server-0.0.1-SNAPSHOT
+docker push 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:config-server-0.0.1-SNAPSHOT
+
+docker build -t discovery-server:discovery-server-0.0.1-SNAPSHOT .
+docker tag discovery-server:discovery-server-0.0.1-SNAPSHOT 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:discovery-server-0.0.1-SNAPSHOT
+docker push 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:discovery-server-0.0.1-SNAPSHOT
+
+docker build -t gateway-server:gateway-server-0.0.1-SNAPSHOT .
+docker tag gateway-server:gateway-server-0.0.1-SNAPSHOT 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:gateway-server-0.0.1-SNAPSHOT
+docker push 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:gateway-server-0.0.1-SNAPSHOT
+
+docker build -t cart-service:cart-service-0.0.1-SNAPSHOT .
+docker tag cart-service:cart-service-0.0.1-SNAPSHOT 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:cart-service-0.0.1-SNAPSHOT
+docker push 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:cart-service-0.0.1-SNAPSHOT
+
+docker build -t catalog-service:catalog-service-0.0.1-SNAPSHOT .
+docker tag catalog-service:catalog-service-0.0.1-SNAPSHOT 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:catalog-service-0.0.1-SNAPSHOT
+docker push 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:catalog-service-0.0.1-SNAPSHOT
+
+docker build -t payment-service:payment-service-0.0.1-SNAPSHOT .
+docker tag payment-service:payment-service-0.0.1-SNAPSHOT 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:payment-service-0.0.1-SNAPSHOT
+docker push 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:payment-service-0.0.1-SNAPSHOT
+
+docker build -t user-service:user-service-0.0.1-SNAPSHOT .
+docker tag user-service:user-service-0.0.1-SNAPSHOT 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:user-service-0.0.1-SNAPSHOT
+docker push 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:user-service-0.0.1-SNAPSHOT
+
+
+
+
+
+
