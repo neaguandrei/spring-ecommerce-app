@@ -1,0 +1,3 @@
+# Flyway commands
+mvn flyway:clean -Dflyway.configFile=flyway-config.properties
+mvn flyway:migrate -Dflyway.configFile=flyway-config.properties

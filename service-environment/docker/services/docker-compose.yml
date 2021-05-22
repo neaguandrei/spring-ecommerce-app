@@ -6,8 +6,6 @@ services:
       - 8761:8761
   config-server:
     image: developer.okta.com/microservice-docker-config:0.0.1-SNAPSHOT
-    volumes:
-      - ./config-data:/var/config-data
     environment:
       - JAVA_OPTS=
         -DEUREKA_SERVER=http://discovery:8761/eureka
