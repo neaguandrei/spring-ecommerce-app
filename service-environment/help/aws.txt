@@ -1,16 +1,24 @@
-AWS RDS -
+AWS:
+user: fmi-aneagu
+account: 180575078585
+
+AWS RDS
+db: database.ctbm0ndsgw80.eu-central-1.rds.amazonaws.com
 user: root
 pass: rootroot
 
 user: root (default)
-AWSAccessKeyId=AKIAQZEDZZNNYG5JJSF4
-AWSSecretKey=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
+AWSAccessKeyId=AKIASUCY5BC4RJXPPQGD
+AWSSecretKey=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
 
-user: admin @ 053963508571
-user acces: AKIAQZEDZZNNRRMU46EU
-user secret: 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
+user: admin @ 180575078585
+user acces: AKIASUCY5BC44S3QUYUD
+user secret: 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
 parola-mea-all-lower-case
 
 aws configure (secrets)
 AWS CLI ECR connect:
-aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo
+aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 180575078585.dkr.ecr.eu-central-1.amazonaws.com
+
+ECR:
+public.ecr.aws/d7p6m0z4/aneagu-public

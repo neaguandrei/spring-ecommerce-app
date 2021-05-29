@@ -12,6 +12,7 @@
     <artifactId>cart-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>cart-service</name>
+    <packaging>jar</packaging>
     <description>Cart Caching Service</description>
     <properties>
         <java.version>1.8</java.version>
@@ -85,14 +86,21 @@
         </dependency>
     </dependencies>
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-        <finalName>cart-service-aws-exe</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.fmi.cart.CartServiceApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>

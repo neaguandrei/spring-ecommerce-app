@@ -13,8 +13,10 @@ AWS CONNECTION
 DOCKER publish images on remote repo
 
 docker build -t config-server:config-server-0.0.1-SNAPSHOT .
-docker tag config-server:config-server-0.0.1-SNAPSHOT 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:config-server-0.0.1-SNAPSHOT
-docker push 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:config-server-0.0.1-SNAPSHOT
+docker tag config-server:config-server-0.0.1-SNAPSHOT 180575078585.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu:config-server-0.0.1-SNAPSHOT
+docker tag config-server:config-server-0.0.1-SNAPSHOT public.ecr.aws/d7p6m0z4/aneagu-public:config-server-0.0.1-SNAPSHOT
+docker push 180575078585.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu:config-server-0.0.1-SNAPSHOT
+docker push public.ecr.aws/d7p6m0z4/aneagu-public:config-server-0.0.1-SNAPSHOT
 
 docker build -t discovery-server:discovery-server-0.0.1-SNAPSHOT .
 docker tag discovery-server:discovery-server-0.0.1-SNAPSHOT 053963508571.dkr.ecr.eu-central-1.amazonaws.com/fmi-aneagu-repo:discovery-server-0.0.1-SNAPSHOT
