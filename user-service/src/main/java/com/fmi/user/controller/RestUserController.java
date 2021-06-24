@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotNull;
 
 
-@PreAuthorize("#email == authentication.principal.email and hasAuthority('USER')")
+@PreAuthorize("#email == authentication.principal.email and hasAnyAuthority('ADMIN','USER')")
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor

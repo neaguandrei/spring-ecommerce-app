@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum BucketName {
-    PRODUCT_IMAGE("spring-ecommerce-fmi");
+    PRODUCT_IMAGE("disertatie-bucket");
 
     private final String name;
 }

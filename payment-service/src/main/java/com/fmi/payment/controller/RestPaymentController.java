@@ -53,8 +53,8 @@ public class RestPaymentController {
         return ResponseEntity.ok(resourceAssembler.assemblePaymentsResource(responseResources));
     }
 
-    @CircuitBreaker(name = "paymentService", fallbackMethod = "processStripePaymentFallback")
-    @PreAuthorizeUser
+//    @CircuitBreaker(name = "paymentService", fallbackMethod = "processStripePaymentFallback")
+//    @PreAuthorizeUser
     @PostMapping("/stripe")
     public ResponseEntity<PaymentCreationResponseResource> processStripePayment(@RequestBody @Valid PaymentDto payment) throws PaymentProcessingException {
         final Long paymentId = stripeGatewayService.process(paymentMapper.mapFromDto(payment));

@@ -5,6 +5,6 @@ spring:
     config:
       fail-fast: true
       name: discovery-service
-      uri: http://3.19.238.189:8888
+      uri: http://localhost:8888
   profiles:
     active: prod

@@ -48,13 +48,13 @@ public class RestAuthenticationController {
         return ResponseEntity.ok().build();
     }
 
-    @CircuitBreaker(name = "userService", fallbackMethod = "getUserByEmailFallback")
+//    @CircuitBreaker(name = "userService", fallbackMethod = "getUserByEmailFallback")
     @GetMapping(value = "/{email}")
     public ResponseEntity<UserDto> getUserByEmail(@PathVariable(value = "email") String email) throws NotFoundException {
         return ResponseEntity.ok(userMapper.mapToDto(userService.getByEmail(email)));
     }
 
-    @CircuitBreaker(name = "userService", fallbackMethod = "createRefreshTokenFallback")
+//    @CircuitBreaker(name = "userService", fallbackMethod = "createRefreshTokenFallback")
     @PostMapping(value = "/refresh-token/{email}")
     public ResponseEntity<RefreshTokenResource> createRefreshToken(@PathVariable(value = "email") String email) throws NotFoundException {
         return ResponseEntity.ok((new RefreshTokenResource(refreshTokenService.create(email))));
