@@ -1,0 +1,23 @@
+# Docker DB
+docker-compose up
+
+# Stripe (payments)
+https://dashboard.stripe.com/test/payments
+
+# AWS
+dey.dey97 - email
+
+# AWS RDS
+db: disertatie-db.cgkf4szcfv3p.eu-central-1.rds.amazonaws.com:3306
+user: root
+pass: rootroot
+
+#cmd running apps
+netstat -ano | findstr :8080s
+
+# Flyway commands
+mvn flyway:clean -Dflyway.configFile=flyway-config.properties
+mvn flyway:migrate -Dflyway.configFile=flyway-config.properties
+
+
+

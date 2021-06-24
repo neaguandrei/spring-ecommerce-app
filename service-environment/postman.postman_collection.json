@@ -33,11 +33,11 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8081/api/auth/register",
+									"raw": "localhost:{{user-port}}/api/auth/register",
 									"host": [
 										"localhost"
 									],
-									"port": "8081",
+									"port": "{{user-port}}",
 									"path": [
 										"api",
 										"auth",
@@ -69,11 +69,11 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8081/api/auth/login",
+									"raw": "localhost:{{user-port}}/api/auth/login",
 									"host": [
 										"localhost"
 									],
-									"port": "8081",
+									"port": "{{user-port}}",
 									"path": [
 										"api",
 										"auth",
@@ -89,11 +89,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:8081/api/auth/andreineagu.c@gmail.com",
+									"raw": "localhost:{{user-port}}/api/auth/andreineagu.c@gmail.com",
 									"host": [
 										"localhost"
 									],
-									"port": "8081",
+									"port": "{{user-port}}",
 									"path": [
 										"api",
 										"auth",
@@ -116,11 +116,11 @@
 									}
 								],
 								"url": {
-									"raw": "localhost:8081/api/auth/refresh-token/andreineagu.c@gmail.com",
+									"raw": "localhost:{{user-port}}/api/auth/refresh-token/andreineagu.c@gmail.com",
 									"host": [
 										"localhost"
 									],
-									"port": "8081",
+									"port": "{{user-port}}",
 									"path": [
 										"api",
 										"auth",
@@ -144,16 +144,16 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDQxMjMxNywidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.Pz6wSJ-hlJWbNOeaZtsjFjwEszyWi_oKw3sdt8BPyX4cEWPWT6dHqQeqOQdywzmFMcfIqqcq6MNpY7O3a3S5AQ",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyNTQxMjI3MSwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.mzwnADqfyyC1JDN_-j1IWO3RaGDMJsawHdaKOQsjXKjtZ3uLZR05mttJCULcd-fnjOIZkSWSEbMtwhFfbUlvfw",
 										"type": "text"
 									}
 								],
 								"url": {
-									"raw": "localhost:8081/api/auth/refresh-token",
+									"raw": "localhost:{{user-port}}/api/auth/refresh-token",
 									"host": [
 										"localhost"
 									],
-									"port": "8081",
+									"port": "{{user-port}}",
 									"path": [
 										"api",
 										"auth",
@@ -176,7 +176,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDQxMjMxNywidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.Pz6wSJ-hlJWbNOeaZtsjFjwEszyWi_oKw3sdt8BPyX4cEWPWT6dHqQeqOQdywzmFMcfIqqcq6MNpY7O3a3S5AQ",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyNTQxMjI3MSwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.mzwnADqfyyC1JDN_-j1IWO3RaGDMJsawHdaKOQsjXKjtZ3uLZR05mttJCULcd-fnjOIZkSWSEbMtwhFfbUlvfw",
 										"type": "text"
 									}
 								],
@@ -190,11 +190,11 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8081/api/auth/refresh-token/cancellation",
+									"raw": "localhost:{{user-port}}/api/auth/refresh-token/cancellation",
 									"host": [
 										"localhost"
 									],
-									"port": "8081",
+									"port": "{{user-port}}",
 									"path": [
 										"api",
 										"auth",
@@ -217,13 +217,13 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYxOTg4MDI3OCwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.o0RfI9aCT5lISuqlK6VfG8rQ6PrsBm1PeMfho4T7mj3Jy0CYJjbgjfbawRREGmBMPIw6mJbpus3JBpV41kekzg",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyNTM4NDA0OCwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.-Bg9Q17ylUAGnBYhp0xqDPXcIhEvc4LxnvWDnmedOETNYvoelkewd7KDrDk85pNw6i5P4Es-8Lg_b2Uxz6lbzQ",
 										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"andreineagu.c@gmail.com\",\r\n    \"firstName\": \"Andrei\",\r\n    \"lastName\": \"Neagu\",\r\n    \"phone\": \"0722373330\",\r\n    \"password\": \"parola\",\r\n    \"newPassword\": \"scoala97\",\r\n    \"address\": {\r\n        \"addressOne\": \"Str. Tepes Voda\",\r\n        \"addressTwo\": \"dsa\",\r\n        \"city\": \"Bucharest\",\r\n        \"state\": \"Bucharest\",\r\n        \"country\": \"Romania\",\r\n        \"postalCode\": \"021996\"\r\n    },\r\n    \"roles\": [\"ADMIN\"]\r\n}",
+									"raw": "{\r\n    \"email\": \"andreineagu.c@gmail.com\",\r\n    \"firstName\": \"Andrei\",\r\n    \"lastName\": \"Neagu\",\r\n    \"phone\": \"0722373330\",\r\n    \"password\": \"parola\",\r\n    \"newPassword\": \"scoala\",\r\n    \"address\": {\r\n        \"addressOne\": \"Str. Tepes Voda\",\r\n        \"addressTwo\": \"dsa\",\r\n        \"city\": \"Bucharest\",\r\n        \"state\": \"Bucharest\",\r\n        \"country\": \"Romania\",\r\n        \"postalCode\": \"021996\"\r\n    },\r\n    \"roles\": [\"ADMIN\"]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -231,11 +231,11 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8081/api/users/andreineagu.c@gmail.com",
+									"raw": "localhost:{{user-port}}/api/users/andreineagu.c@gmail.com",
 									"host": [
 										"localhost"
 									],
-									"port": "8081",
+									"port": "{{user-port}}",
 									"path": [
 										"api",
 										"users",
@@ -252,20 +252,20 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWk0QGdtYWlsLmNvbSIsImV4cCI6MTYxOTg1NTkxOH0.wWpcMXf0HT_yzuFfWnMNbUPKeh0CJuZlcZPu6n7ym7PW6RYJ14KP_YwdAavMALPQiPWVVaYtYdwonK5LdTYCQA",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWk0QGdtYWlsLmNvbSIsImV4cCI6MTYyNTM4NDExOCwidXNlcklkIjozLCJhdXRob3JpdGllcyI6WyJBRE1JTiJdfQ.EWmYCCFYLEpOKD-fcblPMYooGAy0U4toSCq8C5isGjp0ZnsRbVBodf9IaMmavieDP1YbB5eggWw2ltezAqldiQ",
 										"type": "text"
 									}
 								],
 								"url": {
-									"raw": "localhost:8081/api/users/andrei33@gmail.com",
+									"raw": "localhost:{{user-port}}/api/users/andrei4@gmail.com",
 									"host": [
 										"localhost"
 									],
-									"port": "8081",
+									"port": "{{user-port}}",
 									"path": [
 										"api",
 										"users",
-										"andrei33@gmail.com"
+										"andrei4@gmail.com"
 									]
 								}
 							},
@@ -287,11 +287,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:8082/api/products",
+									"raw": "localhost:{{catalog-port}}/api/products",
 									"host": [
 										"localhost"
 									],
-									"port": "8082",
+									"port": "{{catalog-port}}",
 									"path": [
 										"api",
 										"products"
@@ -338,11 +338,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:8082/api/products/1",
+									"raw": "localhost:{{catalog-port}}/api/products/1",
 									"host": [
 										"localhost"
 									],
-									"port": "8082",
+									"port": "{{catalog-port}}",
 									"path": [
 										"api",
 										"products",
@@ -370,11 +370,11 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8082/api/products/list",
+									"raw": "localhost:{{catalog-port}}/api/products/list",
 									"host": [
 										"localhost"
 									],
-									"port": "8082",
+									"port": "{{catalog-port}}",
 									"path": [
 										"api",
 										"products",
@@ -422,15 +422,15 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:8082/api/products/11/image/download",
+									"raw": "localhost:{{catalog-port}}/api/products/10/image/download",
 									"host": [
 										"localhost"
 									],
-									"port": "8082",
+									"port": "{{catalog-port}}",
 									"path": [
 										"api",
 										"products",
-										"11",
+										"10",
 										"image",
 										"download"
 									]
@@ -445,56 +445,13 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDQxNjM4NiwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.XhQ_w3QzZ3a0yoPHochS7jVVZpYhpeEeg7GM6MMeJm3jUQINXDXHXeCbR6x-1l_DqNd3b2VOHES-5veetUtyhw",
-										"type": "text",
-										"disabled": true
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyNTM5MTAyMywidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.SNVhM54RoLx5HgD8KCifPs4NvCNntIM8hErLEPcfHF5Dln51VPIm6mITeX47sLT5FcrAnkfwM7iR5LoxmCMO7g",
+										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "formdata",
 									"formdata": [
-										{
-											"key": "id",
-											"value": "1",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "name",
-											"value": "G PRO Wireless",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "description",
-											"value": "The best mouse of year 2021",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "quantity",
-											"value": "100",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "price",
-											"value": "150",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "category",
-											"value": "PERIPHERALS",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "productLine",
-											"value": "Logitech",
-											"type": "text",
-											"disabled": true
-										},
 										{
 											"key": "product",
 											"value": "{\n    \"name\": \"GPX Wireless\",\n    \"description\": \"The best mouse of year 2020\",\n    \"quantity\": 100,\n    \"price\": 150,\n    \"category\": \"PERIPHERALS\",\n    \"productLine\": \"Logitech\"\n}",
@@ -503,21 +460,16 @@
 										{
 											"key": "image",
 											"type": "file",
-											"src": "/C:/Users/andre/Dropbox/My PC (DESKTOP-B1GMK6V)/Desktop/Screenshot 2021-04-27 203513.png"
+											"src": "/C:/Users/andre/Dropbox/My PC (DESKTOP-B1GMK6V)/Desktop/Adobe-Stock-2020-Logo-1280x720.jpg"
 										}
-									],
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									]
 								},
 								"url": {
-									"raw": "localhost:8082/api/products/product?file=",
+									"raw": "localhost:{{catalog-port}}/api/products/product?file=",
 									"host": [
 										"localhost"
 									],
-									"port": "8082",
+									"port": "{{catalog-port}}",
 									"path": [
 										"api",
 										"products",
@@ -540,33 +492,21 @@
 					"item": [
 						{
 							"name": "get-orders-by-user-id",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"method": "GET",
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYxOTk4MzA0MSwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.X4FToiiWO2lrkkRYunW1FJQtiJN8z-IaeJZX3nExLsLBpAARYYDLmPi2NN8yGBOV_N4UxkRuRA7VavwrxTyPtA",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyNTM4NDM0MSwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.q1L0LClD3T8KbL_Z_9UohXF0eFtTa3bVtlRi7KNyjGep3KViBrz9nvb2CtTSw7l7v1ME40taAdHmzXITCDiXHw",
 										"type": "text"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": "        {\r\n            \"id\": 1,\r\n            \"comment\": \"Good stuff!\",\r\n            \"status\": \"APPROVED\",\r\n            \"userId\": 1,\r\n            \"paymentId\": 1,\r\n            \"products\": [\r\n                1,\r\n                2,\r\n                3\r\n            ]\r\n        }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "localhost:8082/api/orders/users/1",
+									"raw": "localhost:{{catalog-port}}/api/orders/users/1",
 									"host": [
 										"localhost"
 									],
-									"port": "8082",
+									"port": "{{catalog-port}}",
 									"path": [
 										"api",
 										"orders",
@@ -606,16 +546,16 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYxOTk4MzA0MSwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.X4FToiiWO2lrkkRYunW1FJQtiJN8z-IaeJZX3nExLsLBpAARYYDLmPi2NN8yGBOV_N4UxkRuRA7VavwrxTyPtA",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyNTM4NDM0MSwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.q1L0LClD3T8KbL_Z_9UohXF0eFtTa3bVtlRi7KNyjGep3KViBrz9nvb2CtTSw7l7v1ME40taAdHmzXITCDiXHw",
 										"type": "text"
 									}
 								],
 								"url": {
-									"raw": "localhost:8082/api/orders/1",
+									"raw": "localhost:{{catalog-port}}/api/orders/1",
 									"host": [
 										"localhost"
 									],
-									"port": "8082",
+									"port": "{{catalog-port}}",
 									"path": [
 										"api",
 										"orders",
@@ -632,13 +572,13 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYxOTk4MzA0MSwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.X4FToiiWO2lrkkRYunW1FJQtiJN8z-IaeJZX3nExLsLBpAARYYDLmPi2NN8yGBOV_N4UxkRuRA7VavwrxTyPtA",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyNTM5MTAyMywidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.SNVhM54RoLx5HgD8KCifPs4NvCNntIM8hErLEPcfHF5Dln51VPIm6mITeX47sLT5FcrAnkfwM7iR5LoxmCMO7g",
 										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"comment\": \"Good stuff!\",\r\n    \"status\": \"APPROVED\",\r\n    \"products\": {\r\n        \"1\": 2,\r\n        \"2\": 2,\r\n        \"3\": 2\r\n    },\r\n    \"payment\": {\r\n        \"amount\": \"350.00\",\r\n        \"currency\": \"GBP\",\r\n        \"paymentMethod\": \"PAYPAL\",\r\n        \"userId\": 2\r\n    }\r\n}",
+									"raw": "{\r\n    \"comment\": \"Good stuff!\",\r\n    \"status\": \"APPROVED\",\r\n    \"products\": {\r\n        \"1\": 2,\r\n        \"2\": 2,\r\n        \"3\": 2\r\n    },\r\n    \"payment\": {\r\n        \"amount\": \"350.00\",\r\n        \"description\": \"Payment with paypal\",\r\n        \"currency\": \"GBP\",\r\n        \"paymentMethod\": \"VISA\",\r\n        \"userId\": 1\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -646,11 +586,11 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8082/api/orders",
+									"raw": "localhost:{{catalog-port}}/api/orders",
 									"host": [
 										"localhost"
 									],
-									"port": "8082",
+									"port": "{{catalog-port}}",
 									"path": [
 										"api",
 										"orders"
@@ -678,17 +618,16 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYxOTg4MDQ0NiwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.t8esmtZx0JMc9kGgnrAtBZQEOgtCc3SmNMbu1-5RAqdE0xUpjdu_ll8vUkb2cDlsRxNiiXD6LgSmXVR9mygoFQ",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyNTM5MTAyMywidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.SNVhM54RoLx5HgD8KCifPs4NvCNntIM8hErLEPcfHF5Dln51VPIm6mITeX47sLT5FcrAnkfwM7iR5LoxmCMO7g",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8083/api/payments/1",
-							"protocol": "http",
+							"raw": "localhost:{{payment-port}}/api/payments/1",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "{{payment-port}}",
 							"path": [
 								"api",
 								"payments",
@@ -710,17 +649,16 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYxOTg4MTgxNCwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.qfW7DA5JqrGdFi3pglHO6ZSS3RHpZyPiwYGLZhCJfIuIqDLAv3rHz5F0P30z_W5QQRjNs0Q5uV8Aros00_nDwg",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyNTM5MTAyMywidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.SNVhM54RoLx5HgD8KCifPs4NvCNntIM8hErLEPcfHF5Dln51VPIm6mITeX47sLT5FcrAnkfwM7iR5LoxmCMO7g",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8083/api/payments/users/1",
-							"protocol": "http",
+							"raw": "localhost:{{payment-port}}/api/payments/users/1",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "{{payment-port}}",
 							"path": [
 								"api",
 								"payments",
@@ -745,29 +683,29 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/hal+json",
+								"value": "application/json",
 								"type": "text"
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDU2NDgyNiwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.tx9pljPVSJsnoYiE-8rm2L1mI2YApk7wqGebLdYx2pyImz2vmiRlLdXCpughYr4r9Lq53s_r7LvbCG0q8UY2ew",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyNTM5MTAyMywidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.SNVhM54RoLx5HgD8KCifPs4NvCNntIM8hErLEPcfHF5Dln51VPIm6mITeX47sLT5FcrAnkfwM7iR5LoxmCMO7g",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"amount\": 13000,\r\n    \"currency\": \"GBP\",\r\n    \"paymentMethod\": \"VISA\",\r\n    \"description\": \"Payment for order XD\"\r\n}"
+							"raw": "{\r\n    \"amount\": 13000,\r\n    \"currency\": \"GBP\",\r\n    \"paymentMethod\": \"VISA\",\r\n    \"description\": \"Payment for order XD\",\r\n    \"userId\": 1\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8083/api/payments/stripe",
-							"protocol": "http",
+							"raw": "localhost:{{payment-port}}/api/payments/processor/stripe",
 							"host": [
 								"localhost"
 							],
-							"port": "8083",
+							"port": "{{payment-port}}",
 							"path": [
 								"api",
 								"payments",
+								"processor",
 								"stripe"
 							],
 							"query": [
@@ -794,12 +732,13 @@
 							{
 								"key": "Authorization",
 								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDQ3MzYxMiwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.bVORaoYf7LLADmt8-fWoWcxPcyxLLNcQq68vKAD04zKb-AhzDgmIxIhmYluFjZzhQD0Ti5Iy71cjWH8yC07wPw",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"productId\": 12,\r\n    \"cartKey\": 11\r\n}",
+							"raw": "{\r\n    \"productId\": 9,\r\n    \"cartKey\": 11\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -807,11 +746,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8084/api/carts/cart",
+							"raw": "localhost:{{cart-port}}/api/carts/cart",
 							"host": [
 								"localhost"
 							],
-							"port": "8084",
+							"port": "{{cart-port}}",
 							"path": [
 								"api",
 								"carts",
@@ -829,15 +768,16 @@
 							{
 								"key": "Authorization",
 								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDQ3MTM3NCwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.TYBhW1f4knJZfFwp4KTZtqAl__kgcLMQVxYC7e2T04b1f6affaImw5BTyQDBf9dOn0ZBPz6r4f7EouRNzvAjXg",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"url": {
-							"raw": "localhost:8084/api/carts/cart/11/product/12",
+							"raw": "localhost:{{cart-port}}/api/carts/cart/11/product/12",
 							"host": [
 								"localhost"
 							],
-							"port": "8084",
+							"port": "{{cart-port}}",
 							"path": [
 								"api",
 								"carts",
@@ -857,16 +797,16 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDQxNzkwNSwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.5pPwgqsE42scIDUclxgPc2g7HZ_RafmbC2YQu3ttqbcRdRx_iN06CD3ResMWyyglyYiOwJ2fEvpVt_Qv-iCMXg",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyNTQxMjI3MSwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.mzwnADqfyyC1JDN_-j1IWO3RaGDMJsawHdaKOQsjXKjtZ3uLZR05mttJCULcd-fnjOIZkSWSEbMtwhFfbUlvfw",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "localhost:8084/api/carts/final/11",
+							"raw": "localhost:{{cart-port}}/api/carts/final/11",
 							"host": [
 								"localhost"
 							],
-							"port": "8084",
+							"port": "{{cart-port}}",
 							"path": [
 								"api",
 								"carts",
@@ -892,7 +832,8 @@
 							{
 								"key": "Authorization",
 								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWluZWFndS5jQGdtYWlsLmNvbSIsImV4cCI6MTYyMDQ3MTM3NCwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJBRE1JTiIsIlVTRVIiXX0.TYBhW1f4knJZfFwp4KTZtqAl__kgcLMQVxYC7e2T04b1f6affaImw5BTyQDBf9dOn0ZBPz6r4f7EouRNzvAjXg",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							},
 							{
 								"key": "",
@@ -902,11 +843,11 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8084/api/carts/current/11",
+							"raw": "localhost:{{cart-port}}/api/carts/current/11",
 							"host": [
 								"localhost"
 							],
-							"port": "8084",
+							"port": "{{cart-port}}",
 							"path": [
 								"api",
 								"carts",
@@ -918,6 +859,48 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "gateway-port",
+			"value": "8079"
+		},
+		{
+			"key": "payment-port",
+			"value": "8083"
+		},
+		{
+			"key": "user-port",
+			"value": "8081"
+		},
+		{
+			"key": "catalog-port",
+			"value": "8082"
+		},
+		{
+			"key": "cart-port",
+			"value": "8084"
 		}
 	]
 }

@@ -1,0 +1,21 @@
+Postman calls
+
+AWS RDS - https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=disertatie-db;is-cluster=false;tab=connectivity
+AWS S3 - https://s3.console.aws.amazon.com/s3/buckets/disertatie-bucket?region=eu-central-1&tab=objects
+Eureka - http://localhost:8761/
+
+Actuator
+ - http://localhost:8079/actuator/health - gateway
+ - http://localhost:8081/actuator/health
+ - http://localhost:8082/actuator/health
+ - http://localhost:8083/actuator/health
+ - http://localhost:8084/actuator/health
+
+Swagger UI
+ - http://localhost:8081/swagger-ui/index.html
+ - http://localhost:8082/swagger-ui/index.html
+ - http://localhost:8083/swagger-ui/index.html
+ - http://localhost:8084/swagger-ui/index.html
+
+
+
