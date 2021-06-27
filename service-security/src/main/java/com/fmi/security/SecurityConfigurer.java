@@ -24,7 +24,6 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     private static final String[] AUTHORIZED_ENDPOINTS =
             new String[]{
                     "/api/order-details/*",
-                    "/api/payments/*",
                     "/api/payments/users/*",
                     "/api/users/*",
                     "/api/carts/final/*"
