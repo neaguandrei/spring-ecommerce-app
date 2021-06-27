@@ -12,6 +12,7 @@ import com.fmi.security.model.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -62,7 +63,11 @@ public class PaymentMapper {
         request.setCurrency(payment.getCurrency());
         request.setDescription(payment.getDescription());
         request.setStripeToken(ChargeRequest.StripeToken.valueOf(payment.getPaymentMethod()));
-        request.setStripeEmail(((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail());
+        if (!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+            request.setStripeEmail(((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail());
+        } else {
+            request.setStripeEmail("default@email.com");
+        }
 
         return request;
     }
