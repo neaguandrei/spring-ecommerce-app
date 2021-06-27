@@ -48,6 +48,7 @@ public class OrderMapper {
         payment.setPaymentMethod(PaymentMethod.valueOf(paymentDto.getPaymentMethod()));
         payment.setCurrency(CurrencyDto.valueOf(paymentDto.getCurrency()));
         payment.setUserId(paymentDto.getUserId());
+        payment.setDescription(paymentDto.getDescription());
 
         return payment;
     }
